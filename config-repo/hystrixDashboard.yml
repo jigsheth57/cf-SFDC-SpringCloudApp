@@ -1,0 +1,52 @@
+spring:
+  profiles.active: local
+server:
+  port: 9010
+security:
+  basic:
+    enabled: false
+
+management:
+  context-path: /manage
+  security:
+    enabled: false
+
+logging:
+  level:
+    io.pivotal.sfdc: INFO
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761}/eureka/
+  instance:
+#    preferIpAddress: true
+    statusPageUrlPath: ${management.context-path}/health
+    healthCheckUrlPath: ${management.context-path}/health
+    hostname: ${vcap.application.uris[0]:localhost}
+    registryFetchIntervalSeconds: 5
+    leaseRenewalIntervalInSeconds: 5
+    metadataMap:
+      instanceId: ${vcap.application.instance_id:${spring.application.name}:${spring.application.instance_id:${server.port}}}
+#eureka.client.serviceUrl.defaultZone = http://${vcap.services.eureka-service.credentials.uri:localhost:8761}/eureka/
+#eureka.client.registerWithEureka = true
+#eureka.client.fetchRegistry = true
+#eureka.client.registryFetchIntervalSeconds = 10
+#eureka.instance.hostname = ${vcap.application.uris[0]:localhost}
+#eureka.instance.metadataMap.instanceId = ${vcap.application.instance_id:${spring.application.name}:${spring.application.instance_id:${server.port}}}
+#eureka.instance.leaseRenewalIntervalInSeconds = 30
+#eureka.instance.statusPageUrlPath = ${management.context-path}/health
+#eureka.instance.healthCheckUrlPath = ${management.context-path}/health
+
+---
+spring:
+  profiles: local
+eureka:
+  instance:
+    nonSecurePort: ${server.port}
+---
+spring:
+  profiles: cloud # For deployment in Cloud Foundry
+eureka:
+  instance:
+    nonSecurePort: 80

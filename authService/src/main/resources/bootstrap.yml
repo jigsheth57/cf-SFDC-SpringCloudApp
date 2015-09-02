@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: authService
+  cloud:
+    config:
+      failFast: true
+      uri: ${CONFIG_SERVER_URL:http://localhost:8888}

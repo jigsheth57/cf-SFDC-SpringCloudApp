@@ -1,0 +1,31 @@
+management:
+  context-path: /admin
+
+logging:
+  level:
+    org.springframework.cloud: ERROR
+
+server:
+  port: ${PORT:8888}
+
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/jigsheth57/config-repo
+ #         username: jigsheth57
+ #         password: '{cipher}7f770c11fe404e42b401803c20502004ba8ffdce5b5968c7d067d31c57503c83'
+
+---
+spring:
+  profiles: local
+  cloud:
+    config:
+      server:
+        git:
+          uri: file://${HOME}/Documents/workspace/config-repo
+---
+spring:
+  profiles: cloud
+  

@@ -1,0 +1,22 @@
+#!/bin/bash
+
+function jsonValue() {
+  KEY=$1
+  num=$2
+  awk -F"[,:}]" '{for(i=1;i<=NF;i++){if($i~/'$KEY'\042/){print $(i+1)}}}' | tr -d '"' | sed -n ${num}p
+}
+
+if [ -n "$2" ]
+then
+  A_GUID=`cf curl /v2/apps?q=name:$1 | jsonValue guid 1 | sed -e 's/^[[:space:]]*//'`
+  app_url=/v2/apps/${A_GUID}/instances/$2
+  echo "Stopping instance: ${app_url}"
+  cf curl $app_url -X 'DELETE'
+  for i in {1..5}
+  do
+    cf app $1
+    sleep 15s
+  done
+else
+  echo "Usage: kill_app_instance <app_name> <instance id>"
+fi

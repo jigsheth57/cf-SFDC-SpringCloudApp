@@ -1,0 +1,53 @@
+<div ng-controller="AccountListController">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10">
+<!-- 				<img alt="logo" src="../images/sfdc.jpg" width="264" height="55">  -->
+				<img alt="logo" src="../images/cnalogo.png">
+			</div>
+		</div>
+		<div class="row" ng-show="message">
+			<div class="col-md-10">
+				<div class="alert alert-info" role="alert">{{message}}</div>
+			</div>
+		</div>
+		<div class="row" ng-show="error">
+			<div class="col-md-10">
+				<div class="alert alert-danger" role="alert">{{error}}</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-10">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>&nbsp;</th>
+							<th>Name</th>
+							<th>Type</th>
+							<th>Main Contacts</th>
+						</tr>
+					</thead>
+					<tbody>
+						<!-- Display each entry in a row -->
+						<tr ng-repeat="account in accounts">
+							<td><a href="#/account/e/{{account.Id}}"><img
+									alt="update" src="../images/update.jpg"
+									style="height: 16px; width: 16px;" /></a>&nbsp;&nbsp; <a
+								href="#/accounts" ng-click="delete(account.Id)"><img
+									src="../images/delete.jpg" style="height: 16px; width: 16px;"
+									alt="Delete" /></a></td>
+							<td><a href="#/account/{{account.Id}}">{{account.Name}}</a></td>
+							<td>{{account.Type}}</td>
+							<td><div ng-repeat="contact in account.Contacts">
+									<a href="#/contact/{{contact.Id}}">{{contact.LastName}}</a>
+								</div>
+								<a href="#/contact/{{account.Id}}/new"><img alt="create"
+									src="../images/create.jpg" style="height: 16px; width: 16px;" /></a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div ng-include src="'/partials/footer.html'"></div>
+	</div>
+</div>

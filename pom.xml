@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>io.pivotal.sfdc</groupId>
+	<artifactId>sfdcapp</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<!-- Organization -->
+	<organization>
+		<name>Pivotal</name>
+		<url>http://www.pivotal.io</url>
+	</organization>
+
+	<!-- Developers -->
+	<developers>
+		<developer>
+			<name>Jignesh Sheth</name>
+			<email>jigsheth@pivotal.io</email>
+			<organization>Pivotal</organization>
+		</developer>
+	</developers>
+
+	<modules>
+		<module>configServer</module>
+		<module>eurekaServer</module>
+		<module>hystrixDashboard</module>
+		<module>authService</module>
+    <module>accountService</module>
+		<module>contactService</module>
+		<module>opportunityService</module>
+		<module>sfdcapigateway</module>
+		<module>sfdcwebapp</module>
+  </modules>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<skipTests>true</skipTests>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
