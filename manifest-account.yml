@@ -1,7 +1,7 @@
 ---
 timeout: 180
 instances: 1
-memory: 512M
+memory: 1G
 buildpack: js-unlimited-jce-java-buildpack
 env:
     SPRING_PROFILES_ACTIVE: cloud

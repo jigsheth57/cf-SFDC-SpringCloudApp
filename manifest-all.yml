@@ -1,7 +1,7 @@
 ---
 timeout: 180
 instances: 1
-memory: 512M
+memory: 768M
 buildpack: js-unlimited-jce-java-buildpack
 env:
     SPRING_PROFILES_ACTIVE: cloud
@@ -26,6 +26,8 @@ applications:
   random-route: true
   services: [ data-grid-service, service-registry ]
 - name: accountService
+  memory: 1G
+  instances: 2
   path: accountService/target/accountService-0.0.1-SNAPSHOT.jar
   random-route: true
   services: [ data-grid-service, service-registry, circuit-breaker-dashboard ]
@@ -43,10 +45,12 @@ applications:
   services: [ data-grid-service, service-registry, circuit-breaker-dashboard ]
 - name: sfdcbootwebapp
   path: sfdcwebapp/target/sfdcwebapp-0.0.1-SNAPSHOT.jar
+  random-route: true
   services: [ service-registry ]
 - name: sfdcnodewebapp
+  buildpack: nodejs_buildpack
   memory: 256M
-  host: sfdcnodewebapp
+  random-route: true
   path: sfdc-web-app/.
   command: node main.js
   services: [ sfdcgateway ]
