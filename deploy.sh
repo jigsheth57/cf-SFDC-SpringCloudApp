@@ -8,7 +8,7 @@ function jsonValue() {
 
 if [ -n "$1" ]
 then
-  mvn clean && mvn package -DskipTests
+  mvn clean package -DskipTests
   cf t
   echo -n "Validate the space & org, you are currently logged in before continuing!"
   read
