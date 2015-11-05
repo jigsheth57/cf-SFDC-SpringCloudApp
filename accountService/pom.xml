@@ -31,10 +31,7 @@
 	<repositories>
 		<repository>
 			<id>spring-snapshots</id>
-			<url>https://repo.spring.io/libs-snapshot</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
+			<url>https://repo.spring.io/libs-milestone</url>
 		</repository>
 		<repository>
 			<id>force-rest-api</id>
@@ -46,7 +43,7 @@
 	<parent>
 		<groupId>io.pivotal.spring.cloud</groupId>
 		<artifactId>spring-cloud-services-starter-parent</artifactId>
-		<version>1.0.0.M1</version>
+		<version>1.0.0.RC3</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
@@ -78,10 +75,12 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter</artifactId>
 		</dependency>
+		<!--
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-security</artifactId>
 		</dependency>
+	-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>

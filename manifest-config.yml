@@ -5,10 +5,10 @@ memory: 512M
 buildpack: js-unlimited-jce-java-buildpack
 env:
     SPRING_PROFILES_DEFAULT: cloud
-    JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
+    #JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
 applications:
 - name: configserver
   path: configServer/target/configServer-0.0.1-SNAPSHOT.jar
   env:
     ENCRYPT_KEY: pivotal
-  hosts: [ config-server-20150831 ]
+  hosts: [ config-server-20151102 ]

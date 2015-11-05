@@ -11,7 +11,7 @@
 	<name>sfdcwebapp</name>
 	<description>SFDC Web App</description>
 	<inceptionYear>2015</inceptionYear>
-	
+
 	<!-- Organization -->
 	<organization>
 		<name>Pivotal</name>
@@ -31,17 +31,14 @@
 	<repositories>
 		<repository>
 			<id>spring-snapshots</id>
-			<url>https://repo.spring.io/libs-snapshot</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
+			<url>https://repo.spring.io/libs-milestone</url>
 		</repository>
 	</repositories>
-		
+
 	<parent>
 		<groupId>io.pivotal.spring.cloud</groupId>
 		<artifactId>spring-cloud-services-starter-parent</artifactId>
-		<version>1.0.0.M1</version>
+		<version>1.0.0.RC3</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
@@ -55,7 +52,7 @@
 		<dependency>
 			<groupId>io.pivotal.spring.cloud</groupId>
 			<artifactId>spring-cloud-services-starter-service-registry</artifactId>
-		</dependency>	
+		</dependency>
 		<dependency>
 			<groupId>io.pivotal.spring.cloud</groupId>
 			<artifactId>spring-cloud-services-starter-config-client</artifactId>
@@ -69,10 +66,12 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter</artifactId>
 		</dependency>
+		<!--
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-security</artifactId>
 		</dependency>
+	-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>

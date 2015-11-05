@@ -11,7 +11,7 @@
 	<name>opportunityService</name>
 	<description>SFDC Opportunity Service</description>
 	<inceptionYear>2015</inceptionYear>
-	
+
 	<!-- Organization -->
 	<organization>
 		<name>Pivotal</name>
@@ -31,22 +31,19 @@
 	<repositories>
 		<repository>
 			<id>spring-snapshots</id>
-			<url>https://repo.spring.io/libs-snapshot</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
+			<url>https://repo.spring.io/libs-milestone</url>
 		</repository>
 		<repository>
 			<id>force-rest-api</id>
 			<name>force-rest-api repository on GitHub</name>
 			<url>http://jesperfj.github.com/force-rest-api/repository/</url>
-		</repository>		
+		</repository>
 	</repositories>
-		
+
 	<parent>
 		<groupId>io.pivotal.spring.cloud</groupId>
 		<artifactId>spring-cloud-services-starter-parent</artifactId>
-		<version>1.0.0.M1</version>
+		<version>1.0.0.RC3</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
@@ -59,7 +56,7 @@
 		<dependency>
 			<groupId>io.pivotal.spring.cloud</groupId>
 			<artifactId>spring-cloud-services-starter-service-registry</artifactId>
-		</dependency>	
+		</dependency>
 		<dependency>
 			<groupId>io.pivotal.spring.cloud</groupId>
 			<artifactId>spring-cloud-services-starter-config-client</artifactId>
@@ -73,10 +70,12 @@
 			<groupId>io.pivotal.spring.cloud</groupId>
 			<artifactId>spring-cloud-services-starter-circuit-breaker</artifactId>
 		</dependency>
+		<!--
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-security</artifactId>
 		</dependency>
+	-->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter</artifactId>
@@ -93,7 +92,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -103,15 +102,15 @@
 			<groupId>com.force.api</groupId>
 			<artifactId>force-rest-api</artifactId>
 			<version>0.0.23</version>
-		</dependency>		
+		</dependency>
 		<dependency>
 			<groupId>io.pivotal.sfdc</groupId>
 			<artifactId>domainObjs</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
-	
-	
+
+
 	<build>
 		<plugins>
 			<plugin>

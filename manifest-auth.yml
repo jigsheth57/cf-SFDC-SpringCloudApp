@@ -1,13 +1,13 @@
 ---
 timeout: 180
 instances: 1
-memory: 512M
+memory: 768M
 buildpack: js-unlimited-jce-java-buildpack
 env:
     SPRING_PROFILES_ACTIVE: cloud
-    CONFIG_SERVER_URL: http://config-server-20150831.west-1.fe.gopivotal.com
+    CONFIG_SERVER_URL: http://config-server-20151102.apps.pcf-apps.com
     #EUREKA_SERVER_URL: http://eureka-server-20150831.west-1.fe.gopivotal.com
-    JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
+    #JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
 applications:
 - name: authService
   path: authService/target/authService-0.0.1-SNAPSHOT.jar

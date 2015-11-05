@@ -1,6 +1,6 @@
 spring:
   application:
-    name: authService
+    name: ${vcap.application.name:authService}
   cloud:
     config:
       failFast: true

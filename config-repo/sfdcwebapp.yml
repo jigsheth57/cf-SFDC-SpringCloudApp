@@ -64,4 +64,6 @@ spring:
   profiles: cloud # For deployment in Cloud Foundry
 eureka:
   instance:
-    nonSecurePort: 80
+    securePortEnabled: true
+    nonSecurePortEnabled: false
+    secureVirtualHostName: ${spring.application.name}

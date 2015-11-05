@@ -5,7 +5,7 @@ memory: 768M
 buildpack: js-unlimited-jce-java-buildpack
 env:
     SPRING_PROFILES_ACTIVE: cloud
-    CONFIG_SERVER_URL: http://config-server-20150831.west-1.fe.gopivotal.com
+    CONFIG_SERVER_URL: http://config-server-20151102.apps.pcf-apps.com
     #EUREKA_SERVER_URL: http://eureka-server-20150831.west-1.fe.gopivotal.com
     JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
 applications:
@@ -13,7 +13,7 @@ applications:
   path: configServer/target/configServer-0.0.1-SNAPSHOT.jar
   env:
     ENCRYPT_KEY: pivotal
-  hosts: [ config-server-20150831 ]
+  hosts: [ config-server-20151102]
 #- name: eurekaserver
 #  path: eurekaServer/target/eurekaServer-0.0.1-SNAPSHOT.jar
 #  hosts: [ eureka-server-20150831 ]

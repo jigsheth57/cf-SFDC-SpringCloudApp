@@ -1,14 +1,14 @@
 #!/bin/bash
 
 cf t
-cf d -r authService
-cf d -r accountService
-cf d -r contactService
-cf d -r opportunityService
-cf d -r sfdcapigateway
+echo yes | cf d -r authService
+echo yes | cf d -r accountService
+echo yes | cf d -r contactService
+echo yes | cf d -r opportunityService
+echo yes | cf d -r sfdcapigateway
 #cf d -r sfdcnodewebapp
-cf d -r sfdcbootwebapp
-cf d -r configserver
+echo yes | cf d -r sfdcbootwebapp
+echo yes | cf d -r configserver
 cf ds sfdcgateway -f
 cf ds data-grid-service -f
 cf ds service-registry -f

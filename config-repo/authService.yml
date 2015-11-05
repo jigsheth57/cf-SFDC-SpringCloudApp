@@ -17,14 +17,11 @@ logging:
     io.pivotal.sfdc: INFO
 
 eureka:
-  client:
-    serviceUrl:
-      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761}/eureka/
   instance:
 #    preferIpAddress: true
     statusPageUrlPath: ${management.context-path}/health
     healthCheckUrlPath: ${management.context-path}/health
-    hostname: ${vcap.application.uris[0]:localhost}
+    #hostname: ${vcap.application.uris[0]:localhost}
     registryFetchIntervalSeconds: 5
     leaseRenewalIntervalInSeconds: 5
     metadataMap:
@@ -43,11 +40,21 @@ sfdc:
 spring:
   profiles: local
 eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761}/eureka/
   instance:
+    hostname: localhost
     nonSecurePort: ${server.port}
 ---
 spring:
   profiles: cloud # For deployment in Cloud Foundry
+  cloud:
+    services:
+      registrationMethod: route
 eureka:
   instance:
-    nonSecurePort: 80
+    securePortEnabled: true
+    nonSecurePortEnabled: false
+    secureVirtualHostName: ${spring.application.name}
+#   nonSecurePort: 80
