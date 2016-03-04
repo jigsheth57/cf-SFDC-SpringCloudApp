@@ -3,4 +3,4 @@ spring:
     name: configserver
 encrypt:
   failOnError: false
-  key: ${ENCRYPT_KEY}
+  #key: ${ENCRYPT_KEY}

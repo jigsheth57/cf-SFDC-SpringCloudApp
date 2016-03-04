@@ -6,7 +6,7 @@ function jsonValue() {
   awk -F"[,:}]" '{for(i=1;i<=NF;i++){if($i~/'$KEY'\042/){print $(i+1)}}}' | tr -d '"' | sed -n ${num}p
 }
 
-mvn clean package -DskipTests
+mvn clean install package -DskipTests
 pushd configServer
 nohup mvn spring-boot:run -DENCRYPT_KEY=pivotal -Dspring.profiles.active=local &
 popd

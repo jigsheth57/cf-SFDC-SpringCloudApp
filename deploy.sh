@@ -12,7 +12,7 @@ then
   cf t
   echo -n "Validate the space & org, you are currently logged in before continuing!"
   read
-  #cf cs p-config-server standard config-service
+  cf cs p-config-server standard config-service
   cf cs p-service-registry standard service-registry
   cf cs p-redis shared-vm data-grid-service
   cf cs p-circuit-breaker-dashboard standard circuit-breaker-dashboard

@@ -8,9 +8,9 @@ echo yes | cf d -r opportunityService
 echo yes | cf d -r sfdcapigateway
 echo yes | cf d -r sfdcnodewebapp
 echo yes | cf d -r sfdcbootwebapp
-echo yes | cf d -r configserver
 cf ds sfdcgateway -f
 cf ds data-grid-service -f
+cf ds config-service -f
 cf ds service-registry -f
 cf ds circuit-breaker-dashboard -f
 cf ds circuit-breaker-dashboard -f

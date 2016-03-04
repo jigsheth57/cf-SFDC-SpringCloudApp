@@ -1,0 +1,337 @@
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building sfdcwebapp 0.0.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] >>> spring-boot-maven-plugin:1.2.4.RELEASE:run (default-cli) > test-compile @ sfdcwebapp >>>
+Downloading: https://repo.spring.io/libs-milestone/io/pivotal/sfdc/domainObjs/0.0.1-SNAPSHOT/maven-metadata.xml
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ sfdcwebapp ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 0 resource
+[INFO] Copying 28 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ sfdcwebapp ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ sfdcwebapp ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /Users/jsheth/Documents/workspace/microservice-samples/SFDCApp/sfdcwebapp/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:testCompile (default-testCompile) @ sfdcwebapp ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] <<< spring-boot-maven-plugin:1.2.4.RELEASE:run (default-cli) < test-compile @ sfdcwebapp <<<
+[INFO] 
+[INFO] --- spring-boot-maven-plugin:1.2.4.RELEASE:run (default-cli) @ sfdcwebapp ---
+2016-03-03 18:26:17.193  INFO 14771 --- [lication.main()] io.pivotal.sfdc.SfdcwebappApplication    : Starting SfdcwebappApplication on Jigs-Work-MacBook-Pro.local with PID 14771 (/Users/jsheth/Documents/workspace/microservice-samples/SFDCApp/sfdcwebapp/target/classes started by jsheth in /Users/jsheth/Documents/workspace/microservice-samples/SFDCApp/sfdcwebapp)
+2016-03-03 18:26:17.332  INFO 14771 --- [lication.main()] s.c.a.AnnotationConfigApplicationContext : Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@2a70f264: startup date [Thu Mar 03 18:26:17 CST 2016]; root of context hierarchy
+2016-03-03 18:26:18.071  INFO 14771 --- [lication.main()] f.a.AutowiredAnnotationBeanPostProcessor : JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2016-03-03 18:26:18.724  INFO 14771 --- [lication.main()] trationDelegate$BeanPostProcessorChecker : Bean 'encrypt.CONFIGURATION_PROPERTIES' of type [class org.springframework.cloud.bootstrap.encrypt.KeyProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-03-03 18:26:18.725  INFO 14771 --- [lication.main()] trationDelegate$BeanPostProcessorChecker : Bean 'encryptionBootstrapConfiguration' of type [class org.springframework.cloud.bootstrap.encrypt.EncryptionBootstrapConfiguration$$EnhancerBySpringCGLIB$$f03a50d0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-03-03 18:26:19.127  INFO 14771 --- [lication.main()] io.pivotal.sfdc.SfdcwebappApplication    : Started SfdcwebappApplication in 2.849 seconds (JVM running for 15.528)
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v1.2.4.RELEASE)
+
+2016-03-03 18:26:21.105  INFO 14771 --- [lication.main()] b.c.PropertySourceBootstrapConfiguration : Located property source: CompositePropertySource [name='configService', propertySources=[MapPropertySource [name='https://github.com/jigsheth57/config-repo/sfdcwebapp.yml#local'], MapPropertySource [name='https://github.com/jigsheth57/config-repo/sfdcwebapp.yml']]]
+2016-03-03 18:26:21.125  INFO 14771 --- [lication.main()] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@5fefd7bc: startup date [Thu Mar 03 18:26:21 CST 2016]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@2a70f264
+2016-03-03 18:26:23.672  INFO 14771 --- [lication.main()] o.s.b.f.s.DefaultListableBeanFactory     : Overriding bean definition for bean 'beanNameViewResolver': replacing [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.boot.autoconfigure.web.ErrorMvcAutoConfiguration$WhitelabelErrorViewConfiguration; factoryMethodName=beanNameViewResolver; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/autoconfigure/web/ErrorMvcAutoConfiguration$WhitelabelErrorViewConfiguration.class]] with [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter; factoryMethodName=beanNameViewResolver; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/autoconfigure/web/WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter.class]]
+2016-03-03 18:26:24.690  INFO 14771 --- [lication.main()] o.s.cloud.context.scope.GenericScope     : BeanFactory id=374956fc-a190-30c1-938c-0b1cbb9140d2
+2016-03-03 18:26:24.739  INFO 14771 --- [lication.main()] f.a.AutowiredAnnotationBeanPostProcessor : JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2016-03-03 18:26:24.930  INFO 14771 --- [lication.main()] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.autoconfigure.RefreshAutoConfiguration$ConfigurationPropertiesRebinderConfiguration' of type [class org.springframework.cloud.autoconfigure.RefreshAutoConfiguration$ConfigurationPropertiesRebinderConfiguration$$EnhancerBySpringCGLIB$$207113ad] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-03-03 18:26:26.123  INFO 14771 --- [lication.main()] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 9090 (http)
+2016-03-03 18:26:26.934  INFO 14771 --- [lication.main()] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2016-03-03 18:26:26.935  INFO 14771 --- [lication.main()] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.0.23
+2016-03-03 18:26:27.159  INFO 14771 --- [ost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2016-03-03 18:26:27.159  INFO 14771 --- [ost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 6034 ms
+2016-03-03 18:26:30.811  INFO 14771 --- [ost-startStop-1] b.a.s.AuthenticationManagerConfiguration : 
+
+Using default security password: 65d99c33-b2d1-41cc-8a72-19fa250696d8
+
+2016-03-03 18:26:30.928  INFO 14771 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/css/**'], []
+2016-03-03 18:26:30.928  INFO 14771 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/js/**'], []
+2016-03-03 18:26:30.928  INFO 14771 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/images/**'], []
+2016-03-03 18:26:30.928  INFO 14771 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/**/favicon.ico'], []
+2016-03-03 18:26:30.928  INFO 14771 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/error'], []
+2016-03-03 18:26:31.032  INFO 14771 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: org.springframework.boot.autoconfigure.security.SpringBootWebSecurityConfiguration$ApplicationNoWebSecurityConfigurerAdapter$1@2598839c, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@42161a73, org.springframework.security.web.context.SecurityContextPersistenceFilter@4364c2f4, org.springframework.security.web.header.HeaderWriterFilter@56b85a20, org.springframework.security.web.csrf.CsrfFilter@53346461, org.springframework.security.web.authentication.logout.LogoutFilter@365b57e0, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2b350cb0, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5d37ce11, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2e1eb186, org.springframework.security.web.session.SessionManagementFilter@7a42893c, org.springframework.security.web.access.ExceptionTranslationFilter@362ed397]
+2016-03-03 18:26:31.401  INFO 14771 --- [ost-startStop-1] o.s.b.c.embedded.FilterRegistrationBean  : Mapping filter: 'characterEncodingFilter' to: [/*]
+2016-03-03 18:26:31.426  INFO 14771 --- [ost-startStop-1] o.s.b.c.embedded.FilterRegistrationBean  : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2016-03-03 18:26:31.427  INFO 14771 --- [ost-startStop-1] o.s.b.c.embedded.FilterRegistrationBean  : Mapping filter: 'springSecurityFilterChain' to: [/*]
+2016-03-03 18:26:31.427  INFO 14771 --- [ost-startStop-1] o.s.b.c.e.ServletRegistrationBean        : Mapping servlet: 'dispatcherServlet' to [/]
+2016-03-03 18:26:31.759  INFO 14771 --- [lication.main()] o.s.b.f.config.PropertiesFactoryBean     : Loading properties file from class path resource [rest-default-messages.properties]
+2016-03-03 18:26:32.929  WARN 14771 --- [lication.main()] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
+2016-03-03 18:26:32.929  INFO 14771 --- [lication.main()] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2016-03-03 18:26:32.943  INFO 14771 --- [lication.main()] c.netflix.config.DynamicPropertyFactory  : DynamicPropertyFactory is initialized with configuration sources: com.netflix.config.ConcurrentCompositeConfiguration@6c48e6b4
+2016-03-03 18:26:33.229  INFO 14771 --- [lication.main()] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@5fefd7bc: startup date [Thu Mar 03 18:26:21 CST 2016]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@2a70f264
+2016-03-03 18:26:33.453  INFO 14771 --- [lication.main()] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/account/{id}],methods=[POST || PUT],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String io.pivotal.sfdc.controller.ServiceController.cuAccount(java.lang.String,io.pivotal.sfdc.domain.Account)
+2016-03-03 18:26:33.453  INFO 14771 --- [lication.main()] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/accounts],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String io.pivotal.sfdc.controller.ServiceController.getContactsByAccounts()
+2016-03-03 18:26:33.453  INFO 14771 --- [lication.main()] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/opp_by_accts],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String io.pivotal.sfdc.controller.ServiceController.getOpportunitiesByAccounts()
+2016-03-03 18:26:33.453  INFO 14771 --- [lication.main()] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/oauth2],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String io.pivotal.sfdc.controller.ServiceController.getoauth2()
+2016-03-03 18:26:33.453  INFO 14771 --- [lication.main()] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/account/{id}],methods=[GET || DELETE],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String io.pivotal.sfdc.controller.ServiceController.rdAccount(java.lang.String)
+2016-03-03 18:26:33.453  INFO 14771 --- [lication.main()] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/contact/{id}],methods=[POST || PUT],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String io.pivotal.sfdc.controller.ServiceController.cuContact(java.lang.String,io.pivotal.sfdc.domain.Contact,org.springframework.web.util.UriComponentsBuilder)
+2016-03-03 18:26:33.453  INFO 14771 --- [lication.main()] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/contact/{id}],methods=[GET || DELETE],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String io.pivotal.sfdc.controller.ServiceController.rdContact(java.lang.String,org.springframework.web.util.UriComponentsBuilder)
+2016-03-03 18:26:33.454  INFO 14771 --- [lication.main()] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/opportunity/{id}],methods=[POST || PUT],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String io.pivotal.sfdc.controller.ServiceController.cuOpportunity(java.lang.String,io.pivotal.sfdc.domain.Opportunity,org.springframework.web.util.UriComponentsBuilder)
+2016-03-03 18:26:33.454  INFO 14771 --- [lication.main()] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/opportunity/{id}],methods=[GET || DELETE],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String io.pivotal.sfdc.controller.ServiceController.rdOpportunity(java.lang.String,org.springframework.web.util.UriComponentsBuilder)
+2016-03-03 18:26:33.457  INFO 14771 --- [lication.main()] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2016-03-03 18:26:33.457  INFO 14771 --- [lication.main()] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],methods=[],params=[],headers=[],consumes=[],produces=[text/html],custom=[]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest)
+2016-03-03 18:26:33.463  INFO 14771 --- [lication.main()] o.s.w.s.c.a.WebMvcConfigurerAdapter      : Adding welcome page: file:/Users/jsheth/Documents/workspace/microservice-samples/SFDCApp/sfdcwebapp/src/main/resources/public/index.html
+2016-03-03 18:26:33.495  INFO 14771 --- [lication.main()] o.s.w.s.handler.SimpleUrlHandlerMapping  : Root mapping to handler of type [class org.springframework.web.servlet.mvc.ParameterizableViewController]
+2016-03-03 18:26:33.531  INFO 14771 --- [lication.main()] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-03-03 18:26:33.531  INFO 14771 --- [lication.main()] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-03-03 18:26:33.638  INFO 14771 --- [lication.main()] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-03-03 18:26:33.951  INFO 14771 --- [lication.main()] o.s.d.r.w.RepositoryRestHandlerAdapter   : Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@5fefd7bc: startup date [Thu Mar 03 18:26:21 CST 2016]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@2a70f264
+2016-03-03 18:26:34.038  INFO 14771 --- [lication.main()] o.s.d.r.w.RepositoryRestHandlerMapping   : Mapped "{[/{repository}/{id}/{property}],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.http.ResponseEntity<org.springframework.hateoas.ResourceSupport> org.springframework.data.rest.webmvc.RepositoryPropertyReferenceController.followPropertyReference(org.springframework.data.rest.webmvc.RootResourceInformation,java.io.Serializable,java.lang.String,org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler) throws java.lang.Exception
+2016-03-03 18:26:34.039  INFO 14771 --- [lication.main()] o.s.d.r.w.RepositoryRestHandlerMapping   : Mapped "{[/{repository}/{id}/{property}/{propertyId}],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.http.ResponseEntity<org.springframework.hateoas.ResourceSupport> org.springframework.data.rest.webmvc.RepositoryPropertyReferenceController.followPropertyReference(org.springframework.data.rest.webmvc.RootResourceInformation,java.io.Serializable,java.lang.String,java.lang.String,org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler) throws java.lang.Exception
+2016-03-03 18:26:34.039  INFO 14771 --- [lication.main()] o.s.d.r.w.RepositoryRestHandlerMapping   : Mapped "{[/{repository}/{id}/{property}],methods=[DELETE],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.http.ResponseEntity<? extends org.springframework.hateoas.ResourceSupport> org.springframework.data.rest.webmvc.RepositoryPropertyReferenceController.deletePropertyReference(org.springframework.data.rest.webmvc.RootResourceInformation,java.io.Serializable,java.lang.String) throws java.lang.Exception
+2016-03-03 18:26:34.040  INFO 14771 --- [lication.main()] o.s.d.r.w.RepositoryRestHandlerMapping   : Mapped "{[/{repository}/{id}/{property}],methods=[GET],params=[],headers=[],consumes=[],produces=[application/x-spring-data-compact+json || text/uri-list],custom=[]}" onto public org.springframework.http.ResponseEntity<org.springframework.hateoas.ResourceSupport> org.springframework.data.rest.webmvc.RepositoryPropertyReferenceController.followPropertyReferenceCompact(org.springframework.data.rest.webmvc.RootResourceInformation,java.io.Serializable,java.lang.String,org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler) throws java.lang.Exception
+2016-03-03 18:26:34.040  INFO 14771 --- [lication.main()] o.s.d.r.w.RepositoryRestHandlerMapping   : Mapped "{[/{repository}/{id}/{property}],methods=[PATCH || PUT],params=[],headers=[],consumes=[application/json || application/x-spring-data-compact+json || text/uri-list],produces=[],custom=[]}" onto public org.springframework.http.ResponseEntity<? extends org.springframework.hateoas.ResourceSupport> org.springframework.data.rest.webmvc.RepositoryPropertyReferenceController.createPropertyReference(org.springframework.data.rest.webmvc.RootResourceInformation,org.springframework.http.HttpMethod,org.springframework.hateoas.Resources<java.lang.Object>,java.io.Serializable,java.lang.String) throws java.lang.Exception
+2016-03-03 18:26:34.042  INFO 14771 --- [lication.main()] o.s.d.r.w.RepositoryRestHandlerMapping   : Mapped "{[/{repository}/{id}/{property}/{propertyId}],methods=[DELETE],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.http.ResponseEntity<org.springframework.hateoas.ResourceSupport> org.springframework.data.rest.webmvc.RepositoryPropertyReferenceController.deletePropertyReferenceId(org.springframework.data.rest.webmvc.RootResourceInformation,java.io.Serializable,java.lang.String,java.lang.String) throws java.lang.Exception
+2016-03-03 18:26:34.042  INFO 14771 --- [lication.main()] o.s.d.r.w.RepositoryRestHandlerMapping   : Mapped "{[/{repository}/schema],methods=[GET],params=[],headers=[],consumes=[],produces=[application/schema+json],custom=[]}" onto public org.springframework.http.HttpEntity<org.springframework.data.rest.webmvc.json.JsonSchema> org.springframework.data.rest.webmvc.RepositorySchemaController.schema(org.springframework.data.rest.webmvc.RootResourceInformation)
+2016-03-03 18:26:34.043  INFO 14771 --- [lication.main()] o.s.d.r.w.RepositoryRestHandlerMapping   : Mapped "{[/{repository}],methods=[HEAD],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.http.ResponseEntity<?> org.springframework.data.rest.webmvc.RepositoryEntityController.headCollectionResource(org.springframework.data.rest.webmvc.RootResourceInformation) throws org.springframework.web.HttpRequestMethodNotSupportedException
+2016-03-03 18:26:34.044  INFO 14771 --- [lication.main()] o.s.d.r.w.RepositoryRestHandlerMapping   : Mapped "{[/{repository}],methods=[OPTIONS],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.http.ResponseEntity<?> org.springframework.data.rest.webmvc.RepositoryEntityController.optionsForCollectionResource(org.springframework.data.rest.webmvc.RootResourceInformation)
+2016-03-03 18:26:34.044  INFO 14771 --- [lication.main()] o.s.d.r.w.RepositoryRestHandlerMapping   : Mapped "{[/{repository}],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.hateoas.Resources<?> org.springframework.data.rest.webmvc.RepositoryEntityController.getCollectionResource(org.springframework.data.rest.webmvc.RootResourceInformation,org.springframework.data.rest.webmvc.support.DefaultedPageable,org.springframework.data.domain.Sort,org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler) throws org.springframework.data.rest.webmvc.ResourceNotFoundException,org.springframework.web.HttpRequestMethodNotSupportedException
+2016-03-03 18:26:34.044  INFO 14771 --- [lication.main()] o.s.d.r.w.RepositoryRestHandlerMapping   : Mapped "{[/{repository}],methods=[GET],params=[],headers=[],consumes=[],produces=[application/x-spring-data-compact+json || text/uri-list],custom=[]}" onto public org.springframework.hateoas.Resources<?> org.springframework.data.rest.webmvc.RepositoryEntityController.getCollectionResourceCompact(org.springframework.data.rest.webmvc.RootResourceInformation,org.springframework.data.rest.webmvc.support.DefaultedPageable,org.springframework.data.domain.Sort,org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler) throws org.springframework.data.rest.webmvc.ResourceNotFoundException,org.springframework.web.HttpRequestMethodNotSupportedException
+2016-03-03 18:26:34.044  INFO 14771 --- [lication.main()] o.s.d.r.w.RepositoryRestHandlerMapping   : Mapped "{[/{repository}],methods=[POST],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.http.ResponseEntity<org.springframework.hateoas.ResourceSupport> org.springframework.data.rest.webmvc.RepositoryEntityController.postCollectionResource(org.springframework.data.rest.webmvc.RootResourceInformation,org.springframework.data.rest.webmvc.PersistentEntityResource,org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler) throws org.springframework.web.HttpRequestMethodNotSupportedException
+2016-03-03 18:26:34.045  INFO 14771 --- [lication.main()] o.s.d.r.w.RepositoryRestHandlerMapping   : Mapped "{[/{repository}/{id}],methods=[OPTIONS],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.http.ResponseEntity<?> org.springframework.data.rest.webmvc.RepositoryEntityController.optionsForItemResource(org.springframework.data.rest.webmvc.RootResourceInformation)
+2016-03-03 18:26:34.045  INFO 14771 --- [lication.main()] o.s.d.r.w.RepositoryRestHandlerMapping   : Mapped "{[/{repository}/{id}],methods=[HEAD],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.http.ResponseEntity<?> org.springframework.data.rest.webmvc.RepositoryEntityController.headForItemResource(org.springframework.data.rest.webmvc.RootResourceInformation,java.io.Serializable) throws org.springframework.web.HttpRequestMethodNotSupportedException
+2016-03-03 18:26:34.045  INFO 14771 --- [lication.main()] o.s.d.r.w.RepositoryRestHandlerMapping   : Mapped "{[/{repository}/{id}],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.http.ResponseEntity<org.springframework.hateoas.Resource<?>> org.springframework.data.rest.webmvc.RepositoryEntityController.getItemResource(org.springframework.data.rest.webmvc.RootResourceInformation,java.io.Serializable,org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler) throws org.springframework.web.HttpRequestMethodNotSupportedException
+2016-03-03 18:26:34.045  INFO 14771 --- [lication.main()] o.s.d.r.w.RepositoryRestHandlerMapping   : Mapped "{[/{repository}/{id}],methods=[PUT],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.http.ResponseEntity<? extends org.springframework.hateoas.ResourceSupport> org.springframework.data.rest.webmvc.RepositoryEntityController.putItemResource(org.springframework.data.rest.webmvc.RootResourceInformation,org.springframework.data.rest.webmvc.PersistentEntityResource,java.io.Serializable,org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler) throws org.springframework.web.HttpRequestMethodNotSupportedException
+2016-03-03 18:26:34.045  INFO 14771 --- [lication.main()] o.s.d.r.w.RepositoryRestHandlerMapping   : Mapped "{[/{repository}/{id}],methods=[PATCH],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.http.ResponseEntity<org.springframework.hateoas.ResourceSupport> org.springframework.data.rest.webmvc.RepositoryEntityController.patchItemResource(org.springframework.data.rest.webmvc.RootResourceInformation,org.springframework.data.rest.webmvc.PersistentEntityResource,java.io.Serializable,org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler) throws org.springframework.web.HttpRequestMethodNotSupportedException,org.springframework.data.rest.webmvc.ResourceNotFoundException
+2016-03-03 18:26:34.045  INFO 14771 --- [lication.main()] o.s.d.r.w.RepositoryRestHandlerMapping   : Mapped "{[/{repository}/{id}],methods=[DELETE],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.http.ResponseEntity<?> org.springframework.data.rest.webmvc.RepositoryEntityController.deleteItemResource(org.springframework.data.rest.webmvc.RootResourceInformation,java.io.Serializable) throws org.springframework.data.rest.webmvc.ResourceNotFoundException,org.springframework.web.HttpRequestMethodNotSupportedException
+2016-03-03 18:26:34.046  INFO 14771 --- [lication.main()] o.s.d.r.w.RepositoryRestHandlerMapping   : Mapped "{[/],methods=[HEAD],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.http.ResponseEntity<?> org.springframework.data.rest.webmvc.RepositoryController.headForRepositories()
+2016-03-03 18:26:34.046  INFO 14771 --- [lication.main()] o.s.d.r.w.RepositoryRestHandlerMapping   : Mapped "{[/],methods=[OPTIONS],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.http.HttpEntity<?> org.springframework.data.rest.webmvc.RepositoryController.optionsForRepositories()
+2016-03-03 18:26:34.046  INFO 14771 --- [lication.main()] o.s.d.r.w.RepositoryRestHandlerMapping   : Mapped "{[/],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.http.HttpEntity<org.springframework.data.rest.webmvc.RepositoryLinksResource> org.springframework.data.rest.webmvc.RepositoryController.listRepositories()
+2016-03-03 18:26:34.047  INFO 14771 --- [lication.main()] o.s.d.r.w.RepositoryRestHandlerMapping   : Mapped "{[/{repository}/search],methods=[HEAD],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.http.HttpEntity<?> org.springframework.data.rest.webmvc.RepositorySearchController.headForSearches(org.springframework.data.rest.webmvc.RootResourceInformation)
+2016-03-03 18:26:34.047  INFO 14771 --- [lication.main()] o.s.d.r.w.RepositoryRestHandlerMapping   : Mapped "{[/{repository}/search],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.hateoas.ResourceSupport org.springframework.data.rest.webmvc.RepositorySearchController.listSearches(org.springframework.data.rest.webmvc.RootResourceInformation)
+2016-03-03 18:26:34.048  INFO 14771 --- [lication.main()] o.s.d.r.w.RepositoryRestHandlerMapping   : Mapped "{[/{repository}/search],methods=[OPTIONS],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.http.HttpEntity<?> org.springframework.data.rest.webmvc.RepositorySearchController.optionsForSearches(org.springframework.data.rest.webmvc.RootResourceInformation)
+2016-03-03 18:26:34.048  INFO 14771 --- [lication.main()] o.s.d.r.w.RepositoryRestHandlerMapping   : Mapped "{[/{repository}/search/{search}],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.http.ResponseEntity<java.lang.Object> org.springframework.data.rest.webmvc.RepositorySearchController.executeSearch(org.springframework.data.rest.webmvc.RootResourceInformation,org.springframework.web.context.request.WebRequest,java.lang.String,org.springframework.data.rest.webmvc.support.DefaultedPageable,org.springframework.data.domain.Sort,org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler)
+2016-03-03 18:26:34.048  INFO 14771 --- [lication.main()] o.s.d.r.w.RepositoryRestHandlerMapping   : Mapped "{[/{repository}/search/{search}],methods=[GET],params=[],headers=[],consumes=[],produces=[application/x-spring-data-compact+json],custom=[]}" onto public org.springframework.hateoas.ResourceSupport org.springframework.data.rest.webmvc.RepositorySearchController.executeSearchCompact(org.springframework.data.rest.webmvc.RootResourceInformation,org.springframework.web.context.request.WebRequest,java.lang.String,java.lang.String,org.springframework.data.rest.webmvc.support.DefaultedPageable,org.springframework.data.domain.Sort,org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler)
+2016-03-03 18:26:34.048  INFO 14771 --- [lication.main()] o.s.d.r.w.RepositoryRestHandlerMapping   : Mapped "{[/{repository}/search/{search}],methods=[OPTIONS],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.http.ResponseEntity<java.lang.Object> org.springframework.data.rest.webmvc.RepositorySearchController.optionsForSearch(org.springframework.data.rest.webmvc.RootResourceInformation,java.lang.String)
+2016-03-03 18:26:34.048  INFO 14771 --- [lication.main()] o.s.d.r.w.RepositoryRestHandlerMapping   : Mapped "{[/{repository}/search/{search}],methods=[HEAD],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.http.ResponseEntity<java.lang.Object> org.springframework.data.rest.webmvc.RepositorySearchController.headForSearch(org.springframework.data.rest.webmvc.RootResourceInformation,java.lang.String)
+2016-03-03 18:26:34.099  INFO 14771 --- [lication.main()] o.s.d.r.w.BaseUriAwareHandlerMapping     : Mapped "{[/alps/{repository}],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto org.springframework.http.HttpEntity<org.springframework.data.rest.webmvc.RootResourceInformation> org.springframework.data.rest.webmvc.alps.AlpsController.descriptor(org.springframework.data.rest.webmvc.RootResourceInformation)
+2016-03-03 18:26:34.099  INFO 14771 --- [lication.main()] o.s.d.r.w.BaseUriAwareHandlerMapping     : Mapped "{[/alps],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto org.springframework.http.HttpEntity<org.springframework.hateoas.alps.Alps> org.springframework.data.rest.webmvc.alps.AlpsController.alps()
+2016-03-03 18:26:34.099  INFO 14771 --- [lication.main()] o.s.d.r.w.BaseUriAwareHandlerMapping     : Mapped "{[/alps || /alps/{repository}],methods=[OPTIONS],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto org.springframework.http.HttpEntity<?> org.springframework.data.rest.webmvc.alps.AlpsController.alpsOptions()
+2016-03-03 18:26:34.551  WARN 14771 --- [lication.main()] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
+2016-03-03 18:26:34.551  INFO 14771 --- [lication.main()] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2016-03-03 18:26:34.592  INFO 14771 --- [lication.main()] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2016-03-03 18:26:34.625  INFO 14771 --- [lication.main()] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'configurationPropertiesRebinder' has been autodetected for JMX exposure
+2016-03-03 18:26:34.626  INFO 14771 --- [lication.main()] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'refreshScope' has been autodetected for JMX exposure
+2016-03-03 18:26:34.626  INFO 14771 --- [lication.main()] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'environmentManager' has been autodetected for JMX exposure
+2016-03-03 18:26:34.636  INFO 14771 --- [lication.main()] o.s.j.e.a.AnnotationMBeanExporter        : Located managed bean 'environmentManager': registering with JMX server as MBean [org.springframework.cloud.context.environment:name=environmentManager,type=EnvironmentManager]
+2016-03-03 18:26:34.652  INFO 14771 --- [lication.main()] o.s.j.e.a.AnnotationMBeanExporter        : Located managed bean 'refreshScope': registering with JMX server as MBean [org.springframework.cloud.context.scope.refresh:name=refreshScope,type=RefreshScope]
+2016-03-03 18:26:34.741  INFO 14771 --- [lication.main()] o.s.j.e.a.AnnotationMBeanExporter        : Located managed bean 'configurationPropertiesRebinder': registering with JMX server as MBean [org.springframework.cloud.context.properties:name=configurationPropertiesRebinder,context=5fefd7bc,type=ConfigurationPropertiesRebinder]
+2016-03-03 18:26:34.753  INFO 14771 --- [lication.main()] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase 0
+2016-03-03 18:26:34.760  INFO 14771 --- [lication.main()] .p.EurekaConfigBasedInstanceInfoProvider : Setting initial instance status as: STARTING
+2016-03-03 18:26:36.066  INFO 14771 --- [lication.main()] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2016-03-03 18:26:36.068  INFO 14771 --- [lication.main()] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2016-03-03 18:26:36.068  INFO 14771 --- [lication.main()] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2016-03-03 18:26:36.068  INFO 14771 --- [lication.main()] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2016-03-03 18:26:36.068  INFO 14771 --- [lication.main()] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2016-03-03 18:26:36.068  INFO 14771 --- [lication.main()] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2016-03-03 18:26:36.863  INFO 14771 --- [lication.main()] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2016-03-03 18:26:36.910  INFO 14771 --- [lication.main()] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2016-03-03 18:26:36.938  INFO 14771 --- [lication.main()] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 5
+2016-03-03 18:26:36.957  INFO 14771 --- [lication.main()] c.n.e.EurekaDiscoveryClientConfiguration : Registering application sfdcwebapp with eureka with status UP
+2016-03-03 18:26:37.129  INFO 14771 --- [lication.main()] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 9090 (http)
+2016-03-03 18:26:37.130  INFO 14771 --- [lication.main()] io.pivotal.sfdc.SfdcwebappApplication    : Started SfdcwebappApplication in 21.905 seconds (JVM running for 33.749)
+2016-03-03 18:26:42.084  INFO 14771 --- [pool-2-thread-1] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_SFDCWEBAPP/localhost:sfdcwebapp:9090 - Re-registering apps/SFDCWEBAPP
+2016-03-03 18:26:42.084  INFO 14771 --- [pool-2-thread-1] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_SFDCWEBAPP/localhost:sfdcwebapp:9090: registering service...
+2016-03-03 18:26:42.139  INFO 14771 --- [pool-2-thread-1] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_SFDCWEBAPP/localhost:sfdcwebapp:9090 - registration status: 204
+2016-03-03 18:27:06.941  INFO 14771 --- [pool-3-thread-1] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2016-03-03 18:27:06.942  INFO 14771 --- [pool-3-thread-1] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2016-03-03 18:27:06.942  INFO 14771 --- [pool-3-thread-1] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2016-03-03 18:27:06.942  INFO 14771 --- [pool-3-thread-1] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2016-03-03 18:27:06.942  INFO 14771 --- [pool-3-thread-1] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2016-03-03 18:27:06.943  INFO 14771 --- [pool-3-thread-1] com.netflix.discovery.DiscoveryClient    : Application version is -1: false
+2016-03-03 18:27:06.946  INFO 14771 --- [pool-3-thread-1] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2016-03-03 18:27:06.955  INFO 14771 --- [pool-3-thread-1] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2016-03-03 18:27:16.946  INFO 14771 --- [scoveryClient-3] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_SFDCWEBAPP/localhost:sfdcwebapp:9090 - retransmit instance info with status UP
+2016-03-03 18:27:16.946  INFO 14771 --- [scoveryClient-3] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_SFDCWEBAPP/localhost:sfdcwebapp:9090: registering service...
+2016-03-03 18:27:16.955  INFO 14771 --- [scoveryClient-3] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_SFDCWEBAPP/localhost:sfdcwebapp:9090 - registration status: 204
+2016-03-03 18:27:17.196  INFO 14771 --- [pool-2-thread-1] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_SFDCWEBAPP/localhost:sfdcwebapp:9090 - Re-registering apps/SFDCWEBAPP
+2016-03-03 18:27:17.196  INFO 14771 --- [pool-2-thread-1] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_SFDCWEBAPP/localhost:sfdcwebapp:9090: registering service...
+2016-03-03 18:27:17.200  INFO 14771 --- [pool-2-thread-1] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_SFDCWEBAPP/localhost:sfdcwebapp:9090 - registration status: 204
+2016-03-03 18:27:48.147  INFO 14771 --- [nio-9090-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2016-03-03 18:27:48.148  INFO 14771 --- [nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization started
+2016-03-03 18:27:48.160  INFO 14771 --- [nio-9090-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization completed in 12 ms
+2016-03-03 18:27:48.765  INFO 14771 --- [nio-9090-exec-5] s.c.a.AnnotationConfigApplicationContext : Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@1020b637: startup date [Thu Mar 03 18:27:48 CST 2016]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@5fefd7bc
+2016-03-03 18:27:48.790  INFO 14771 --- [nio-9090-exec-5] f.a.AutowiredAnnotationBeanPostProcessor : JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2016-03-03 18:27:49.188  INFO 14771 --- [nio-9090-exec-5] c.netflix.config.ChainedDynamicProperty  : Flipping property: sfdcapigateway.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2016-03-03 18:27:49.266  INFO 14771 --- [nio-9090-exec-5] c.netflix.loadbalancer.BaseLoadBalancer  : Client:sfdcapigateway instantiated a LoadBalancer:DynamicServerListLoadBalancer:{NFLoadBalancer:name=sfdcapigateway,current list of Servers=[],Load balancer stats=Zone stats: {},Server stats: []}ServerList:null
+2016-03-03 18:27:49.296  INFO 14771 --- [nio-9090-exec-5] c.netflix.config.ChainedDynamicProperty  : Flipping property: sfdcapigateway.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2016-03-03 18:27:49.299  INFO 14771 --- [nio-9090-exec-5] c.n.l.DynamicServerListLoadBalancer      : DynamicServerListLoadBalancer for client sfdcapigateway initialized: DynamicServerListLoadBalancer:{NFLoadBalancer:name=sfdcapigateway,current list of Servers=[sfdcapigateway:9011],Load balancer stats=Zone stats: {defaultzone=[Zone:defaultzone;	Instance count:1;	Active connections count: 0;	Circuit breaker tripped count: 0;	Active connections per server: 0.0;]
+},Server stats: [[Server:sfdcapigateway:9011;	Zone:defaultZone;	Total Requests:0;	Successive connection failure:0;	Total blackout seconds:0;	Last connection made:Wed Dec 31 18:00:00 CST 1969;	First connection made: Wed Dec 31 18:00:00 CST 1969;	Active Connections:0;	total failure count in last (1000) msecs:0;	average resp time:0.0;	90 percentile resp time:0.0;	95 percentile resp time:0.0;	min resp time:0.0;	max resp time:0.0;	stddev resp time:0.0]
+]}ServerList:org.springframework.cloud.netflix.ribbon.eureka.DomainExtractingServerList@3e6fcde4
+2016-03-03 18:27:49.350  INFO 14771 --- [nio-9090-exec-5] com.netflix.http4.ConnectionPoolCleaner  : Initializing ConnectionPoolCleaner for NFHttpClient:sfdcapigateway
+2016-03-03 18:27:49.454 ERROR 14771 --- [nio-9090-exec-5] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.web.client.ResourceAccessException: I/O error on GET request for "https://sfdcapigateway/accountservice/accounts":com.sun.jersey.api.client.ClientHandlerException: javax.net.ssl.SSLException: Unrecognized SSL message, plaintext connection?; nested exception is java.io.IOException: com.sun.jersey.api.client.ClientHandlerException: javax.net.ssl.SSLException: Unrecognized SSL message, plaintext connection?] with root cause
+
+javax.net.ssl.SSLException: Unrecognized SSL message, plaintext connection?
+	at sun.security.ssl.InputRecord.handleUnknownRecord(InputRecord.java:710)
+	at sun.security.ssl.InputRecord.read(InputRecord.java:527)
+	at sun.security.ssl.SSLSocketImpl.readRecord(SSLSocketImpl.java:961)
+	at sun.security.ssl.SSLSocketImpl.performInitialHandshake(SSLSocketImpl.java:1363)
+	at sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:1391)
+	at sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:1375)
+	at org.apache.http.conn.ssl.SSLSocketFactory.connectSocket(SSLSocketFactory.java:535)
+	at org.apache.http.conn.ssl.SSLSocketFactory.connectSocket(SSLSocketFactory.java:403)
+	at org.apache.http.impl.conn.DefaultClientConnectionOperator.openConnection(DefaultClientConnectionOperator.java:177)
+	at org.apache.http.impl.conn.AbstractPoolEntry.open(AbstractPoolEntry.java:144)
+	at org.apache.http.impl.conn.AbstractPooledConnAdapter.open(AbstractPooledConnAdapter.java:131)
+	at org.apache.http.impl.client.DefaultRequestDirector.tryConnect(DefaultRequestDirector.java:611)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:446)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:863)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:115)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:57)
+	at com.sun.jersey.client.apache4.ApacheHttpClient4Handler.handle(ApacheHttpClient4Handler.java:170)
+	at com.sun.jersey.api.client.Client.handle(Client.java:648)
+	at com.sun.jersey.api.client.WebResource.handle(WebResource.java:680)
+	at com.sun.jersey.api.client.WebResource.access$200(WebResource.java:74)
+	at com.sun.jersey.api.client.WebResource$Builder.get(WebResource.java:507)
+	at com.netflix.niws.client.http.RestClient.execute(RestClient.java:618)
+	at com.netflix.niws.client.http.RestClient.execute(RestClient.java:527)
+	at org.springframework.cloud.netflix.ribbon.RibbonClientHttpRequestFactory$RibbonHttpRequest.executeInternal(RibbonClientHttpRequestFactory.java:122)
+	at org.springframework.http.client.AbstractClientHttpRequest.execute(AbstractClientHttpRequest.java:53)
+	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:569)
+	at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:530)
+	at org.springframework.web.client.RestTemplate.getForObject(RestTemplate.java:237)
+	at io.pivotal.sfdc.controller.ServiceController.getContactsByAccounts(ServiceController.java:52)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:221)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:137)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:110)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandleMethod(RequestMappingHandlerAdapter.java:776)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:705)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:959)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:893)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:966)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:857)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:622)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:842)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:729)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:291)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:186)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:160)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:77)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:85)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:219)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:106)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:502)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:142)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:79)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:88)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:518)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1091)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:668)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1521)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.run(NioEndpoint.java:1478)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:745)
+
+2016-03-03 18:27:49.508 ERROR 14771 --- [nio-9090-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.web.client.ResourceAccessException: I/O error on GET request for "https://sfdcapigateway/accountservice/accounts":com.sun.jersey.api.client.ClientHandlerException: javax.net.ssl.SSLException: Unrecognized SSL message, plaintext connection?; nested exception is java.io.IOException: com.sun.jersey.api.client.ClientHandlerException: javax.net.ssl.SSLException: Unrecognized SSL message, plaintext connection?] with root cause
+
+javax.net.ssl.SSLException: Unrecognized SSL message, plaintext connection?
+	at sun.security.ssl.InputRecord.handleUnknownRecord(InputRecord.java:710)
+	at sun.security.ssl.InputRecord.read(InputRecord.java:527)
+	at sun.security.ssl.SSLSocketImpl.readRecord(SSLSocketImpl.java:961)
+	at sun.security.ssl.SSLSocketImpl.performInitialHandshake(SSLSocketImpl.java:1363)
+	at sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:1391)
+	at sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:1375)
+	at org.apache.http.conn.ssl.SSLSocketFactory.connectSocket(SSLSocketFactory.java:535)
+	at org.apache.http.conn.ssl.SSLSocketFactory.connectSocket(SSLSocketFactory.java:403)
+	at org.apache.http.impl.conn.DefaultClientConnectionOperator.openConnection(DefaultClientConnectionOperator.java:177)
+	at org.apache.http.impl.conn.AbstractPoolEntry.open(AbstractPoolEntry.java:144)
+	at org.apache.http.impl.conn.AbstractPooledConnAdapter.open(AbstractPooledConnAdapter.java:131)
+	at org.apache.http.impl.client.DefaultRequestDirector.tryConnect(DefaultRequestDirector.java:611)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:446)
+	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:863)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:115)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:57)
+	at com.sun.jersey.client.apache4.ApacheHttpClient4Handler.handle(ApacheHttpClient4Handler.java:170)
+	at com.sun.jersey.api.client.Client.handle(Client.java:648)
+	at com.sun.jersey.api.client.WebResource.handle(WebResource.java:680)
+	at com.sun.jersey.api.client.WebResource.access$200(WebResource.java:74)
+	at com.sun.jersey.api.client.WebResource$Builder.get(WebResource.java:507)
+	at com.netflix.niws.client.http.RestClient.execute(RestClient.java:618)
+	at com.netflix.niws.client.http.RestClient.execute(RestClient.java:527)
+	at org.springframework.cloud.netflix.ribbon.RibbonClientHttpRequestFactory$RibbonHttpRequest.executeInternal(RibbonClientHttpRequestFactory.java:122)
+	at org.springframework.http.client.AbstractClientHttpRequest.execute(AbstractClientHttpRequest.java:53)
+	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:569)
+	at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:530)
+	at org.springframework.web.client.RestTemplate.getForObject(RestTemplate.java:237)
+	at io.pivotal.sfdc.controller.ServiceController.getContactsByAccounts(ServiceController.java:52)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:221)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:137)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:110)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandleMethod(RequestMappingHandlerAdapter.java:776)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:705)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:959)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:893)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:966)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:857)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:622)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:842)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:729)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:291)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:186)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:160)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:77)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:85)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:219)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:106)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:502)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:142)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:79)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:88)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:518)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1091)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:668)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1521)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.run(NioEndpoint.java:1478)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:745)
+
+2016-03-03 18:27:50.278  INFO 14771 --- [pool-4-thread-1] c.netflix.config.ChainedDynamicProperty  : Flipping property: sfdcapigateway.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647

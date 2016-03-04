@@ -4,4 +4,5 @@ spring:
   cloud:
     config:
       failFast: true
-      uri: ${CONFIG_SERVER_URL:http://localhost:8888}
+      #uri: ${CONFIG_SERVER_URL:http://localhost:8888}
+      uri: ${vcap.services.config-service.credentials.uri:http://localhost:8888}

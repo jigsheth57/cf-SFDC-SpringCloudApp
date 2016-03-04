@@ -1,0 +1,408 @@
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building sfdcapigateway 0.0.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] >>> spring-boot-maven-plugin:1.2.4.RELEASE:run (default-cli) > test-compile @ sfdcapigateway >>>
+Downloading: https://repo.spring.io/libs-milestone/io/pivotal/sfdc/domainObjs/0.0.1-SNAPSHOT/maven-metadata.xml
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ sfdcapigateway ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 0 resource
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ sfdcapigateway ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ sfdcapigateway ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /Users/jsheth/Documents/workspace/microservice-samples/SFDCApp/sfdcapigateway/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:testCompile (default-testCompile) @ sfdcapigateway ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] <<< spring-boot-maven-plugin:1.2.4.RELEASE:run (default-cli) < test-compile @ sfdcapigateway <<<
+[INFO] 
+[INFO] --- spring-boot-maven-plugin:1.2.4.RELEASE:run (default-cli) @ sfdcapigateway ---
+2016-03-03 18:26:17.505  INFO 14770 --- [lication.main()] i.p.sfdc.SfdcapigatewayApplication       : Starting SfdcapigatewayApplication on Jigs-Work-MacBook-Pro.local with PID 14770 (/Users/jsheth/Documents/workspace/microservice-samples/SFDCApp/sfdcapigateway/target/classes started by jsheth in /Users/jsheth/Documents/workspace/microservice-samples/SFDCApp/sfdcapigateway)
+2016-03-03 18:26:17.705  INFO 14770 --- [lication.main()] s.c.a.AnnotationConfigApplicationContext : Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@2dd74e23: startup date [Thu Mar 03 18:26:17 CST 2016]; root of context hierarchy
+2016-03-03 18:26:18.549  INFO 14770 --- [lication.main()] f.a.AutowiredAnnotationBeanPostProcessor : JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2016-03-03 18:26:19.382  INFO 14770 --- [lication.main()] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.retry.annotation.RetryConfiguration' of type [class org.springframework.retry.annotation.RetryConfiguration$$EnhancerBySpringCGLIB$$6ccbb970] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-03-03 18:26:19.594  INFO 14770 --- [lication.main()] trationDelegate$BeanPostProcessorChecker : Bean 'encrypt.CONFIGURATION_PROPERTIES' of type [class org.springframework.cloud.bootstrap.encrypt.KeyProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-03-03 18:26:19.597  INFO 14770 --- [lication.main()] trationDelegate$BeanPostProcessorChecker : Bean 'encryptionBootstrapConfiguration' of type [class org.springframework.cloud.bootstrap.encrypt.EncryptionBootstrapConfiguration$$EnhancerBySpringCGLIB$$76806c24] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-03-03 18:26:20.358  INFO 14770 --- [lication.main()] i.p.sfdc.SfdcapigatewayApplication       : Started SfdcapigatewayApplication in 3.695 seconds (JVM running for 16.757)
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v1.2.4.RELEASE)
+
+2016-03-03 18:26:22.472  INFO 14770 --- [lication.main()] b.c.PropertySourceBootstrapConfiguration : Located property source: CompositePropertySource [name='configService', propertySources=[MapPropertySource [name='https://github.com/jigsheth57/config-repo/sfdcapigateway.yml#local'], MapPropertySource [name='https://github.com/jigsheth57/config-repo/sfdcapigateway.yml']]]
+2016-03-03 18:26:22.570  INFO 14770 --- [lication.main()] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@550f2d37: startup date [Thu Mar 03 18:26:22 CST 2016]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@2dd74e23
+2016-03-03 18:26:26.050  INFO 14770 --- [lication.main()] o.s.b.f.s.DefaultListableBeanFactory     : Overriding bean definition for bean 'beanNameViewResolver': replacing [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.boot.autoconfigure.web.ErrorMvcAutoConfiguration$WhitelabelErrorViewConfiguration; factoryMethodName=beanNameViewResolver; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/autoconfigure/web/ErrorMvcAutoConfiguration$WhitelabelErrorViewConfiguration.class]] with [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter; factoryMethodName=beanNameViewResolver; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/autoconfigure/web/WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter.class]]
+2016-03-03 18:26:26.131  INFO 14770 --- [lication.main()] o.s.b.f.s.DefaultListableBeanFactory     : Overriding bean definition for bean 'ignoredPathsWebSecurityConfigurerAdapter': replacing [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.boot.autoconfigure.security.SpringBootWebSecurityConfiguration; factoryMethodName=ignoredPathsWebSecurityConfigurerAdapter; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/autoconfigure/security/SpringBootWebSecurityConfiguration.class]] with [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.boot.actuate.autoconfigure.ManagementSecurityAutoConfiguration; factoryMethodName=ignoredPathsWebSecurityConfigurerAdapter; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/actuate/autoconfigure/ManagementSecurityAutoConfiguration.class]]
+2016-03-03 18:26:26.505  INFO 14770 --- [lication.main()] o.s.b.f.config.PropertiesFactoryBean     : Loading properties file from URL [jar:file:/Users/jsheth/.m2/repository/org/springframework/integration/spring-integration-core/4.1.4.RELEASE/spring-integration-core-4.1.4.RELEASE.jar!/META-INF/spring.integration.default.properties]
+2016-03-03 18:26:26.508  INFO 14770 --- [lication.main()] o.s.i.config.IntegrationRegistrar        : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2016-03-03 18:26:26.567  INFO 14770 --- [lication.main()] o.s.b.f.s.DefaultListableBeanFactory     : Overriding bean definition for bean 'infoEndpoint': replacing [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.boot.actuate.autoconfigure.EndpointAutoConfiguration; factoryMethodName=infoEndpoint; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/actuate/autoconfigure/EndpointAutoConfiguration.class]] with [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.cloud.autoconfigure.RefreshAutoConfiguration$InfoEndpointRebinderConfiguration; factoryMethodName=infoEndpoint; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/cloud/autoconfigure/RefreshAutoConfiguration$InfoEndpointRebinderConfiguration.class]]
+2016-03-03 18:26:27.549  INFO 14770 --- [lication.main()] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2016-03-03 18:26:27.552  INFO 14770 --- [lication.main()] faultConfiguringBeanFactoryPostProcessor : No bean named 'taskScheduler' has been explicitly defined. Therefore, a default ThreadPoolTaskScheduler will be created.
+2016-03-03 18:26:27.590  INFO 14770 --- [lication.main()] o.s.cloud.context.scope.GenericScope     : BeanFactory id=264584a9-9105-3722-932b-49a1a87aff83
+2016-03-03 18:26:27.599  INFO 14770 --- [lication.main()] f.a.AutowiredAnnotationBeanPostProcessor : JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2016-03-03 18:26:27.681  INFO 14770 --- [lication.main()] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.amqp.rabbit.annotation.RabbitBootstrapConfiguration' of type [class org.springframework.amqp.rabbit.annotation.RabbitBootstrapConfiguration$$EnhancerBySpringCGLIB$$bf1bd259] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-03-03 18:26:27.751  INFO 14770 --- [lication.main()] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.scheduling.annotation.SchedulingConfiguration' of type [class org.springframework.scheduling.annotation.SchedulingConfiguration$$EnhancerBySpringCGLIB$$2609c506] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-03-03 18:26:29.003  INFO 14770 --- [lication.main()] o.s.b.f.config.PropertiesFactoryBean     : Loading properties file from URL [jar:file:/Users/jsheth/.m2/repository/org/springframework/integration/spring-integration-core/4.1.4.RELEASE/spring-integration-core-4.1.4.RELEASE.jar!/META-INF/spring.integration.default.properties]
+2016-03-03 18:26:29.004  INFO 14770 --- [lication.main()] trationDelegate$BeanPostProcessorChecker : Bean 'integrationGlobalProperties' of type [class org.springframework.beans.factory.config.PropertiesFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-03-03 18:26:29.015  INFO 14770 --- [lication.main()] trationDelegate$BeanPostProcessorChecker : Bean 'integrationGlobalProperties' of type [class java.util.Properties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-03-03 18:26:29.125  INFO 14770 --- [lication.main()] trationDelegate$BeanPostProcessorChecker : Bean 'messageBuilderFactory' of type [class org.springframework.integration.support.DefaultMessageBuilderFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-03-03 18:26:29.322  INFO 14770 --- [lication.main()] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#5203be83' of type [class org.springframework.integration.channel.MessagePublishingErrorHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-03-03 18:26:29.337  INFO 14770 --- [lication.main()] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService  'taskScheduler'
+2016-03-03 18:26:29.337  INFO 14770 --- [lication.main()] trationDelegate$BeanPostProcessorChecker : Bean 'taskScheduler' of type [class org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-03-03 18:26:29.418  INFO 14770 --- [lication.main()] trationDelegate$BeanPostProcessorChecker : Bean 'integrationHeaderChannelRegistry' of type [class org.springframework.integration.channel.DefaultHeaderChannelRegistry] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-03-03 18:26:29.523  INFO 14770 --- [lication.main()] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.autoconfigure.RefreshAutoConfiguration$ConfigurationPropertiesRebinderConfiguration' of type [class org.springframework.cloud.autoconfigure.RefreshAutoConfiguration$ConfigurationPropertiesRebinderConfiguration$$EnhancerBySpringCGLIB$$a6b72f01] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-03-03 18:26:30.763  INFO 14770 --- [lication.main()] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 9011 (http)
+2016-03-03 18:26:31.521  INFO 14770 --- [lication.main()] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2016-03-03 18:26:31.522  INFO 14770 --- [lication.main()] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.0.23
+2016-03-03 18:26:31.636  INFO 14770 --- [ost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2016-03-03 18:26:31.643  INFO 14770 --- [ost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 9073 ms
+2016-03-03 18:26:33.666  WARN 14770 --- [ost-startStop-1] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
+2016-03-03 18:26:33.666  INFO 14770 --- [ost-startStop-1] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2016-03-03 18:26:33.678  INFO 14770 --- [ost-startStop-1] c.netflix.config.DynamicPropertyFactory  : DynamicPropertyFactory is initialized with configuration sources: com.netflix.config.ConcurrentCompositeConfiguration@55c5a3de
+2016-03-03 18:26:40.717  INFO 14770 --- [ost-startStop-1] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/manage/routes],methods=[POST],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.util.Map<java.lang.String, java.lang.String> org.springframework.cloud.netflix.zuul.RoutesEndpoint.reset()
+2016-03-03 18:26:40.717  INFO 14770 --- [ost-startStop-1] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/manage/routes],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.util.Map<java.lang.String, java.lang.String> org.springframework.cloud.netflix.zuul.RoutesEndpoint.getRoutes()
+2016-03-03 18:26:40.718  INFO 14770 --- [ost-startStop-1] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/manage/restart],methods=[POST],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.Object org.springframework.cloud.context.restart.RestartMvcEndpoint.invoke()
+2016-03-03 18:26:40.719  INFO 14770 --- [ost-startStop-1] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/manage/hystrix.stream/**],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.cloud.netflix.endpoint.ServletWrappingEndpoint.handle(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse) throws java.lang.Exception
+2016-03-03 18:26:40.719  INFO 14770 --- [ost-startStop-1] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/manage/resume],methods=[POST],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.Object org.springframework.cloud.endpoint.GenericPostableMvcEndpoint.invoke()
+2016-03-03 18:26:40.719  INFO 14770 --- [ost-startStop-1] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/manage/trace],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2016-03-03 18:26:40.719  INFO 14770 --- [ost-startStop-1] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/manage/autoconfig],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2016-03-03 18:26:40.720  INFO 14770 --- [ost-startStop-1] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/manage/refresh],methods=[POST],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.Object org.springframework.cloud.endpoint.GenericPostableMvcEndpoint.invoke()
+2016-03-03 18:26:40.720  INFO 14770 --- [ost-startStop-1] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/manage/metrics/{name:.*}],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.MetricsMvcEndpoint.value(java.lang.String)
+2016-03-03 18:26:40.720  INFO 14770 --- [ost-startStop-1] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/manage/metrics],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2016-03-03 18:26:40.720  INFO 14770 --- [ost-startStop-1] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/manage/configprops],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2016-03-03 18:26:40.721  INFO 14770 --- [ost-startStop-1] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/manage/archaius],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2016-03-03 18:26:40.721  INFO 14770 --- [ost-startStop-1] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/manage/mappings],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2016-03-03 18:26:40.721  INFO 14770 --- [ost-startStop-1] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/manage/env/{name:.*}],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EnvironmentMvcEndpoint.value(java.lang.String)
+2016-03-03 18:26:40.721  INFO 14770 --- [ost-startStop-1] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/manage/env],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2016-03-03 18:26:40.722  INFO 14770 --- [ost-startStop-1] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/manage/beans],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2016-03-03 18:26:40.722  INFO 14770 --- [ost-startStop-1] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/manage/health],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.HealthMvcEndpoint.invoke(java.security.Principal)
+2016-03-03 18:26:40.723  INFO 14770 --- [ost-startStop-1] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/manage/env],methods=[POST],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.Object org.springframework.cloud.context.environment.EnvironmentManagerMvcEndpoint.value(java.util.Map<java.lang.String, java.lang.String>)
+2016-03-03 18:26:40.724  INFO 14770 --- [ost-startStop-1] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/manage/env/reset],methods=[POST],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.util.Map<java.lang.String, java.lang.Object> org.springframework.cloud.context.environment.EnvironmentManagerMvcEndpoint.reset()
+2016-03-03 18:26:40.725  INFO 14770 --- [ost-startStop-1] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/manage/dump],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2016-03-03 18:26:40.725  INFO 14770 --- [ost-startStop-1] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/manage/info],methods=[GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2016-03-03 18:26:40.725  INFO 14770 --- [ost-startStop-1] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/manage/pause],methods=[POST],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.Object org.springframework.cloud.endpoint.GenericPostableMvcEndpoint.invoke()
+2016-03-03 18:26:41.158  INFO 14770 --- [ost-startStop-1] b.a.s.AuthenticationManagerConfiguration : 
+
+Using default security password: f18cb9a1-3ef3-4342-b7b9-77b05112941b
+
+2016-03-03 18:26:41.315  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/css/**'], []
+2016-03-03 18:26:41.315  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/js/**'], []
+2016-03-03 18:26:41.315  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/images/**'], []
+2016-03-03 18:26:41.316  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/**/favicon.ico'], []
+2016-03-03 18:26:41.316  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/hystrix.stream'], []
+2016-03-03 18:26:41.316  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/hystrix.stream/**'], []
+2016-03-03 18:26:41.316  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/hystrix.stream.*'], []
+2016-03-03 18:26:41.316  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/health'], []
+2016-03-03 18:26:41.316  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/health/**'], []
+2016-03-03 18:26:41.316  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/health.*'], []
+2016-03-03 18:26:41.316  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/info'], []
+2016-03-03 18:26:41.316  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/info/**'], []
+2016-03-03 18:26:41.316  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/info.*'], []
+2016-03-03 18:26:41.318  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/routes'], []
+2016-03-03 18:26:41.318  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/routes/**'], []
+2016-03-03 18:26:41.318  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/routes.*'], []
+2016-03-03 18:26:41.318  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/restart'], []
+2016-03-03 18:26:41.318  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/restart/**'], []
+2016-03-03 18:26:41.318  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/restart.*'], []
+2016-03-03 18:26:41.318  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/resume'], []
+2016-03-03 18:26:41.318  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/resume/**'], []
+2016-03-03 18:26:41.318  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/resume.*'], []
+2016-03-03 18:26:41.318  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/trace'], []
+2016-03-03 18:26:41.318  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/trace/**'], []
+2016-03-03 18:26:41.319  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/trace.*'], []
+2016-03-03 18:26:41.319  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/autoconfig'], []
+2016-03-03 18:26:41.319  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/autoconfig/**'], []
+2016-03-03 18:26:41.319  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/autoconfig.*'], []
+2016-03-03 18:26:41.319  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/refresh'], []
+2016-03-03 18:26:41.319  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/refresh/**'], []
+2016-03-03 18:26:41.319  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/refresh.*'], []
+2016-03-03 18:26:41.319  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/metrics'], []
+2016-03-03 18:26:41.319  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/metrics/**'], []
+2016-03-03 18:26:41.360  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/metrics.*'], []
+2016-03-03 18:26:41.360  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/configprops'], []
+2016-03-03 18:26:41.360  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/configprops/**'], []
+2016-03-03 18:26:41.360  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/configprops.*'], []
+2016-03-03 18:26:41.360  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/archaius'], []
+2016-03-03 18:26:41.360  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/archaius/**'], []
+2016-03-03 18:26:41.360  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/archaius.*'], []
+2016-03-03 18:26:41.360  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/mappings'], []
+2016-03-03 18:26:41.360  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/mappings/**'], []
+2016-03-03 18:26:41.360  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/mappings.*'], []
+2016-03-03 18:26:41.360  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/env'], []
+2016-03-03 18:26:41.360  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/env/**'], []
+2016-03-03 18:26:41.360  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/env.*'], []
+2016-03-03 18:26:41.360  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/beans'], []
+2016-03-03 18:26:41.360  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/beans/**'], []
+2016-03-03 18:26:41.361  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/beans.*'], []
+2016-03-03 18:26:41.361  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/dump'], []
+2016-03-03 18:26:41.361  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/dump/**'], []
+2016-03-03 18:26:41.361  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/dump.*'], []
+2016-03-03 18:26:41.361  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/pause'], []
+2016-03-03 18:26:41.361  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/pause/**'], []
+2016-03-03 18:26:41.361  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/manage/pause.*'], []
+2016-03-03 18:26:41.361  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/error'], []
+2016-03-03 18:26:41.501  INFO 14770 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: org.springframework.boot.autoconfigure.security.SpringBootWebSecurityConfiguration$ApplicationNoWebSecurityConfigurerAdapter$1@1ebdade8, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@ea63a37, org.springframework.security.web.context.SecurityContextPersistenceFilter@5000b113, org.springframework.security.web.header.HeaderWriterFilter@52d09aeb, org.springframework.security.web.csrf.CsrfFilter@44954d99, org.springframework.security.web.authentication.logout.LogoutFilter@78834d9a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6a60fa7e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@67a47edd, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@75b24aaf, org.springframework.security.web.session.SessionManagementFilter@1a162aef, org.springframework.security.web.access.ExceptionTranslationFilter@7b48b4fb]
+2016-03-03 18:26:41.801  INFO 14770 --- [ost-startStop-1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService  'metricsExecutor'
+2016-03-03 18:26:42.872  INFO 14770 --- [ost-startStop-1] o.s.b.c.embedded.FilterRegistrationBean  : Mapping filter: 'metricFilter' to: [/*]
+2016-03-03 18:26:42.872  INFO 14770 --- [ost-startStop-1] o.s.b.c.embedded.FilterRegistrationBean  : Mapping filter: 'characterEncodingFilter' to: [/*]
+2016-03-03 18:26:42.872  INFO 14770 --- [ost-startStop-1] o.s.b.c.embedded.FilterRegistrationBean  : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2016-03-03 18:26:42.872  INFO 14770 --- [ost-startStop-1] o.s.b.c.embedded.FilterRegistrationBean  : Mapping filter: 'springSecurityFilterChain' to: [/*]
+2016-03-03 18:26:42.873  INFO 14770 --- [ost-startStop-1] o.s.b.c.embedded.FilterRegistrationBean  : Mapping filter: 'webRequestLoggingFilter' to: [/*]
+2016-03-03 18:26:42.873  INFO 14770 --- [ost-startStop-1] o.s.b.c.embedded.FilterRegistrationBean  : Mapping filter: 'applicationContextIdFilter' to: [/*]
+2016-03-03 18:26:42.873  INFO 14770 --- [ost-startStop-1] o.s.b.c.e.ServletRegistrationBean        : Mapping servlet: 'zuulServlet' to [/zuul/*]
+2016-03-03 18:26:42.874  INFO 14770 --- [ost-startStop-1] o.s.b.c.e.ServletRegistrationBean        : Mapping servlet: 'dispatcherServlet' to [/]
+2016-03-03 18:26:42.940  INFO 14770 --- [ost-startStop-1] o.s.c.n.zuul.ZuulFilterInitializer       : Starting filter initializer context listener
+2016-03-03 18:26:43.331  INFO 14770 --- [lication.main()] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@550f2d37: startup date [Thu Mar 03 18:26:22 CST 2016]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@2dd74e23
+2016-03-03 18:26:43.471  INFO 14770 --- [lication.main()] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2016-03-03 18:26:43.471  INFO 14770 --- [lication.main()] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],methods=[],params=[],headers=[],consumes=[],produces=[text/html],custom=[]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest)
+2016-03-03 18:26:43.589  INFO 14770 --- [lication.main()] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-03-03 18:26:43.589  INFO 14770 --- [lication.main()] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-03-03 18:26:43.731  INFO 14770 --- [lication.main()] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-03-03 18:26:45.539  WARN 14770 --- [lication.main()] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
+2016-03-03 18:26:45.539  INFO 14770 --- [lication.main()] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2016-03-03 18:26:45.776  INFO 14770 --- [lication.main()] ProxyFactoryBean$MethodInvocationGateway : started hystrixStreamChannel
+2016-03-03 18:26:45.776  INFO 14770 --- [lication.main()] o.s.i.gateway.GatewayProxyFactoryBean    : started hystrixStreamChannel
+2016-03-03 18:26:46.204  INFO 14770 --- [lication.main()] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2016-03-03 18:26:46.217  INFO 14770 --- [lication.main()] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'zuulEndpoint' has been autodetected for JMX exposure
+2016-03-03 18:26:46.218  INFO 14770 --- [lication.main()] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'refreshEndpoint' has been autodetected for JMX exposure
+2016-03-03 18:26:46.218  INFO 14770 --- [lication.main()] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'restartEndpoint' has been autodetected for JMX exposure
+2016-03-03 18:26:46.222  INFO 14770 --- [lication.main()] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'configurationPropertiesRebinder' has been autodetected for JMX exposure
+2016-03-03 18:26:46.223  INFO 14770 --- [lication.main()] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'refreshScope' has been autodetected for JMX exposure
+2016-03-03 18:26:46.224  INFO 14770 --- [lication.main()] o.s.j.e.a.AnnotationMBeanExporter        : Bean with name 'environmentManager' has been autodetected for JMX exposure
+2016-03-03 18:26:46.227  INFO 14770 --- [lication.main()] o.s.j.e.a.AnnotationMBeanExporter        : Located managed bean 'environmentManager': registering with JMX server as MBean [org.springframework.cloud.context.environment:name=environmentManager,type=EnvironmentManager]
+2016-03-03 18:26:46.240  INFO 14770 --- [lication.main()] o.s.j.e.a.AnnotationMBeanExporter        : Located managed bean 'restartEndpoint': registering with JMX server as MBean [org.springframework.cloud.context.restart:name=restartEndpoint,type=RestartEndpoint]
+2016-03-03 18:26:46.261  INFO 14770 --- [lication.main()] o.s.j.e.a.AnnotationMBeanExporter        : Located managed bean 'refreshScope': registering with JMX server as MBean [org.springframework.cloud.context.scope.refresh:name=refreshScope,type=RefreshScope]
+2016-03-03 18:26:46.280  INFO 14770 --- [lication.main()] o.s.j.e.a.AnnotationMBeanExporter        : Located managed bean 'zuulEndpoint': registering with JMX server as MBean [org.springframework.cloud.netflix.zuul:name=zuulEndpoint,type=RoutesEndpoint]
+2016-03-03 18:26:46.295  INFO 14770 --- [lication.main()] o.s.j.e.a.AnnotationMBeanExporter        : Located managed bean 'configurationPropertiesRebinder': registering with JMX server as MBean [org.springframework.cloud.context.properties:name=configurationPropertiesRebinder,context=550f2d37,type=ConfigurationPropertiesRebinder]
+2016-03-03 18:26:46.301  INFO 14770 --- [lication.main()] o.s.j.e.a.AnnotationMBeanExporter        : Located managed bean 'refreshEndpoint': registering with JMX server as MBean [org.springframework.cloud.bootstrap.config:name=refreshEndpoint,type=RefreshEndpoint]
+2016-03-03 18:26:46.312  INFO 14770 --- [lication.main()] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase -2147483648
+2016-03-03 18:26:46.315  INFO 14770 --- [lication.main()] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase 0
+2016-03-03 18:26:46.318  INFO 14770 --- [lication.main()] .p.EurekaConfigBasedInstanceInfoProvider : Setting initial instance status as: STARTING
+2016-03-03 18:26:47.137  INFO 14770 --- [lication.main()] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2016-03-03 18:26:47.139  INFO 14770 --- [lication.main()] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2016-03-03 18:26:47.139  INFO 14770 --- [lication.main()] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2016-03-03 18:26:47.139  INFO 14770 --- [lication.main()] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2016-03-03 18:26:47.139  INFO 14770 --- [lication.main()] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2016-03-03 18:26:47.139  INFO 14770 --- [lication.main()] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2016-03-03 18:26:47.564  INFO 14770 --- [lication.main()] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2016-03-03 18:26:47.667  INFO 14770 --- [lication.main()] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2016-03-03 18:26:47.671  INFO 14770 --- [lication.main()] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 5
+2016-03-03 18:26:47.679  INFO 14770 --- [lication.main()] c.n.e.EurekaDiscoveryClientConfiguration : Registering application sfdcapigateway with eureka with status UP
+2016-03-03 18:26:47.776  INFO 14770 --- [lication.main()] o.s.c.n.zuul.web.ZuulHandlerMapping      : Mapped URL path [/authservice/**] onto handler of type [class org.springframework.cloud.netflix.zuul.web.ZuulController]
+2016-03-03 18:26:47.776  INFO 14770 --- [lication.main()] o.s.c.n.zuul.web.ZuulHandlerMapping      : Mapped URL path [/accountservice/**] onto handler of type [class org.springframework.cloud.netflix.zuul.web.ZuulController]
+2016-03-03 18:26:47.776  INFO 14770 --- [lication.main()] o.s.c.n.zuul.web.ZuulHandlerMapping      : Mapped URL path [/contactservice/**] onto handler of type [class org.springframework.cloud.netflix.zuul.web.ZuulController]
+2016-03-03 18:26:47.777  INFO 14770 --- [lication.main()] o.s.c.n.zuul.web.ZuulHandlerMapping      : Mapped URL path [/opportunityservice/**] onto handler of type [class org.springframework.cloud.netflix.zuul.web.ZuulController]
+2016-03-03 18:26:47.870  INFO 14770 --- [lication.main()] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2016-03-03 18:26:47.870  INFO 14770 --- [lication.main()] o.s.i.channel.PublishSubscribeChannel    : Channel 'sfdcapigateway:local.errorChannel' has 1 subscriber(s).
+2016-03-03 18:26:47.870  INFO 14770 --- [lication.main()] o.s.i.endpoint.EventDrivenConsumer       : started _org.springframework.integration.errorLogger
+2016-03-03 18:26:47.870  INFO 14770 --- [lication.main()] o.s.i.endpoint.EventDrivenConsumer       : Adding {amqp:outbound-channel-adapter} as a subscriber to the 'hystrixStream' channel
+2016-03-03 18:26:47.870  INFO 14770 --- [lication.main()] o.s.integration.channel.DirectChannel    : Channel 'sfdcapigateway:local.hystrixStream' has 1 subscriber(s).
+2016-03-03 18:26:47.870  INFO 14770 --- [lication.main()] o.s.i.endpoint.EventDrivenConsumer       : started org.springframework.integration.config.ConsumerEndpointFactoryBean#0
+2016-03-03 18:26:47.871  INFO 14770 --- [lication.main()] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase 2147483647
+2016-03-03 18:26:47.872  INFO 14770 --- [lication.main()] c.n.h.c.m.e.HystrixMetricsPoller         : Starting HystrixMetricsPoller
+2016-03-03 18:26:47.874  INFO 14770 --- [lication.main()] ration$HystrixMetricsPollerConfiguration : Starting poller
+2016-03-03 18:26:48.073  INFO 14770 --- [lication.main()] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 9011 (http)
+2016-03-03 18:26:48.075  INFO 14770 --- [lication.main()] i.p.sfdc.SfdcapigatewayApplication       : Started SfdcapigatewayApplication in 32.545 seconds (JVM running for 44.693)
+2016-03-03 18:26:52.699  INFO 14770 --- [pool-6-thread-1] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_SFDCAPIGATEWAY/localhost:sfdcapigateway:9011 - Re-registering apps/SFDCAPIGATEWAY
+2016-03-03 18:26:52.700  INFO 14770 --- [pool-6-thread-1] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_SFDCAPIGATEWAY/localhost:sfdcapigateway:9011: registering service...
+2016-03-03 18:26:52.718  INFO 14770 --- [pool-6-thread-1] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_SFDCAPIGATEWAY/localhost:sfdcapigateway:9011 - registration status: 204
+2016-03-03 18:27:17.670  INFO 14770 --- [pool-7-thread-1] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2016-03-03 18:27:17.671  INFO 14770 --- [pool-7-thread-1] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2016-03-03 18:27:17.671  INFO 14770 --- [pool-7-thread-1] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2016-03-03 18:27:17.671  INFO 14770 --- [pool-7-thread-1] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2016-03-03 18:27:17.671  INFO 14770 --- [pool-7-thread-1] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2016-03-03 18:27:17.672  INFO 14770 --- [pool-7-thread-1] com.netflix.discovery.DiscoveryClient    : Application version is -1: false
+2016-03-03 18:27:17.675  INFO 14770 --- [pool-7-thread-1] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2016-03-03 18:27:17.684  INFO 14770 --- [pool-7-thread-1] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2016-03-03 18:27:27.676  INFO 14770 --- [scoveryClient-1] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_SFDCAPIGATEWAY/localhost:sfdcapigateway:9011 - retransmit instance info with status UP
+2016-03-03 18:27:27.677  INFO 14770 --- [scoveryClient-1] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_SFDCAPIGATEWAY/localhost:sfdcapigateway:9011: registering service...
+2016-03-03 18:27:27.683  INFO 14770 --- [scoveryClient-1] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_SFDCAPIGATEWAY/localhost:sfdcapigateway:9011 - registration status: 204
+2016-03-03 18:27:27.770  INFO 14770 --- [pool-6-thread-1] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_SFDCAPIGATEWAY/localhost:sfdcapigateway:9011 - Re-registering apps/SFDCAPIGATEWAY
+2016-03-03 18:27:27.771  INFO 14770 --- [pool-6-thread-1] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_SFDCAPIGATEWAY/localhost:sfdcapigateway:9011: registering service...
+2016-03-03 18:27:27.779  INFO 14770 --- [pool-6-thread-1] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_SFDCAPIGATEWAY/localhost:sfdcapigateway:9011 - registration status: 204
+2016-03-03 18:27:43.416  INFO 14770 --- [nio-9011-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2016-03-03 18:27:43.416  INFO 14770 --- [nio-9011-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization started
+2016-03-03 18:27:43.445  INFO 14770 --- [nio-9011-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization completed in 29 ms
+2016-03-03 18:27:43.487  INFO 14770 --- [nio-9011-exec-1] o.s.c.n.zuul.filters.ProxyRouteLocator   : Finding route for path: /authservice/oauth2
+2016-03-03 18:27:43.490  INFO 14770 --- [nio-9011-exec-1] s.c.a.AnnotationConfigApplicationContext : Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@262adb4f: startup date [Thu Mar 03 18:27:43 CST 2016]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@550f2d37
+2016-03-03 18:27:43.505  INFO 14770 --- [nio-9011-exec-1] f.a.AutowiredAnnotationBeanPostProcessor : JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2016-03-03 18:27:43.581  INFO 14770 --- [nio-9011-exec-1] c.netflix.config.ChainedDynamicProperty  : Flipping property: authservice.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2016-03-03 18:27:43.618  INFO 14770 --- [nio-9011-exec-1] c.netflix.loadbalancer.BaseLoadBalancer  : Client:authservice instantiated a LoadBalancer:DynamicServerListLoadBalancer:{NFLoadBalancer:name=authservice,current list of Servers=[],Load balancer stats=Zone stats: {},Server stats: []}ServerList:null
+2016-03-03 18:27:43.634  INFO 14770 --- [nio-9011-exec-1] c.netflix.config.ChainedDynamicProperty  : Flipping property: authservice.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2016-03-03 18:27:43.636  INFO 14770 --- [nio-9011-exec-1] c.n.l.DynamicServerListLoadBalancer      : DynamicServerListLoadBalancer for client authservice initialized: DynamicServerListLoadBalancer:{NFLoadBalancer:name=authservice,current list of Servers=[authService:9000],Load balancer stats=Zone stats: {defaultzone=[Zone:defaultzone;	Instance count:1;	Active connections count: 0;	Circuit breaker tripped count: 0;	Active connections per server: 0.0;]
+},Server stats: [[Server:authService:9000;	Zone:defaultZone;	Total Requests:0;	Successive connection failure:0;	Total blackout seconds:0;	Last connection made:Wed Dec 31 18:00:00 CST 1969;	First connection made: Wed Dec 31 18:00:00 CST 1969;	Active Connections:0;	total failure count in last (1000) msecs:0;	average resp time:0.0;	90 percentile resp time:0.0;	95 percentile resp time:0.0;	min resp time:0.0;	max resp time:0.0;	stddev resp time:0.0]
+]}ServerList:org.springframework.cloud.netflix.ribbon.eureka.DomainExtractingServerList@49ad3ca
+2016-03-03 18:27:43.667  INFO 14770 --- [nio-9011-exec-1] com.netflix.http4.ConnectionPoolCleaner  : Initializing ConnectionPoolCleaner for NFHttpClient:authservice
+2016-03-03 18:27:44.621  INFO 14770 --- [ool-10-thread-1] c.netflix.config.ChainedDynamicProperty  : Flipping property: authservice.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2016-03-03 18:27:45.234  WARN 14770 --- [nio-9011-exec-1] o.s.c.n.z.filters.post.SendErrorFilter   : Error during filtering
+
+com.netflix.zuul.exception.ZuulException: Forwarding error
+	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.forward(RibbonRoutingFilter.java:141)
+	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.run(RibbonRoutingFilter.java:105)
+	at com.netflix.zuul.ZuulFilter.runFilter(ZuulFilter.java:112)
+	at com.netflix.zuul.FilterProcessor.processZuulFilter(FilterProcessor.java:197)
+	at com.netflix.zuul.FilterProcessor.runFilters(FilterProcessor.java:161)
+	at com.netflix.zuul.FilterProcessor.route(FilterProcessor.java:120)
+	at com.netflix.zuul.ZuulRunner.route(ZuulRunner.java:84)
+	at com.netflix.zuul.http.ZuulServlet.route(ZuulServlet.java:111)
+	at com.netflix.zuul.http.ZuulServlet.service(ZuulServlet.java:77)
+	at org.springframework.web.servlet.mvc.ServletWrappingController.handleRequestInternal(ServletWrappingController.java:158)
+	at org.springframework.cloud.netflix.zuul.web.ZuulController.handleRequestInternal(ZuulController.java:43)
+	at org.springframework.web.servlet.mvc.AbstractController.handleRequest(AbstractController.java:146)
+	at org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter.handle(SimpleControllerHandlerAdapter.java:50)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:959)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:893)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:966)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:857)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:622)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:842)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:729)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:291)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.boot.actuate.autoconfigure.EndpointWebMvcAutoConfiguration$ApplicationContextHeaderFilter.doFilterInternal(EndpointWebMvcAutoConfiguration.java:295)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.boot.actuate.trace.WebRequestTraceFilter.doFilterInternal(WebRequestTraceFilter.java:102)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:186)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:160)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:77)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:85)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.boot.actuate.autoconfigure.MetricsFilter.doFilterInternal(MetricsFilter.java:68)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:219)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:106)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:502)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:142)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:79)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:88)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:518)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1091)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:668)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1521)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.run(NioEndpoint.java:1478)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: com.netflix.hystrix.exception.HystrixRuntimeException: authserviceRibbonCommand timed-out and no fallback available.
+	at com.netflix.hystrix.AbstractCommand$16.call(AbstractCommand.java:807)
+	at com.netflix.hystrix.AbstractCommand$16.call(AbstractCommand.java:794)
+	at rx.internal.operators.OperatorOnErrorResumeNextViaFunction$1.onError(OperatorOnErrorResumeNextViaFunction.java:77)
+	at rx.internal.operators.OperatorDoOnEach$1.onError(OperatorDoOnEach.java:70)
+	at rx.internal.operators.OperatorDoOnEach$1.onError(OperatorDoOnEach.java:70)
+	at rx.internal.operators.OperatorDoOnEach$1.onError(OperatorDoOnEach.java:70)
+	at com.netflix.hystrix.AbstractCommand$DeprecatedOnFallbackHookApplication$1.onError(AbstractCommand.java:1516)
+	at com.netflix.hystrix.AbstractCommand$FallbackHookApplication$1.onError(AbstractCommand.java:1406)
+	at com.netflix.hystrix.HystrixCommand$2.call(HystrixCommand.java:314)
+	at com.netflix.hystrix.HystrixCommand$2.call(HystrixCommand.java:306)
+	at rx.Observable$1.call(Observable.java:144)
+	at rx.Observable$1.call(Observable.java:136)
+	at rx.Observable$1.call(Observable.java:144)
+	at rx.Observable$1.call(Observable.java:136)
+	at rx.Observable$1.call(Observable.java:144)
+	at rx.Observable$1.call(Observable.java:136)
+	at rx.Observable$1.call(Observable.java:144)
+	at rx.Observable$1.call(Observable.java:136)
+	at rx.Observable$1.call(Observable.java:144)
+	at rx.Observable$1.call(Observable.java:136)
+	at rx.Observable$1.call(Observable.java:144)
+	at rx.Observable$1.call(Observable.java:136)
+	at rx.Observable$1.call(Observable.java:144)
+	at rx.Observable$1.call(Observable.java:136)
+	at rx.Observable$1.call(Observable.java:144)
+	at rx.Observable$1.call(Observable.java:136)
+	at rx.Observable$1.call(Observable.java:144)
+	at rx.Observable$1.call(Observable.java:136)
+	at rx.Observable$1.call(Observable.java:144)
+	at rx.Observable$1.call(Observable.java:136)
+	at rx.Observable.unsafeSubscribe(Observable.java:7531)
+	at rx.internal.operators.OperatorOnErrorResumeNextViaFunction$1.onError(OperatorOnErrorResumeNextViaFunction.java:78)
+	at rx.internal.operators.OperatorDoOnEach$1.onError(OperatorDoOnEach.java:70)
+	at rx.internal.operators.OperatorDoOnEach$1.onError(OperatorDoOnEach.java:70)
+	at com.netflix.hystrix.AbstractCommand$HystrixObservableTimeoutOperator$1.run(AbstractCommand.java:953)
+	at com.netflix.hystrix.strategy.concurrency.HystrixContextRunnable$1.call(HystrixContextRunnable.java:41)
+	at com.netflix.hystrix.strategy.concurrency.HystrixContextRunnable$1.call(HystrixContextRunnable.java:37)
+	at com.netflix.hystrix.strategy.concurrency.HystrixContextRunnable.run(HystrixContextRunnable.java:57)
+	at com.netflix.hystrix.AbstractCommand$HystrixObservableTimeoutOperator$2.tick(AbstractCommand.java:973)
+	at com.netflix.hystrix.util.HystrixTimer$1.run(HystrixTimer.java:98)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:308)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:294)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	... 1 common frames omitted
+Caused by: java.util.concurrent.TimeoutException: null
+	at com.netflix.hystrix.AbstractCommand$9.call(AbstractCommand.java:610)
+	at com.netflix.hystrix.AbstractCommand$9.call(AbstractCommand.java:591)
+	at rx.internal.operators.OperatorOnErrorResumeNextViaFunction$1.onError(OperatorOnErrorResumeNextViaFunction.java:77)
+	... 15 common frames omitted
+
+2016-03-03 18:27:45.280  INFO 14770 --- [nio-9011-exec-2] o.s.c.n.zuul.filters.ProxyRouteLocator   : Finding route for path: /authservice/oauth2
+2016-03-03 18:27:45.358  INFO 14770 --- [nio-9011-exec-4] o.s.c.n.zuul.filters.ProxyRouteLocator   : Finding route for path: /accountservice/accounts
+2016-03-03 18:27:45.359  INFO 14770 --- [nio-9011-exec-4] s.c.a.AnnotationConfigApplicationContext : Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@1a47fc14: startup date [Thu Mar 03 18:27:45 CST 2016]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@550f2d37
+2016-03-03 18:27:45.366  INFO 14770 --- [nio-9011-exec-4] f.a.AutowiredAnnotationBeanPostProcessor : JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2016-03-03 18:27:45.377  INFO 14770 --- [nio-9011-exec-4] c.netflix.config.ChainedDynamicProperty  : Flipping property: accountservice.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2016-03-03 18:27:45.380  INFO 14770 --- [nio-9011-exec-4] c.netflix.loadbalancer.BaseLoadBalancer  : Client:accountservice instantiated a LoadBalancer:DynamicServerListLoadBalancer:{NFLoadBalancer:name=accountservice,current list of Servers=[],Load balancer stats=Zone stats: {},Server stats: []}ServerList:null
+2016-03-03 18:27:45.382  INFO 14770 --- [nio-9011-exec-4] c.netflix.config.ChainedDynamicProperty  : Flipping property: accountservice.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2016-03-03 18:27:45.383  INFO 14770 --- [nio-9011-exec-4] c.n.l.DynamicServerListLoadBalancer      : DynamicServerListLoadBalancer for client accountservice initialized: DynamicServerListLoadBalancer:{NFLoadBalancer:name=accountservice,current list of Servers=[accountService:9001],Load balancer stats=Zone stats: {defaultzone=[Zone:defaultzone;	Instance count:1;	Active connections count: 0;	Circuit breaker tripped count: 0;	Active connections per server: 0.0;]
+},Server stats: [[Server:accountService:9001;	Zone:defaultZone;	Total Requests:0;	Successive connection failure:0;	Total blackout seconds:0;	Last connection made:Wed Dec 31 18:00:00 CST 1969;	First connection made: Wed Dec 31 18:00:00 CST 1969;	Active Connections:0;	total failure count in last (1000) msecs:0;	average resp time:0.0;	90 percentile resp time:0.0;	95 percentile resp time:0.0;	min resp time:0.0;	max resp time:0.0;	stddev resp time:0.0]
+]}ServerList:org.springframework.cloud.netflix.ribbon.eureka.DomainExtractingServerList@1da101d5
+2016-03-03 18:27:45.392  INFO 14770 --- [nio-9011-exec-4] com.netflix.http4.ConnectionPoolCleaner  : Initializing ConnectionPoolCleaner for NFHttpClient:accountservice
+2016-03-03 18:27:46.384  INFO 14770 --- [ool-10-thread-1] c.netflix.config.ChainedDynamicProperty  : Flipping property: accountservice.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2016-03-03 18:27:46.415  INFO 14770 --- [nio-9011-exec-6] o.s.c.n.zuul.filters.ProxyRouteLocator   : Finding route for path: /accountservice/opp_by_accts
+2016-03-03 18:27:46.606  INFO 14770 --- [nio-9011-exec-8] o.s.c.n.zuul.filters.ProxyRouteLocator   : Finding route for path: /contactservice/contact/003i000000eXDVVAA4
+2016-03-03 18:27:46.607  INFO 14770 --- [nio-9011-exec-8] s.c.a.AnnotationConfigApplicationContext : Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@300f2931: startup date [Thu Mar 03 18:27:46 CST 2016]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@550f2d37
+2016-03-03 18:27:46.615  INFO 14770 --- [nio-9011-exec-8] f.a.AutowiredAnnotationBeanPostProcessor : JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2016-03-03 18:27:46.622  INFO 14770 --- [nio-9011-exec-8] c.netflix.config.ChainedDynamicProperty  : Flipping property: contactservice.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2016-03-03 18:27:46.624  INFO 14770 --- [nio-9011-exec-8] c.netflix.loadbalancer.BaseLoadBalancer  : Client:contactservice instantiated a LoadBalancer:DynamicServerListLoadBalancer:{NFLoadBalancer:name=contactservice,current list of Servers=[],Load balancer stats=Zone stats: {},Server stats: []}ServerList:null
+2016-03-03 18:27:46.626  INFO 14770 --- [nio-9011-exec-8] c.netflix.config.ChainedDynamicProperty  : Flipping property: contactservice.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2016-03-03 18:27:46.627  INFO 14770 --- [nio-9011-exec-8] c.n.l.DynamicServerListLoadBalancer      : DynamicServerListLoadBalancer for client contactservice initialized: DynamicServerListLoadBalancer:{NFLoadBalancer:name=contactservice,current list of Servers=[contactService:9002],Load balancer stats=Zone stats: {defaultzone=[Zone:defaultzone;	Instance count:1;	Active connections count: 0;	Circuit breaker tripped count: 0;	Active connections per server: 0.0;]
+},Server stats: [[Server:contactService:9002;	Zone:defaultZone;	Total Requests:0;	Successive connection failure:0;	Total blackout seconds:0;	Last connection made:Wed Dec 31 18:00:00 CST 1969;	First connection made: Wed Dec 31 18:00:00 CST 1969;	Active Connections:0;	total failure count in last (1000) msecs:0;	average resp time:0.0;	90 percentile resp time:0.0;	95 percentile resp time:0.0;	min resp time:0.0;	max resp time:0.0;	stddev resp time:0.0]
+]}ServerList:org.springframework.cloud.netflix.ribbon.eureka.DomainExtractingServerList@4a6df21d
+2016-03-03 18:27:46.632  INFO 14770 --- [nio-9011-exec-8] com.netflix.http4.ConnectionPoolCleaner  : Initializing ConnectionPoolCleaner for NFHttpClient:contactservice
+2016-03-03 18:27:47.194  INFO 14770 --- [io-9011-exec-10] o.s.c.n.zuul.filters.ProxyRouteLocator   : Finding route for path: /opportunityservice/opportunity/006i000000HiNOyAAN
+2016-03-03 18:27:47.195  INFO 14770 --- [io-9011-exec-10] s.c.a.AnnotationConfigApplicationContext : Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@1b67e8d8: startup date [Thu Mar 03 18:27:47 CST 2016]; parent: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@550f2d37
+2016-03-03 18:27:47.200  INFO 14770 --- [io-9011-exec-10] f.a.AutowiredAnnotationBeanPostProcessor : JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2016-03-03 18:27:47.208  INFO 14770 --- [io-9011-exec-10] c.netflix.config.ChainedDynamicProperty  : Flipping property: opportunityservice.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2016-03-03 18:27:47.210  INFO 14770 --- [io-9011-exec-10] c.netflix.loadbalancer.BaseLoadBalancer  : Client:opportunityservice instantiated a LoadBalancer:DynamicServerListLoadBalancer:{NFLoadBalancer:name=opportunityservice,current list of Servers=[],Load balancer stats=Zone stats: {},Server stats: []}ServerList:null
+2016-03-03 18:27:47.212  INFO 14770 --- [io-9011-exec-10] c.netflix.config.ChainedDynamicProperty  : Flipping property: opportunityservice.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2016-03-03 18:27:47.213  INFO 14770 --- [io-9011-exec-10] c.n.l.DynamicServerListLoadBalancer      : DynamicServerListLoadBalancer for client opportunityservice initialized: DynamicServerListLoadBalancer:{NFLoadBalancer:name=opportunityservice,current list of Servers=[opportunityService:9003],Load balancer stats=Zone stats: {defaultzone=[Zone:defaultzone;	Instance count:1;	Active connections count: 0;	Circuit breaker tripped count: 0;	Active connections per server: 0.0;]
+},Server stats: [[Server:opportunityService:9003;	Zone:defaultZone;	Total Requests:0;	Successive connection failure:0;	Total blackout seconds:0;	Last connection made:Wed Dec 31 18:00:00 CST 1969;	First connection made: Wed Dec 31 18:00:00 CST 1969;	Active Connections:0;	total failure count in last (1000) msecs:0;	average resp time:0.0;	90 percentile resp time:0.0;	95 percentile resp time:0.0;	min resp time:0.0;	max resp time:0.0;	stddev resp time:0.0]
+]}ServerList:org.springframework.cloud.netflix.ribbon.eureka.DomainExtractingServerList@5028f058
+2016-03-03 18:27:47.225  INFO 14770 --- [io-9011-exec-10] com.netflix.http4.ConnectionPoolCleaner  : Initializing ConnectionPoolCleaner for NFHttpClient:opportunityservice
+2016-03-03 18:27:47.631  INFO 14770 --- [ool-10-thread-2] c.netflix.config.ChainedDynamicProperty  : Flipping property: contactservice.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2016-03-03 18:27:47.692  INFO 14770 --- [pool-7-thread-1] o.s.c.n.zuul.web.ZuulHandlerMapping      : Mapped URL path [/sfdcapigateway/**] onto handler of type [class org.springframework.cloud.netflix.zuul.web.ZuulController]
+2016-03-03 18:27:47.692  INFO 14770 --- [pool-7-thread-1] o.s.c.n.zuul.web.ZuulHandlerMapping      : Mapped URL path [/sfdcwebapp/**] onto handler of type [class org.springframework.cloud.netflix.zuul.web.ZuulController]
+2016-03-03 18:27:48.212  INFO 14770 --- [ool-10-thread-1] c.netflix.config.ChainedDynamicProperty  : Flipping property: opportunityservice.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2016-03-03 18:27:49.443  INFO 14770 --- [nio-9011-exec-2] o.a.coyote.http11.Http11NioProcessor     : Error parsing HTTP request header
+ Note: further occurrences of HTTP header parsing errors will be logged at DEBUG level.

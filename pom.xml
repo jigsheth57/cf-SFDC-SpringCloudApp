@@ -27,6 +27,7 @@
 		<module>configServer</module>
 		<module>eurekaServer</module>
 		<module>hystrixDashboard</module>
+		<module>domainObjs</module>
 		<module>authService</module>
     <module>accountService</module>
 		<module>contactService</module>

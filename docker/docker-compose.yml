@@ -1,0 +1,8 @@
+configserver:
+  image: jigsheth57/configserver
+  ports:
+   - "8888:8888"
+eurekaserver:
+  image: jigsheth57/eurekaserver
+  ports:
+   - "8761:8761"

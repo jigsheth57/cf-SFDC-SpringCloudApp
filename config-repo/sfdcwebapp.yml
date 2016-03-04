@@ -49,13 +49,16 @@ eureka:
 
 sfdc:
   apigateway:
-    endpoint: http://sfdcapigateway
+    endpoint: https://sfdcapigateway
   service:
     unavailable: '{"status":503,"data":"Service currently unavailable."}'
 
 ---
 spring:
   profiles: local
+sfdc:
+  apigateway:
+    endpoint: http://sfdcapigateway
 eureka:
   instance:
     nonSecurePort: ${server.port}
@@ -66,4 +69,7 @@ eureka:
   instance:
     securePortEnabled: true
     nonSecurePortEnabled: false
+    #nonSecurePort: 80
     secureVirtualHostName: ${spring.application.name}
+ribbon:
+  IsSecure: true
