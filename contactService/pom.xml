@@ -11,6 +11,7 @@
 	<name>contactService</name>
 	<description>SFDC Contact Service</description>
 	<inceptionYear>2015</inceptionYear>
+	<url>https://github.com/jigsheth57/cf-SFDC-SpringCloudApp/tree/master/contactService</url>
 
 	<!-- Organization -->
 	<organization>
@@ -43,13 +44,15 @@
 	<parent>
 		<groupId>io.pivotal.spring.cloud</groupId>
 		<artifactId>spring-cloud-services-starter-parent</artifactId>
-		<version>1.0.0.RC3</version>
+		<version>1.0.1.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
+		<docker.image.prefix>jigsheth57</docker.image.prefix>
+		<docker.repo>spring-sfdc-integration</docker.repo>
 	</properties>
 
 	<dependencies>
@@ -64,21 +67,22 @@
 		<dependency>
 			<groupId>io.pivotal.spring.cloud</groupId>
 			<artifactId>cloudfoundry-certificate-truster</artifactId>
-			<version>1.0.0.BUILD-SNAPSHOT</version>
 		</dependency>
- 		<dependency>
-			<groupId>io.pivotal.spring.cloud</groupId>
-			<artifactId>spring-cloud-services-starter-circuit-breaker</artifactId>
-		</dependency>
-		<!--
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-security</artifactId>
-		</dependency>
-	-->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.retry</groupId>
+			<artifactId>spring-retry</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -89,31 +93,24 @@
 			<artifactId>spring-boot-starter-redis</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>com.force.api</groupId>
 			<artifactId>force-rest-api</artifactId>
 			<version>0.0.23</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.pivotal.spring.cloud</groupId>
+			<artifactId>spring-cloud-services-starter-circuit-breaker</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>io.pivotal.sfdc</groupId>
 			<artifactId>domainObjs</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
 	</dependencies>
-
 
 	<build>
 		<plugins>
@@ -125,14 +122,21 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.12.4</version>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.2.3</version>
 				<configuration>
-					<skipTests>true</skipTests>
+					<imageName>${docker.image.prefix}/${docker.repo}:${project.artifactId}</imageName>
+					<dockerDirectory>src/main/docker</dockerDirectory>
+					<resources>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${project.build.directory}</directory>
+							<include>${project.build.finalName}.jar</include>
+						</resource>
+					</resources>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

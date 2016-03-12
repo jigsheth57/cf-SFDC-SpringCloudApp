@@ -1,11 +1,15 @@
 package io.pivotal.sfdc.service;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
@@ -30,8 +34,10 @@ public class AuthService {
 	private static final Logger logger = LoggerFactory
 			.getLogger(AuthService.class);
 	
-    @Autowired
 	private StringRedisTemplate redisTemplate;
+    
+	@Resource
+    private JedisConnectionFactory redisConnFactory;
 
 	@Autowired
 	@LoadBalanced
@@ -43,6 +49,14 @@ public class AuthService {
 	private static String ACCESS_TOKEN = "access_token";
 
     private static String INSTANCE_URL = "instance_url";
+
+    @PostConstruct
+    public void init() {
+		this.redisTemplate = new StringRedisTemplate(redisConnFactory);
+    	logger.debug("HostName: "+redisConnFactory.getHostName());
+    	logger.debug("Port: "+redisConnFactory.getPort());
+    	logger.debug("Password: "+redisConnFactory.getPassword());
+    }
 
     /**
      * Retrieves oauth2 token from redis.

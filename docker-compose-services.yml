@@ -1,0 +1,4 @@
+authservice:
+  image: jigsheth57/spring-sfdc-integration:authService
+  ports:
+   - "9000:9000"

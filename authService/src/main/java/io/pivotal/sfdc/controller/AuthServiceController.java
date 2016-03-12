@@ -3,11 +3,15 @@ package io.pivotal.sfdc.controller;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,10 +34,12 @@ import com.force.api.Auth;
 @RefreshScope
 public class AuthServiceController {
 
-    @Autowired
 	private StringRedisTemplate redisTemplate;
     
-    @Value("${sfdc.uid}")
+	@Resource
+    private JedisConnectionFactory redisConnFactory;
+    
+	@Value("${sfdc.uid}")
     private String username;
     
     @Value("${sfdc.pwd}")
@@ -51,6 +57,13 @@ public class AuthServiceController {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthServiceController.class);
 
+    @PostConstruct
+    public void init() {
+		this.redisTemplate = new StringRedisTemplate(redisConnFactory);
+    	logger.debug("HostName: "+redisConnFactory.getHostName());
+    	logger.debug("Port: "+redisConnFactory.getPort());
+    	logger.debug("Password: "+redisConnFactory.getPassword());
+    }
     /**
      * Retrieves SalesForce.com timebase oauth2 token and stores it into Redis with TTL
      * 
@@ -59,7 +72,8 @@ public class AuthServiceController {
     @RequestMapping(value = "/oauth2", method = RequestMethod.GET)
     public @ResponseBody ApiSession oauth2() {
 		logger.debug("Fetching ApiSession");
-        Calendar cal = Calendar.getInstance(); // creates calendar
+
+    	Calendar cal = Calendar.getInstance(); // creates calendar
         cal.setTime(new Date()); // sets calendar time/date
         cal.add(Calendar.HOUR_OF_DAY, 2); // adds two hour
         ApiSession apiSession = null;
@@ -71,7 +85,6 @@ public class AuthServiceController {
 			.setClientId(clientId)
 			.setClientSecret(clientSecret);
 	    	apiSession = Auth.authenticate(apiconfig);
-
 			ops.set(ACCESS_TOKEN, apiSession.getAccessToken());
 			this.redisTemplate.expireAt(ACCESS_TOKEN, cal.getTime());
 			ops.setIfAbsent(INSTANCE_URL, apiSession.getApiEndpoint());

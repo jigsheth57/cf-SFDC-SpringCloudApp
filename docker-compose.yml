@@ -1,0 +1,81 @@
+sfdcwebapp:
+  image: jigsheth57/spring-sfdc-integration:sfdcwebapp
+  environment:
+    - SPRING_PROFILES_ACTIVE=local
+  ports:
+   - "9090:9090"
+  links:
+   - configserver
+   - discovery
+   - sfdcapigateway 
+sfdcapigateway:
+  image: jigsheth57/spring-sfdc-integration:sfdcapigateway
+  environment:
+    - SPRING_PROFILES_ACTIVE=local
+  ports:
+   - "9011:9011"
+  links:
+   - configserver
+   - discovery
+   - redis
+   - authservice
+   - accountservice
+   - contactservice
+   - opportunityservice
+opportunityservice:
+  image: jigsheth57/spring-sfdc-integration:opportunityService
+  environment:
+    - SPRING_PROFILES_ACTIVE=local
+  ports:
+   - "9003:9003"
+  links:
+   - configserver
+   - discovery
+   - authservice
+   - redis
+contactservice:
+  image: jigsheth57/spring-sfdc-integration:contactService
+  environment:
+    - SPRING_PROFILES_ACTIVE=local
+  ports:
+   - "9002:9002"
+  links:
+   - configserver
+   - discovery
+   - authservice
+   - redis
+accountservice:
+  image: jigsheth57/spring-sfdc-integration:accountService
+  environment:
+    - SPRING_PROFILES_ACTIVE=local
+  ports:
+   - "9001:9001"
+  links:
+   - configserver
+   - discovery
+   - authservice
+   - redis
+authservice:
+  image: jigsheth57/spring-sfdc-integration:authService
+  environment:
+    - SPRING_PROFILES_ACTIVE=local
+  ports:
+   - "9000:9000"
+  links:
+   - configserver
+   - discovery
+   - redis
+discovery:
+  image: jigsheth57/spring-sfdc-integration:eurekaServer
+  ports:
+   - "8761:8761"
+configserver:
+  image: jigsheth57/spring-sfdc-integration:configServer
+  ports:
+   - "8888:8888"
+  links:
+   - discovery
+redis:
+  image: redis
+  ports:
+    - "6379:6379"

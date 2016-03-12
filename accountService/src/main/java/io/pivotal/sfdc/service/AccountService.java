@@ -1,16 +1,17 @@
 package io.pivotal.sfdc.service;
 
-import io.pivotal.sfdc.domain.Account;
-import io.pivotal.sfdc.domain.AccountList;
-
 import java.io.StringWriter;
 import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,9 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.force.api.ForceApi;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
+
+import io.pivotal.sfdc.domain.Account;
+import io.pivotal.sfdc.domain.AccountList;
 
 /**
  * SFDC Account Service
@@ -35,8 +39,10 @@ public class AccountService {
 	private static final Logger logger = LoggerFactory
 			.getLogger(AccountService.class);
 	
-    @Autowired
 	private StringRedisTemplate redisTemplate;
+    
+	@Resource
+    private JedisConnectionFactory redisConnFactory;
 
     @Autowired
     private AuthService authService;
@@ -49,7 +55,15 @@ public class AccountService {
 	ForceApi api;
 	final ObjectMapper mapper = new ObjectMapper();
 	
-	/**
+    @PostConstruct
+    public void init() {
+		this.redisTemplate = new StringRedisTemplate(redisConnFactory);
+    	logger.debug("HostName: "+redisConnFactory.getHostName());
+    	logger.debug("Port: "+redisConnFactory.getPort());
+    	logger.debug("Password: "+redisConnFactory.getPassword());
+    }
+
+    /**
 	 * Calls AuthService to retrieve oauth2 token from SFDC and then executes query to retrieve the accounts by contacts from sfdc.
 	 * 
 	 * @param key URI for storing result in redis

@@ -1,15 +1,10 @@
 package io.pivotal.sfdc.controller;
 
-import io.pivotal.sfdc.domain.Opportunity;
-import io.pivotal.sfdc.service.AuthService;
-import io.pivotal.sfdc.service.OpportunityService;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,14 +20,12 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.force.api.ForceApi;
 
+import io.pivotal.sfdc.domain.Opportunity;
+import io.pivotal.sfdc.service.OpportunityService;
+
 @RestController
 public class OpportunityServiceController {
 
-    @Autowired
-	private StringRedisTemplate redisTemplate;
-
-    @Autowired
-    private AuthService authService;
     @Autowired
     private OpportunityService opportunityService;
     

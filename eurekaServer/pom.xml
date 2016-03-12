@@ -10,44 +10,61 @@
 
 	<name>eurekaServer</name>
 	<description>Eureka Server for Service Registry</description>
+	<inceptionYear>2015</inceptionYear>
+	<url>https://github.com/jigsheth57/cf-SFDC-SpringCloudApp/tree/master/eurekaServer</url>
+
+	<!-- Organization -->
+	<organization>
+		<name>Pivotal</name>
+		<url>http://www.pivotal.io</url>
+	</organization>
+
+	<!-- Developers -->
+	<developers>
+		<developer>
+			<name>Jignesh Sheth</name>
+			<email>jigsheth@pivotal.io</email>
+			<organization>Pivotal</organization>
+		</developer>
+	</developers>
+
+	<!-- Custom repositories -->
+	<repositories>
+		<repository>
+			<id>spring-snapshots</id>
+			<url>https://repo.spring.io/libs-milestone</url>
+		</repository>
+	</repositories>
 
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.2.5.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<groupId>io.pivotal.spring.cloud</groupId>
+		<artifactId>spring-cloud-services-starter-parent</artifactId>
+		<version>1.0.2.RELEASE</version>
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
+		<docker.image.prefix>jigsheth57</docker.image.prefix>
+		<docker.repo>spring-sfdc-integration</docker.repo>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-eureka-server</artifactId>
 		</dependency>
-		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
+			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 	</dependencies>
-	
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-starter-parent</artifactId>
-				<version>Angel.SR3</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-	
+
 	<build>
 		<plugins>
 			<plugin>
@@ -57,8 +74,22 @@
 					<skipTests>true</skipTests>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.2.3</version>
+				<configuration>
+					<imageName>${docker.image.prefix}/${docker.repo}:${project.artifactId}</imageName>
+					<dockerDirectory>src/main/docker</dockerDirectory>
+					<resources>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${project.build.directory}</directory>
+							<include>${project.build.finalName}.jar</include>
+						</resource>
+					</resources>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
-	
-
 </project>

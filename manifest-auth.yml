@@ -12,4 +12,4 @@ applications:
 - name: authService
   path: authService/target/authService-0.0.1-SNAPSHOT.jar
   random-route: true
-  services: [ config-server, service-registry, data-grid-service ]
+  services: [ config-service, service-registry, data-grid-service ]

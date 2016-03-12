@@ -1,9 +1,5 @@
 package io.pivotal.sfdc.controller;
 
-import io.pivotal.sfdc.domain.Account;
-import io.pivotal.sfdc.service.AccountService;
-import io.pivotal.sfdc.service.AuthService;
-
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +25,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.force.api.ForceApi;
 
+import io.pivotal.sfdc.domain.Account;
+import io.pivotal.sfdc.service.AccountService;
+
 /**
  * SFDC Account Service Controller
  * This controller supports account query by contact & opportunity. It also exposes URI to create, retrieve
@@ -43,11 +41,6 @@ import com.force.api.ForceApi;
 public class AccountServiceController {
 
     @Autowired
-	private StringRedisTemplate redisTemplate;
-
-    @Autowired
-    private AuthService authService;
-    @Autowired
     private AccountService accountService;
     
 	@Value("${sfdc.service.unavailable}")
@@ -57,7 +50,7 @@ public class AccountServiceController {
 	private static final Logger logger = LoggerFactory.getLogger(AccountServiceController.class);
 
 	ForceApi api;
-    
+
 	/**
 	 * Calls a account service with cache key to retrieve result of a sfdc query ("sfdc.query.accounts")
 	 * 

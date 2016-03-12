@@ -1,12 +1,14 @@
 package io.pivotal.sfdc.service;
 
-import io.pivotal.sfdc.domain.Contact;
-
 import java.io.StringWriter;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -16,14 +18,18 @@ import com.force.api.ForceApi;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 
+import io.pivotal.sfdc.domain.Contact;
+
 @Service
 public class ContactService {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(ContactService.class);
 	
-    @Autowired
 	private StringRedisTemplate redisTemplate;
+    
+	@Resource
+    private JedisConnectionFactory redisConnFactory;
 
     @Autowired
     private AuthService authService;
@@ -31,7 +37,15 @@ public class ContactService {
 	ForceApi api;
 	final ObjectMapper mapper = new ObjectMapper();
 	
-	public Contact addContact(Contact contact) throws Exception {
+    @PostConstruct
+    public void init() {
+		this.redisTemplate = new StringRedisTemplate(redisConnFactory);
+    	logger.debug("HostName: "+redisConnFactory.getHostName());
+    	logger.debug("Port: "+redisConnFactory.getPort());
+    	logger.debug("Password: "+redisConnFactory.getPassword());
+    }
+
+    public Contact addContact(Contact contact) throws Exception {
 		logger.debug("Storing new Contact to SFDC");
         api = new ForceApi(authService.getApiSession());
     	String id = api.createSObject("contact", contact);

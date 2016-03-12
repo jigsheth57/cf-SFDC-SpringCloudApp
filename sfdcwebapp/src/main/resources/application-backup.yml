@@ -1,0 +1,80 @@
+spring:
+  profiles.active: local
+server:
+  port: 9090
+security:
+  basic:
+    enabled: false
+
+management:
+  context-path: /manage
+  security:
+    enabled: false
+
+endpoints:
+  env:
+    keys-to-sanitize: pwd,uid,password,secret,key,client_id,client_key # suffix or regex
+
+logging:
+  level:
+    com.netflix: INFO
+    org.springframework.cloud: DEBUG
+    io.pivotal.sfdc: DEBUG
+
+info:
+  component: SFDC Web Application
+  app:
+    name: ${project.name:sfdcwebapp}
+    version: ${project.version:0.0.1-SNAPSHOT}
+    group: ${project.groupId:io.pivotal.sfdc}
+    artifact: ${project.artifactId:sfdcwebapp}
+
+eureka:
+  instance:
+    #preferIpAddress: false
+    statusPageUrlPath: ${management.context-path}/info
+    healthCheckUrlPath: ${management.context-path}/health
+    registryFetchIntervalSeconds: 5
+    leaseRenewalIntervalInSeconds: 5
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+
+sfdc:
+  service:
+    unavailable: '{"status":503,"data": "Service currently unavailable."}'
+
+---
+spring:
+  profiles: local
+  instance:
+    nonSecurePort: ${server.port}
+eureka:
+  instance:
+    hostname: sfdcwebapp
+    nonSecurePort: ${server.port}
+  client:
+    serviceUrl:
+      defaultZone: http://discovery:8761/eureka/
+sfdc:
+  apigateway:
+    endpoint: http://sfdcapigateway
+
+---
+spring:
+  profiles: cloud # For deployment in Cloud Foundry
+  cloud:
+    services:
+      registrationMethod: route
+sfdc:
+  apigateway:
+    endpoint: https://sfdcapigateway
+eureka:
+  instance:
+    securePortEnabled: true
+    nonSecurePortEnabled: false
+    secureVirtualHostName: ${spring.application.name}
+    metadataMap:
+      instanceId: ${vcap.application.instance_id:${spring.application.name}:${spring.application.instance_id:${server.port}}}
+ribbon:
+  IsSecure: true

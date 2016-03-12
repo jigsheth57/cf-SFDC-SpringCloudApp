@@ -1,34 +1,50 @@
-spring:
-  profiles.active: local
+server:
+  port: ${PORT:8888}
+
+security:
+  basic:
+    enabled: false
 management:
-  context-path: /admin
+  context-path: /manage
+  security:
+    enabled: false
 
 logging:
   level:
     org.springframework.cloud: DEBUG
 
-server:
-  port: ${PORT:8888}
+info:
+  build:
+    name: ${project.name}
+    description: ${project.description}
+    version: ${project.version}
+    group: ${project.groupId}
+    artifact: ${project.artifactId}
+
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/jigsheth57/config-repo
+      enabled: false
+      
+eureka:
+  instance:
+    hostname: ${vcap.application.uris[0]:configserver}
+    preferIpAddress: false
+    statusPageUrlPath: ${management.context-path}/info
+    healthCheckUrlPath: ${management.context-path}/health
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: ${vcap.services.p-service-registry.credentials.uri:http://discovery:8761}/eureka/
 
 ---
 spring:
   profiles: local
-  cloud:
-    config:
-      server:
-        git:
-          uri: https://github.com/jigsheth57/config-repo
-          #uri: file://${HOME}/Documents/workspace/microservice-samples/SFDCApp
-          #searchPaths: config-repo
-          #cloneOnStart: false
 ---
 spring:
   profiles: cloud
-  cloud:
-    config:
-      server:
-        git:
-          uri: https://github.com/jigsheth57/config-repo
-          #searchPaths: config-repo
-          #cloneOnStart: false
           

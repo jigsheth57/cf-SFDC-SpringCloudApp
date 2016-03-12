@@ -1,8 +1,5 @@
 package io.pivotal.sfdc.zuul.filters.post;
 
-import io.pivotal.sfdc.domain.Account;
-import io.pivotal.sfdc.domain.AccountList;
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,17 +7,22 @@ import java.io.OutputStream;
 import java.io.StringWriter;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.netflix.zuul.filters.post.SendErrorFilter;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.netflix.zuul.context.RequestContext;
+
+import io.pivotal.sfdc.domain.Account;
+import io.pivotal.sfdc.domain.AccountList;
 
 /**
  * This class implements error filter. When error occurs during routing of the HTTP Request to micro-service, 
@@ -36,15 +38,25 @@ public class FallBackFilter extends SendErrorFilter {
 	
 	private static final Logger logger = LoggerFactory.getLogger(FallBackFilter.class);
 
-	@Autowired
 	private StringRedisTemplate redisTemplate;
+    
+	@Resource
+    private JedisConnectionFactory redisConnFactory;
 
 	@Value("${sfdc.service.unavailable}")
 	private String unavailable;
 
 	final ObjectMapper mapper = new ObjectMapper();
 	
-	@Override
+    @PostConstruct
+    public void init() {
+		this.redisTemplate = new StringRedisTemplate(redisConnFactory);
+    	logger.debug("HostName: "+redisConnFactory.getHostName());
+    	logger.debug("Port: "+redisConnFactory.getPort());
+    	logger.debug("Password: "+redisConnFactory.getPassword());
+    }
+
+    @Override
 	public Object run() {
 		logger.debug("inside filter.run");
 		

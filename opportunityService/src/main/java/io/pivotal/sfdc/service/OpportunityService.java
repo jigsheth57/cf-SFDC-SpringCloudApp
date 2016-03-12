@@ -1,12 +1,14 @@
 package io.pivotal.sfdc.service;
 
-import io.pivotal.sfdc.domain.Opportunity;
-
 import java.io.StringWriter;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -16,14 +18,18 @@ import com.force.api.ForceApi;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 
+import io.pivotal.sfdc.domain.Opportunity;
+
 @Service
 public class OpportunityService {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(OpportunityService.class);
 	
-    @Autowired
 	private StringRedisTemplate redisTemplate;
+    
+	@Resource
+    private JedisConnectionFactory redisConnFactory;
 
     @Autowired
     private AuthService authService;
@@ -31,7 +37,15 @@ public class OpportunityService {
 	ForceApi api;
 	final ObjectMapper mapper = new ObjectMapper();
 	
-	public Opportunity addOpportunity(Opportunity opportunity) throws Exception {
+    @PostConstruct
+    public void init() {
+		this.redisTemplate = new StringRedisTemplate(redisConnFactory);
+    	logger.debug("HostName: "+redisConnFactory.getHostName());
+    	logger.debug("Port: "+redisConnFactory.getPort());
+    	logger.debug("Password: "+redisConnFactory.getPassword());
+    }
+
+    public Opportunity addOpportunity(Opportunity opportunity) throws Exception {
 		logger.debug("Storing new Opportunity to SFDC");
         api = new ForceApi(authService.getApiSession());
     	String id = api.createSObject("opportunity", opportunity);
