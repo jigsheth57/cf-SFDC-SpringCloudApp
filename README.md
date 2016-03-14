@@ -14,7 +14,7 @@ Demonstrated concepts:
 ## Docker
 
 Each service is built and deployed using Docker. End-to-end integration testing can be done on a developer's machine using Docker compose.
-(See ![running it locally](/running-it-locally.adoc)
+(See ![running it locally](/running locally.adoc))
 
 ## SalesForce.com Integration App
 
