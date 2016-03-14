@@ -8,7 +8,7 @@ function jsonValue() {
 
 if [ -n "$1" ]
 then
-  mvn clean package -DskipTests
+  mvn clean install package
   cf t
   echo -n "Validate the space & org, you are currently logged in before continuing!"
   read
@@ -19,7 +19,7 @@ then
   csJSONStr={\"tag\":\"sfdcgateway\",\"uri\":\"http://sfdcapigateway.$1\"}
   echo $csJSONStr
   cf cups sfdcgateway -p ${csJSONStr}
-  #echo -n "Add the git repo for config files in config-service before continuing!"
+  echo -n "Add the git repo for config files in config-service before continuing!"
   echo -n "Make sure service-registry instance is UP before continuing!"
   read
   cf p -f ./manifest-all.yml

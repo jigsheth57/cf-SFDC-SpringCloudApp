@@ -1,0 +1,27 @@
+= Running the labs locally
+
+You will need to install Docker (https://docs.docker.com/engine/installation/)
+
+Once Docker is installed, start up the Docker CLI
+
+. Retrieve Docker Machine IP
++
+----
+$ docker-machine ip
+192.168.99.101
+
+# Go to Project's root directory and locate docker-compose.yml file.
+$ cd $PROJECT_HOME
+# Run the end-to-end integration in background
+$ docker-compose up -d
+# Monitor the logs
+$ docker-compose logs
+# Shutdown all the container
+$ docker-compose down
+----
+
+== Test Application
+
+Service Discovery URL: http://$DOCKER-MACHINE-IP:8761/
+
+Web UI URL: http://$DOCKER-MACHINE-IP:9090/
