@@ -24,8 +24,34 @@ The mobile friendly responsive web application allows user to manage SFDC domain
 ![SFDC Web App](/document/main-app-screen01.png)
 
 ### Architecture
-The system is composed of four microservices (Auth, Account, Contact & Opportunity). Also, it leverages Market Place services such as Data Grid (Redis) and Spring Cloud Services (Config Server, Service Discovery Server (Eureka), Circuit Breaker & Monitoring Dashboard (Hystrix), API Gateway (Zuul)). In addition, there are multiple Web Applications written to expose the backend microservices to show the power of polygot language ([Spring Boot](/sfdcwebapp) & [NodeJS](/sfdc-web-app)) support by PCF.
+
+This example project demonstrates how to build a new application using microservices, as opposed to a monolith-first strategy. Since each microservice in the project is a module of a single parent project, developers have the advantage of being able to run and develop with each microservice running on their local machine. Adding a new microservice is easy, as the discovery microservice will automatically discover new services running on the cluster.
+
+In this example, the system is composed of four microservices (Auth, Account, Contact & Opportunity). Also, it leverages Market Place services such as Data Grid (Redis) and Spring Cloud Services (Config Server, Service Discovery Server (Eureka), Circuit Breaker & Monitoring Dashboard (Hystrix), API Gateway (Zuul)). In addition, there are multiple Web Applications written to expose the backend microservices to show the power of polygot language ([Spring Boot + AngularJS](/sfdcwebapp) & [NodeJS + AngularJS](/sfdc-web-app)) support by PCF.
 
 The relationship between the microservices is illustrated below.
 
 ![SFDC Web App Architecture](/document/architecture.png)
+
+### Service discovery
+
+This project contains a [discovery services](http://projects.spring.io/spring-cloud/spring-cloud.html#_spring_cloud_netflix), Netflix Eureka. The service allows microservices and API Gateway to discover each other location and health of the service. By leveraging Ribbon+Eureka, it can provide client side load balancing to microservice instances.
+
+![Discovery Service App](/document/service-discovery.png)
+
+### Monitoring Dashboard
+
+This example project leverages [Hystrix Dashboard](http://projects.spring.io/spring-cloud/spring-cloud.html#_circuit_breaker_hystrix_dashboard) to displays the health of each microservice in an efficient manner.
+
+![Hystrix Dashboard](/document/hystrix-monitor-01.png)
+Figure 1. Hystrix Dashboard
+
+Below shows example of when exception is occured and circuit breaker is trigger and opened.
+
+![Hystrix Dashboard](/document/hystrix-monitor-02.png)
+Figure 2. Hystrix Dashboard during exception
+
+
+### API gateway
+
+Each microservice will coordinate with Eureka to retrieve API routes for the entire cluster. Using this strategy each microservice in a cluster can be load balanced and exposed through one API gateway. Each service will automatically discover and route API requests to the service that owns the route. This proxying technique is equally helpful when developing user interfaces, as the full API of the platform is available through its own host as a proxy. This enables de-coupling of UI and Backend Services and allows you to build various UI such as NodeJS, SpringBoot, .NET, iOS, etc.
