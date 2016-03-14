@@ -1,6 +1,6 @@
 = Running the labs locally
 
-You will need to ![install Docker](https://docs.docker.com/engine/installation/)
+You will need to link:++https://docs.docker.com/engine/installation/++[install Docker]
 
 Once Docker is installed, start up the Docker CLI
 
