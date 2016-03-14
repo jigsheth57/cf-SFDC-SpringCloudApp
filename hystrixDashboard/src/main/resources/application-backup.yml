@@ -1,6 +1,15 @@
+spring:
+  profiles.active: local
+  rabbitmq:
+    host: ${vcap.services.p-rabbitmq.credentials.protocols.amqp.host:localhost}
+    port: ${vcap.services.p-rabbitmq.credentials.protocols.amqp.port:5672}
+    username: ${vcap.services.p-rabbitmq.credentials.protocols.amqp.username:guest}
+    password: ${vcap.services.p-rabbitmq.credentials.protocols.amqp.password:guest}
+    virtualHost: ${vcap.services.p-rabbitmq.credentials.protocols.amqp.vhost:/}
+
 info:
   component: Hystrix Dashboard
-  build:
+  app:
     name: ${project.name}
     description: ${project.description}
     version: ${project.version}
@@ -33,14 +42,38 @@ server:
 
 eureka:
   instance:
-    #Virtual host name by which the clients identifies this service
-    virtualHostName: ${spring.application.name}
-    hostname: ${vcap.application.uris[0]:${spring.application.name}}
-    preferIpAddress: false
+    #preferIpAddress: false
     statusPageUrlPath: ${management.context-path}/info
     healthCheckUrlPath: ${management.context-path}/health
+    registryFetchIntervalSeconds: 5
+    leaseRenewalIntervalInSeconds: 5
   client:
     registerWithEureka: true
     fetchRegistry: true
+
+---
+spring:
+  profiles: local
+  instance:
+    nonSecurePort: ${server.port}
+eureka:
+  instance:
+    hostname: hystrixdashboard
+    nonSecurePort: ${server.port}
+  client:
     serviceUrl:
-      defaultZone: ${vcap.services.p-service-registry.credentials.uri:http://discovery:8761}/eureka/
+      defaultZone: http://discovery:8761/eureka/
+
+---
+spring:
+  profiles: cloud # For deployment in Cloud Foundry
+  cloud:
+    services:
+      registrationMethod: route
+eureka:
+  instance:
+    securePortEnabled: true
+    nonSecurePortEnabled: false
+    secureVirtualHostName: ${spring.application.name}
+    metadataMap:
+      instanceId: ${vcap.application.instance_id:${spring.application.name}:${spring.application.instance_id:${server.port}}}

@@ -22,6 +22,14 @@ $ docker-compose down
 
 == Test Application
 
+Config Git Repo URL: https://github.com/jigsheth57/config-repo
+ 
 Service Discovery URL: http://$DOCKER-MACHINE-IP:8761/
 
+Note: you may need to initiate oAuth session before trying out WebUI. Call http://$DOCKER-MACHINE-IP:9000/oauth2
+
 Web UI URL: http://$DOCKER-MACHINE-IP:9090/
+
+Hystrix Dashboard URL: http://$DOCKER-MACHINE-IP:7979/
+
+Turbine Stream URL: http://$DOCKER-MACHINE-IP:8000/turbine.stream

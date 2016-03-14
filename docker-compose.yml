@@ -7,16 +7,22 @@ sfdcwebapp:
   links:
    - configserver
    - discovery
-   - sfdcapigateway 
+   - sfdcapigateway
 sfdcapigateway:
   image: jigsheth57/spring-sfdc-integration:sfdcapigateway
   environment:
     - SPRING_PROFILES_ACTIVE=local
+    - SPRING_RABBITMQ_HOST=rabbitmq
+    - SPRING_RABBITMQ_PORT=5672
+    - SPRING_RABBITMQ_USERNAME=guest
+    - SPRING_RABBITMQ_PASSWORD=guest
   ports:
    - "9011:9011"
   links:
    - configserver
    - discovery
+   - hystrixdashboard
+   - rabbitmq
    - redis
    - authservice
    - accountservice
@@ -26,33 +32,51 @@ opportunityservice:
   image: jigsheth57/spring-sfdc-integration:opportunityService
   environment:
     - SPRING_PROFILES_ACTIVE=local
+    - SPRING_RABBITMQ_HOST=rabbitmq
+    - SPRING_RABBITMQ_PORT=5672
+    - SPRING_RABBITMQ_USERNAME=guest
+    - SPRING_RABBITMQ_PASSWORD=guest
   ports:
    - "9003:9003"
   links:
    - configserver
    - discovery
+   - hystrixdashboard
+   - rabbitmq
    - authservice
    - redis
 contactservice:
   image: jigsheth57/spring-sfdc-integration:contactService
   environment:
     - SPRING_PROFILES_ACTIVE=local
+    - SPRING_RABBITMQ_HOST=rabbitmq
+    - SPRING_RABBITMQ_PORT=5672
+    - SPRING_RABBITMQ_USERNAME=guest
+    - SPRING_RABBITMQ_PASSWORD=guest
   ports:
    - "9002:9002"
   links:
    - configserver
    - discovery
+   - hystrixdashboard
+   - rabbitmq
    - authservice
    - redis
 accountservice:
   image: jigsheth57/spring-sfdc-integration:accountService
   environment:
     - SPRING_PROFILES_ACTIVE=local
+    - SPRING_RABBITMQ_HOST=rabbitmq
+    - SPRING_RABBITMQ_PORT=5672
+    - SPRING_RABBITMQ_USERNAME=guest
+    - SPRING_RABBITMQ_PASSWORD=guest
   ports:
    - "9001:9001"
   links:
    - configserver
    - discovery
+   - hystrixdashboard
+   - rabbitmq
    - authservice
    - redis
 authservice:
@@ -65,6 +89,31 @@ authservice:
    - configserver
    - discovery
    - redis
+hystrixdashboard:
+  image: jigsheth57/spring-sfdc-integration:hystrixDashboard
+  environment:
+    - SPRING_PROFILES_ACTIVE=local
+    - SPRING_RABBITMQ_HOST=rabbitmq
+    - SPRING_RABBITMQ_PORT=5672
+    - SPRING_RABBITMQ_USERNAME=guest
+    - SPRING_RABBITMQ_PASSWORD=guest
+  ports:
+   - "7979:7979"
+  links:
+   - configserver
+   - discovery
+   - rabbitmq
+turbine:
+  image: arthurtsang/docker-hystrix-turbine:latest
+  environment:
+    - TURBINE_STREAMS=http://accountservice:9001/manage/hystrix.stream http://contactservice:9002/manage/hystrix.stream http://opportunityservice:9003/manage/hystrix.stream http://sfdcapigateway:9011/manage/hystrix.stream
+  ports:
+   - "8000:8000"
+  links:
+   - sfdcapigateway
+   - accountservice
+   - opportunityservice
+   - contactservice
 discovery:
   image: jigsheth57/spring-sfdc-integration:eurekaServer
   ports:
@@ -75,6 +124,15 @@ configserver:
    - "8888:8888"
   links:
    - discovery
+rabbitmq:
+  image: rabbitmq:3-management
+  ports:
+  - "15671:15671"
+  - "15672:15672"
+  - "5672:5672"
+  - "4369:4369"
+  - "5671:5671"
+  - "25672:25672"
 redis:
   image: redis
   ports:
