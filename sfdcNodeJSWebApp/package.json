@@ -1,0 +1,15 @@
+{
+  "name"         : "sfdc-web",
+  "version"      : "0.0.1",
+  "description"  : "SFDC WebApp",
+  "main"         : "main.js",
+  "author"       : "Jig Sheth",
+  "dependencies" : {
+    "express"    : "*",
+    "express-session": "*",
+    "cfenv":"*",
+    "request": "*",
+    "morgan"     : "*",
+    "body-parser": "*"
+    }
+}

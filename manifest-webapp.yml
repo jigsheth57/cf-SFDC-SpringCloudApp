@@ -4,6 +4,6 @@ applications:
   buildpack: nodejs_buildpack
   memory: 256M
   random-route: true
-  path: sfdc-web-app/.
+  path: sfdcNodeJSWebApp/.
   command: node main.js
   services: [ sfdcgateway ]

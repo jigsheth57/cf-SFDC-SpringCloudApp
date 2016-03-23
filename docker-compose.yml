@@ -104,7 +104,7 @@ hystrixdashboard:
    - discovery
    - rabbitmq
 turbine:
-  image: arthurtsang/docker-hystrix-turbine:latest
+  image: jigsheth57/spring-sfdc-integration:turbine
   environment:
     - TURBINE_STREAMS=http://accountservice:9001/manage/hystrix.stream http://contactservice:9002/manage/hystrix.stream http://opportunityservice:9003/manage/hystrix.stream http://sfdcapigateway:9011/manage/hystrix.stream
   ports:

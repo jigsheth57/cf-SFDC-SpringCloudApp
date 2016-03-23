@@ -1,0 +1,16 @@
+
+<div class="row">
+	<div class="col-md-10">
+		<div class="well">
+			<a href="#/accounts" class="btn btn-info btn-sm">Contacts by Account</a>&nbsp;&nbsp;&nbsp;
+			<a href="#/opp_by_accts" class="btn btn-info btn-sm">Opportunities by Account</a>&nbsp;&nbsp;&nbsp;
+			<span ng-show="accounts" class="ng-hide"><a href="#/account/e/new" class="btn btn-success btn-sm">Create New Account</a></span>&nbsp;&nbsp;&nbsp;
+			<span ng-show="account" class="ng-hide"><a href="#/account/e/{{account.Id}}" class="btn btn-success btn-sm">Update Account</a></span>&nbsp;&nbsp;&nbsp;
+			<span ng-show="account" class="ng-hide"><a ng-click="delete(account.Id)" class="btn btn-danger btn-sm">Delete Account</a></span>&nbsp;&nbsp;&nbsp;
+			<span ng-show="contact" class="ng-hide"><a href="#/contact/e/{{contact.Id}}" class="btn btn-success btn-sm">Update Contact</a></span>&nbsp;&nbsp;&nbsp;
+			<span ng-show="contact" class="ng-hide"><a ng-click="delete(contact.Id)" class="btn btn-danger btn-sm">Delete Contact</a></span>&nbsp;&nbsp;&nbsp;
+			<span ng-show="opportunity" class="ng-hide"><a href="#/opportunity/e/{{opportunity.Id}}" class="btn btn-success btn-sm">Update Opportunity</a></span>&nbsp;&nbsp;&nbsp;
+			<span ng-show="opportunity" class="ng-hide"><a ng-click="delete(opportunity.Id)" class="btn btn-danger btn-sm">Delete Opportunity</a></span>&nbsp;&nbsp;&nbsp;
+		</div>
+	</div>
+</div>
