@@ -11,17 +11,17 @@ then
   for i in {1..5}
   do
     echo "$i"
-    rsp=`curl sfdcapigateway.$1/authservice/oauth2 | jsonValue accessToken 1`
+    rsp=`curl $1/authservice/oauth2 | jsonValue accessToken 1`
     if [ ! -z "$rsp" -a "$rsp" != "" ]; then
           echo "$rsp"
           break
     fi
   done
-  curl sfdcapigateway.$1/accountservice/accounts
-  curl sfdcapigateway.$1/accountservice/opp_by_accts
-  curl sfdcapigateway.$1/contactservice/contact/003i000000eXDVVAA4
-  curl sfdcapigateway.$1/opportunityservice/opportunity/006i000000HiNOyAAN
-  #cf open sfdcbootwebapp
+  curl $1/accountservice/accounts
+  curl $1/accountservice/opp_by_accts
+  curl $1/contactservice/contact/003i000000eXDVVAA4
+  curl $1/opportunityservice/opportunity/006i000000HiNOyAAN
+  cf open sfdcbootwebapp
 else
   echo "Usage: deploy <app domain name>"
 fi
