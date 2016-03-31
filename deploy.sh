@@ -14,15 +14,13 @@ function jsonValue() {
   read
   appdomain=`cf curl /v2/domains | jsonValue name 1 | sed -e 's/^[[:space:]]*//'`
 
-  cf cs p-config-server standard config-service
+  cf cs p-config-server standard config-service -c '{"git":{"uri":"https://github.com/jigsheth57/Cloud-Native-Workshop"}}'
   cf cs p-service-registry standard service-registry
   cf cs p-redis shared-vm data-grid-service
   cf cs p-circuit-breaker-dashboard standard circuit-breaker-dashboard
-  echo -n "Add the git repo for config files in config-service before continuing!"
-  echo -n " "
   echo -n "Make sure service-registry instance is UP before continuing!"
   read
-  cf p -f ./manifest-all.yml -d $appdomain
+  cf p -f ./manifest-all.yml
 
   A_GUID=`cf curl /v2/apps?q=name:sfdcapigateway | jsonValue guid 1 | sed -e 's/^[[:space:]]*//'`
   app_host=`cf curl /v2/apps/${A_GUID}/routes  | jsonValue host 1 | sed -e 's/^[[:space:]]*//'`
