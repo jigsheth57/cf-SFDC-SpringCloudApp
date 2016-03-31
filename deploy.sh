@@ -14,7 +14,7 @@ function jsonValue() {
   read
   appdomain=`cf curl /v2/domains | jsonValue name 1 | sed -e 's/^[[:space:]]*//'`
 
-  cf cs p-config-server standard config-service -c '{"git":{"uri":"https://github.com/jigsheth57/Cloud-Native-Workshop"}}'
+  cf cs p-config-server standard config-service -c '{"git":{"uri":"https://github.com/jigsheth57/config-repo"}}'
   cf cs p-service-registry standard service-registry
   cf cs p-redis shared-vm data-grid-service
   cf cs p-circuit-breaker-dashboard standard circuit-breaker-dashboard
