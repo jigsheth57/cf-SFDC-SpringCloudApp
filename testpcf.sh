@@ -23,5 +23,5 @@ then
   curl $1/opportunityservice/opportunity/006i000000HiNOyAAN
   cf open sfdcbootwebapp
 else
-  echo "Usage: deploy <app domain name>"
+  echo "Usage: ./testpcf.sh <sfdcapigateway app uri>"
 fi

@@ -47,7 +47,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
 		<docker.image.prefix>jigsheth57</docker.image.prefix>
-		<docker.repo>spring-sfdc-integration</docker.repo>
+		<docker.repo>sfdcwebapp</docker.repo>
 	</properties>
 
 	<dependencies>
@@ -108,7 +108,7 @@
 				<artifactId>docker-maven-plugin</artifactId>
 				<version>0.2.3</version>
 				<configuration>
-					<imageName>${docker.image.prefix}/${docker.repo}:${project.artifactId}</imageName>
+					<imageName>${docker.image.prefix}/${docker.repo}:latest</imageName>
 					<dockerDirectory>src/main/docker</dockerDirectory>
 					<resources>
 						<resource>

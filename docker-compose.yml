@@ -1,5 +1,5 @@
 sfdcwebapp:
-  image: jigsheth57/spring-sfdc-integration:sfdcwebapp
+  image: jigsheth57/sfdcwebapp:latest
   environment:
     - SPRING_PROFILES_ACTIVE=local
   ports:
@@ -9,7 +9,7 @@ sfdcwebapp:
    - discovery
    - sfdcapigateway
 sfdcapigateway:
-  image: jigsheth57/spring-sfdc-integration:sfdcapigateway
+  image: jigsheth57/sfdcapigateway:latest
   environment:
     - SPRING_PROFILES_ACTIVE=local
     - SPRING_RABBITMQ_HOST=rabbitmq
@@ -29,7 +29,7 @@ sfdcapigateway:
    - contactservice
    - opportunityservice
 opportunityservice:
-  image: jigsheth57/spring-sfdc-integration:opportunityService
+  image: jigsheth57/opportunityservice:latest
   environment:
     - SPRING_PROFILES_ACTIVE=local
     - SPRING_RABBITMQ_HOST=rabbitmq
@@ -46,7 +46,7 @@ opportunityservice:
    - authservice
    - redis
 contactservice:
-  image: jigsheth57/spring-sfdc-integration:contactService
+  image: jigsheth57/contactservice:latest
   environment:
     - SPRING_PROFILES_ACTIVE=local
     - SPRING_RABBITMQ_HOST=rabbitmq
@@ -63,7 +63,7 @@ contactservice:
    - authservice
    - redis
 accountservice:
-  image: jigsheth57/spring-sfdc-integration:accountService
+  image: jigsheth57/accountservice:latest
   environment:
     - SPRING_PROFILES_ACTIVE=local
     - SPRING_RABBITMQ_HOST=rabbitmq
@@ -80,7 +80,7 @@ accountservice:
    - authservice
    - redis
 authservice:
-  image: jigsheth57/spring-sfdc-integration:authService
+  image: jigsheth57/authservice:latest
   environment:
     - SPRING_PROFILES_ACTIVE=local
   ports:
@@ -90,7 +90,7 @@ authservice:
    - discovery
    - redis
 hystrixdashboard:
-  image: jigsheth57/spring-sfdc-integration:hystrixDashboard
+  image: jigsheth57/hystrixdashboard:latest
   environment:
     - SPRING_PROFILES_ACTIVE=local
     - SPRING_RABBITMQ_HOST=rabbitmq
@@ -104,7 +104,7 @@ hystrixdashboard:
    - discovery
    - rabbitmq
 turbine:
-  image: jigsheth57/spring-sfdc-integration:turbine
+  image: jigsheth57/turbine:latest
   environment:
     - TURBINE_STREAMS=http://accountservice:9001/manage/hystrix.stream http://contactservice:9002/manage/hystrix.stream http://opportunityservice:9003/manage/hystrix.stream http://sfdcapigateway:9011/manage/hystrix.stream
   ports:
@@ -115,11 +115,11 @@ turbine:
    - opportunityservice
    - contactservice
 discovery:
-  image: jigsheth57/spring-sfdc-integration:eurekaServer
+  image: jigsheth57/eurekaserver:latest
   ports:
    - "8761:8761"
 configserver:
-  image: jigsheth57/spring-sfdc-integration:configServer
+  image: jigsheth57/configserver:latest
   ports:
    - "8888:8888"
   links:

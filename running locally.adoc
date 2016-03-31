@@ -18,15 +18,22 @@ $ docker-compose up -d
 $ docker-compose logs
 # Shutdown all the container
 $ docker-compose down
+
+# To test the circuit-breaker, you can shutdown one of the service
+$ docker ps
+
+$ docker stop <CONTAINER ID>
+
 ----
 
 == Test Application
 
 Config Git Repo URL: https://github.com/jigsheth57/config-repo
- 
+
 Service Discovery URL: http://$DOCKER-MACHINE-IP:8761/
 
 Note: you may need to initiate oAuth session before trying out WebUI. Call http://$DOCKER-MACHINE-IP:9000/oauth2
+or run bash script: ./testpcf.sh http://$DOCKER-MACHINE-IP:9011
 
 Web UI URL: http://$DOCKER-MACHINE-IP:9090/
 
