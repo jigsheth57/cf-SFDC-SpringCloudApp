@@ -64,6 +64,7 @@ public class AuthServiceController {
     	logger.debug("Port: "+redisConnFactory.getPort());
     	logger.debug("Password: "+redisConnFactory.getPassword());
     }
+
     /**
      * Retrieves SalesForce.com timebase oauth2 token and stores it into Redis with TTL
      * 
