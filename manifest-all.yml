@@ -2,7 +2,7 @@
 timeout: 180
 instances: 1
 memory: 768M
-buildpack: java_buildpack_offline
+#buildpack: java_buildpack_offline
 env:
     SPRING_PROFILES_ACTIVE: cloud
 applications:
@@ -25,7 +25,6 @@ applications:
 - name: sfdcapigateway
   random-route: true
   path: sfdcapigateway/target/sfdcapigateway-0.0.1-SNAPSHOT.jar
-  buildpack: java_buildpack_offline
   services: [ config-service, service-registry, data-grid-service, circuit-breaker-dashboard ]
 - name: sfdcbootwebapp
   path: sfdcwebapp/target/sfdcwebapp-0.0.1-SNAPSHOT.jar
