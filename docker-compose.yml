@@ -120,6 +120,8 @@ discovery:
    - "8761:8761"
 configserver:
   image: jigsheth57/configserver:latest
+  environment:
+    - SPRING_CLOUD_CONFIG_SERVER_GIT_URI=https://github.com/jigsheth57/config-repo
   ports:
    - "8888:8888"
   links:
