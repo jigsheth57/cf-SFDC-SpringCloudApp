@@ -5,8 +5,8 @@ This is an example project that demonstrates an end-to-end cloud-native platform
 Demonstrated concepts:
 
 * Integration testing using Docker
-* Data Grid Caching
 * Microservice architecture
+* Configuration Server
 * Service discovery
 * API gateway
 * Circuit Breaker Pattern
@@ -18,7 +18,7 @@ Each service is built and deployed using Docker. End-to-end integration testing 
 
 ## SalesForce.com Integration App
 
-The mobile friendly responsive web application allows user to manage SFDC domain model such as Account, Contact & Opportunity. The application support ability to create, retrieve, update & delete Account, Contact & Opportunity. Also supports association of Account to Contact and Account to Opportunity.
+The mobile friendly responsive web application allows user to manage SFDC domain model such as Account, Contact & Opportunity. The application support ability to create, retrieve, update & delete Account, Contact & Opportunity. Also supports association of Account to Contact and Account to Opportunity. If you like to setup your own developer SalesForce account, [click here for the instruction](/Configuring SalesForce Account.pdf).
 
 ![SFDC Web App](/document/main-app-screen02.png)
 ![SFDC Web App](/document/main-app-screen01.png)
