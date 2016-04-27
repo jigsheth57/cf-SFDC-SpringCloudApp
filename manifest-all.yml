@@ -2,7 +2,7 @@
 timeout: 180
 instances: 1
 memory: 768M
-#buildpack: java_buildpack_offline
+buildpack: java_buildpack
 env:
     SPRING_PROFILES_ACTIVE: cloud
 applications:

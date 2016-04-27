@@ -2,10 +2,10 @@
 timeout: 180
 instances: 1
 memory: 512M
-buildpack: js-unlimited-jce-java-buildpack
+#buildpack: js-unlimited-jce-java-buildpack
 env:
     SPRING_PROFILES_DEFAULT: cloud
-    JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
+    #JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
 applications:
 - name: eurekaserver
   path: eurekaServer/target/eurekaServer-0.0.1-SNAPSHOT.jar

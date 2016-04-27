@@ -8,6 +8,12 @@ sfdcwebapp:
    - configserver
    - discovery
    - sfdcapigateway
+smoketest:
+  image: jigsheth57/smoketest:latest
+  environment:
+    - "SFDC_API_GATEWAY_BASEURL=http://sfdcapigateway:9011"
+  links:
+   - sfdcapigateway
 sfdcapigateway:
   image: jigsheth57/sfdcapigateway:latest
   environment:
@@ -136,6 +142,6 @@ rabbitmq:
   - "5671:5671"
   - "25672:25672"
 redis:
-  image: redis
+  image: redis:latest
   ports:
     - "6379:6379"

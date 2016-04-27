@@ -54,7 +54,7 @@
 		<docker.image.prefix>jigsheth57</docker.image.prefix>
 		<docker.repo>authservice</docker.repo>
 	</properties>
-    
+
 	<dependencies>
 		<dependency>
 			<groupId>io.pivotal.spring.cloud</groupId>
@@ -114,10 +114,20 @@
 			<plugin>
 				<groupId>com.spotify</groupId>
 				<artifactId>docker-maven-plugin</artifactId>
-				<version>0.2.3</version>
+				<version>0.4.6</version>
+				<executions>
+		        <execution>
+		            <phase>package</phase>
+		            <goals>
+		                <goal>build</goal>
+		            </goals>
+		        </execution>
+		    </executions>
 				<configuration>
 					<imageName>${docker.image.prefix}/${docker.repo}:latest</imageName>
-					<dockerDirectory>src/main/docker</dockerDirectory>
+					<dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
+					<pushImage>${pushImage}</pushImage>
+					<serverId>docker-hub</serverId>
 					<resources>
 						<resource>
 							<targetPath>/</targetPath>
