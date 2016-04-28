@@ -85,6 +85,7 @@
 				<groupId>com.spotify</groupId>
 				<artifactId>docker-maven-plugin</artifactId>
 				<version>0.4.6</version>
+<!--
 				<executions>
 		        <execution>
 		            <phase>package</phase>
@@ -93,6 +94,7 @@
 		            </goals>
 		        </execution>
 		    </executions>
+-->				
 				<configuration>
 					<imageName>${docker.image.prefix}/${docker.repo}:latest</imageName>
 					<dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>

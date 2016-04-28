@@ -6,6 +6,7 @@ function jsonValue() {
   awk -F"[,:}]" '{for(i=1;i<=NF;i++){if($i~/'$KEY'\042/){print $(i+1)}}}' | tr -d '"' | sed -n ${num}p
 }
 
+## Last testes on PWS (run.pivotal.io) 4/28/2016. Jig Sheth
 ## if [ -n "$1" ]
 ## then
   mvn clean install package
@@ -13,19 +14,22 @@ function jsonValue() {
   echo -n "Validate the space & org, you are currently logged in before continuing!"
   read
   appdomain=`cf curl /v2/domains | jsonValue name 1 | sed -e 's/^[[:space:]]*//'`
-
+  echo \"$appdomain\"
   cf cs p-config-server standard config-service -c '{"git":{"uri":"https://github.com/jigsheth57/config-repo"}}'
   cf cs p-service-registry standard service-registry
-  cf cs p-redis shared-vm data-grid-service
+  cf cs rediscloud 30mb data-grid-service
   cf cs p-circuit-breaker-dashboard standard circuit-breaker-dashboard
-  echo -n "Make sure service-registry instance is UP before continuing!"
+  echo -n "Make sure service-registry, config-service, circuit-breaker-dashboard instances are UP and RUNNING before continuing!"
   read
   cf p -f ./manifest-all.yml
 
-  A_GUID=`cf curl /v2/apps?q=name:sfdcapigateway | jsonValue guid 1 | sed -e 's/^[[:space:]]*//'`
-  app_host=`cf curl /v2/apps/${A_GUID}/routes  | jsonValue host 1 | sed -e 's/^[[:space:]]*//'`
+#  A_GUID=`cf curl /v2/apps?q=name:sfdcapigateway | jsonValue url 1 | sed -e 's/^[[:space:]]*//'`
+#  echo \"$A_GUID\"
+#  app_host=`cf curl /v2/apps/${A_GUID}/routes  | jsonValue host 1 | sed -e 's/^[[:space:]]*//'`
+#  echo \"$app_host\"
 
-  csJSONStr={\"tag\":\"sfdcgateway\",\"uri\":\"http://$app_host.$appdomain\"}
+  app_fqdn=`cf app sfdcapigateway | awk '/urls: / {print $2}'`
+  csJSONStr={\"tag\":\"sfdcgateway\",\"uri\":\"http://$app_fqdn\"}
   echo \"$csJSONStr\"
   cf cups sfdcgateway -p \"$csJSONStr\"
   cf p -f ./manifest-webapp.yml -d $appdomain
@@ -38,11 +42,14 @@ function jsonValue() {
           break
     fi
   done
-  curl $app_host.$appdomain/accountservice/accounts
-  curl $app_host.$appdomain/accountservice/opp_by_accts
-  curl $app_host.$appdomain/contactservice/contact/003i000000eXDVVAA4
-  curl $app_host.$appdomain/opportunityservice/opportunity/006i000000HiNOyAAN
-  cf open sfdcbootwebapp
+  curl $app_fqdn/accountservice/accounts
+  curl $app_fqdn/accountservice/opp_by_accts
+  curl $app_fqdn/contactservice/contact/003i000000eXDVVAA4
+  curl $app_fqdn/opportunityservice/opportunity/006i000000HiNOyAAN
+  # requires cf open plugin installed https://github.com/cloudfoundry-community/cf-plugin-open
+  # cf open sfdcbootwebapp
+  webapp_fqdn=`cf app sfdcbootwebapp | awk '/urls: / {print $2}'`
+  open http://$webapp_fqdn
 ## else
   ## echo "Usage: deploy <app domain name>"
 ## fi
