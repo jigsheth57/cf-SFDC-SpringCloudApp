@@ -36,16 +36,16 @@ function jsonValue() {
   for i in {1..5}
   do
     echo "$i"
-    rsp=`curl $app_host.$appdomain/authservice/oauth2 | jsonValue accessToken 1`
+    rsp=`curl http://$app_fqdn/authservice/oauth2 | jsonValue accessToken 1`
     if [ ! -z "$rsp" -a "$rsp" != "" ]; then
           echo "$rsp"
           break
     fi
   done
-  curl $app_fqdn/accountservice/accounts
-  curl $app_fqdn/accountservice/opp_by_accts
-  curl $app_fqdn/contactservice/contact/003i000000eXDVVAA4
-  curl $app_fqdn/opportunityservice/opportunity/006i000000HiNOyAAN
+  curl http://$app_fqdn/accountservice/accounts
+  curl http://$app_fqdn/accountservice/opp_by_accts
+  curl http://$app_fqdn/contactservice/contact/003i000000eXDVVAA4
+  curl http://$app_fqdn/opportunityservice/opportunity/006i000000HiNOyAAN
   # requires cf open plugin installed https://github.com/cloudfoundry-community/cf-plugin-open
   # cf open sfdcbootwebapp
   webapp_fqdn=`cf app sfdcbootwebapp | awk '/urls: / {print $2}'`
