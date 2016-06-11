@@ -2,13 +2,11 @@
 timeout: 180
 instances: 1
 memory: 512M
-#buildpack: js-unlimited-jce-java-buildpack 
 env:
     SPRING_PROFILES_DEFAULT: cloud
-    #JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
+    SPRING_CLOUD_CONFIG_SERVER_GIT_URI: https://github.com/jigsheth57/config-repo
+
 applications:
 - name: configserver
   path: configServer/target/configServer-0.0.1-SNAPSHOT.jar
-  env:
-    ENCRYPT_KEY: pivotal
-  hosts: [ config-server-20151102 ]
+  services: [ p-service-registry ]

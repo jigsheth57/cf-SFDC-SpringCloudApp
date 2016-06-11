@@ -2,7 +2,7 @@
 applications:
 - name: sfdcnodewebapp
   buildpack: nodejs_buildpack
-  memory: 256M
+  memory: 128M
   random-route: true
   path: sfdcNodeJSWebApp/.
   command: node main.js

@@ -44,7 +44,7 @@
 	<parent>
 		<groupId>io.pivotal.spring.cloud</groupId>
 		<artifactId>spring-cloud-services-starter-parent</artifactId>
-		<version>1.0.1.RELEASE</version>
+		<version>1.0.2.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
@@ -53,6 +53,7 @@
 		<java.version>1.8</java.version>
 		<docker.image.prefix>jigsheth57</docker.image.prefix>
 		<docker.repo>contactservice</docker.repo>
+		<docker.tag>2.0</docker.tag>
 	</properties>
 
 	<dependencies>
@@ -86,7 +87,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-rest</artifactId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -110,6 +111,18 @@
 			<artifactId>domainObjs</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.4.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.4.0</version>
+            <scope>compile</scope>
+        </dependency>
 	</dependencies>
 
 	<build>
@@ -136,7 +149,7 @@
 		    </executions>
 -->				
 				<configuration>
-					<imageName>${docker.image.prefix}/${docker.repo}:latest</imageName>
+					<imageName>${docker.image.prefix}/${docker.repo}:${docker.tag}</imageName>
 					<dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
 					<pushImage>${pushImage}</pushImage>
 					<serverId>docker-hub</serverId>

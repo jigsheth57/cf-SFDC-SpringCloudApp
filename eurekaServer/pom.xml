@@ -39,7 +39,7 @@
 	<parent>
 		<groupId>io.pivotal.spring.cloud</groupId>
 		<artifactId>spring-cloud-services-starter-parent</artifactId>
-		<version>1.0.1.RELEASE</version>
+		<version>1.0.2.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
@@ -48,6 +48,7 @@
 		<java.version>1.8</java.version>
 		<docker.image.prefix>jigsheth57</docker.image.prefix>
 		<docker.repo>eurekaserver</docker.repo>
+		<docker.tag>2.0</docker.tag>
 	</properties>
 
 	<dependencies>
@@ -89,7 +90,7 @@
 		    </executions>
 -->				
 				<configuration>
-					<imageName>${docker.image.prefix}/${docker.repo}:latest</imageName>
+					<imageName>${docker.image.prefix}/${docker.repo}:${docker.tag}</imageName>
 					<dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
 					<pushImage>${pushImage}</pushImage>
 					<serverId>docker-hub</serverId>

@@ -69,7 +69,7 @@ public class ServiceController {
 			restTemplate.put(apigatewayEP+"/accountservice/account/"+accountId, account);
 			break;
 		default:
-			result = restTemplate.postForObject(apigatewayEP+"/accountservice/account/"+accountId, account, String.class);
+			result = restTemplate.postForObject(apigatewayEP+"/accountservice/account/", account, String.class);
 			logger.debug("result: "+result);
 			break;
 		}
@@ -105,7 +105,7 @@ public class ServiceController {
 			restTemplate.put(apigatewayEP+"/contactservice/contact/"+contactId, contact);
 			break;
 		default:
-			result = restTemplate.postForObject(apigatewayEP+"/contactservice/contact/"+contactId, contact, String.class);
+			result = restTemplate.postForObject(apigatewayEP+"/contactservice/contact/", contact, String.class);
 			break;
 		}
 		return result;
@@ -139,7 +139,7 @@ public class ServiceController {
 			restTemplate.put(apigatewayEP+"/opportunityservice/opportunity/"+opportunityId, opportunity);
 			break;
 		default:
-			result = restTemplate.postForObject(apigatewayEP+"/opportunityservice/opportunity/"+opportunityId, opportunity, String.class);
+			result = restTemplate.postForObject(apigatewayEP+"/opportunityservice/opportunity/", opportunity, String.class);
 			break;
 		}
 		return result;

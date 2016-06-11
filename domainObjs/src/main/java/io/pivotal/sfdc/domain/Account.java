@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
 
 
 /**
@@ -14,28 +15,47 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class Account {
 
+	@JsonView(View.Summary.class)
 	@JsonProperty(value="Id")
 	String id;
+
+	@JsonView(View.Summary.class)
 	@JsonProperty(value="Name")
 	String name;
+
+	@JsonView(View.Summary.class)
 	@JsonProperty(value="Type")
 	String type;	
+
+	@JsonView(View.AccountDetailSummary.class)
 	@JsonProperty(value="Description")
 	String description;
+	
+	@JsonView(View.AccountDetailSummary.class)
 	@JsonProperty(value="Industry")
 	String industry;
+
+	@JsonView(View.AccountDetailSummary.class)
 	@JsonProperty(value="Ownership")
 	String ownership;
+
+	@JsonView(View.AccountDetailSummary.class)
 	@JsonProperty(value="Website")
 	String website;
+
+	@JsonView(View.AccountDetailSummary.class)
 	@JsonProperty(value="Phone")
 	String phone;
+
+	@JsonView(View.AccountDetailSummary.class)
 	@JsonProperty(value="NumberOfEmployees")
-	Long NumberOfEmployees;
+	Long numberOfEmployees;
 	
+	@JsonView(View.OpportunityByAccountSummary.class)
 	@JsonProperty("Opportunities")
 	List<Opportunity> opportunities;
 
+	@JsonView(View.ContactByAccountSummary.class)
 	@JsonProperty("Contacts")
 	List<Contact> contacts;
 
@@ -124,13 +144,13 @@ public class Account {
 	 * @return the numberOfEmployees
 	 */
 	public Long getNumberOfEmployees() {
-		return NumberOfEmployees;
+		return numberOfEmployees;
 	}
 	/**
 	 * @param numberOfEmployees the numberOfEmployees to set
 	 */
 	public void setNumberOfEmployees(Long numberOfEmployees) {
-		NumberOfEmployees = numberOfEmployees;
+		this.numberOfEmployees = numberOfEmployees;
 	}
 	public List<Contact> getContacts() {
 		return contacts;

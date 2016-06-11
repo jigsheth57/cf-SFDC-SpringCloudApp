@@ -92,8 +92,7 @@ public class AccountService {
 	 * @return List<Account> account list
 	 */
 	public List<Account> getContactsByAccountsFallback(String key) {
-		logger.debug("Fetching fallback getContactsByAccounts from Cache with key "+key);
-    	
+		logger.debug("Fetching getContactsByAccountsFallback from Cache with key "+key);
 		List<Account> result = null;
 		try {
 			result = ((AccountList)retrieve(key, AccountList.class)).getAccounts();
@@ -135,7 +134,7 @@ public class AccountService {
 	 * @return List<Account> account list
 	 */
 	public List<Account> getOpportunitesByAccountsFallback(String key) {
-		logger.debug("Fetching fallback getOpportunitesByAccounts from Cache with key "+key);
+		logger.debug("Fetching fallback getOpportunitesByAccountsFallback from Cache with key "+key);
     	
 		List<Account> result = null;
 		try {
@@ -222,7 +221,7 @@ public class AccountService {
 	 * @return Account
 	 */
 	public Account getAccountFallback(String id) {
-		logger.debug("Fetching fallback getAccount by id "+id+" from cache");
+		logger.debug("Fetching getAccount by id "+id+" from cache");
 		Account account = null;
 		try {
 			account = (Account)retrieve(id, Account.class);

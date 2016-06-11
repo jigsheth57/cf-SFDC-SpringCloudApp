@@ -6,24 +6,27 @@ function jsonValue() {
   awk -F"[,:}]" '{for(i=1;i<=NF;i++){if($i~/'$KEY'\042/){print $(i+1)}}}' | tr -d '"' | sed -n ${num}p
 }
 
-## Last testes on PWS (run.pivotal.io) 4/28/2016. Jig Sheth
-## if [ -n "$1" ]
-## then
+## Last tested on PEZ (api.run.pez.pivotal.io) 5/13/2016. Jig Sheth
+#if [ -n "$1" ]
+ #then
   mvn clean install package
   cf t
   echo -n "Validate the space & org, you are currently logged in before continuing!"
   read
   appdomain=`cf curl /v2/domains | jsonValue name 1 | sed -e 's/^[[:space:]]*//'`
-  echo \"$appdomain\"
+  echo "Domain: \"$appdomain\""
   cf cs p-config-server standard config-service -c '{"git":{"uri":"https://github.com/jigsheth57/config-repo"}}'
   cf cs p-service-registry standard service-registry
-  cf cs rediscloud 30mb data-grid-service
+  cf cs p-redis shared-vm data-grid-service
   cf cs p-circuit-breaker-dashboard standard circuit-breaker-dashboard
   echo -n "Make sure service-registry, config-service, circuit-breaker-dashboard instances are UP and RUNNING before continuing!"
   read
   cf p -f ./manifest-all.yml
+  if [ "$?" -ne "0" ]; then
+    exit $?
+  fi
 
-#  A_GUID=`cf curl /v2/apps?q=name:sfdcapigateway | jsonValue url 1 | sed -e 's/^[[:space:]]*//'`
+#  A_GUID=`cf app sfdcapigateway --guid`
 #  echo \"$A_GUID\"
 #  app_host=`cf curl /v2/apps/${A_GUID}/routes  | jsonValue host 1 | sed -e 's/^[[:space:]]*//'`
 #  echo \"$app_host\"
@@ -32,6 +35,12 @@ function jsonValue() {
   csJSONStr={\"tag\":\"sfdcgateway\",\"uri\":\"http://$app_fqdn\"}
   echo \"$csJSONStr\"
   cf cups sfdcgateway -p \"$csJSONStr\"
+  if [ "$?" -ne "0" ]; then
+    cf update-user-provided-service sfdcgateway -p \"$csJSONStr\"
+    if [ "$?" -ne "0" ]; then
+      exit $?
+    fi
+  fi
   cf p -f ./manifest-webapp.yml -d $appdomain
   for i in {1..5}
   do
@@ -50,6 +59,8 @@ function jsonValue() {
   # cf open sfdcbootwebapp
   webapp_fqdn=`cf app sfdcbootwebapp | awk '/urls: / {print $2}'`
   open http://$webapp_fqdn
-## else
-  ## echo "Usage: deploy <app domain name>"
-## fi
+#else
+#  echo "Usage: deploy-pws <github config-repo e.g. https://github.com/jigsheth57/config-repo>"
+#  echo "example: ./deploy-pws.sh https://github.com/jigsheth57/config-repo"
+#  exit 1
+#fi

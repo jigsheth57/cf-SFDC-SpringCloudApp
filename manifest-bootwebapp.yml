@@ -7,5 +7,5 @@ env:
 applications:
 - name: sfdcbootwebapp
   path: sfdcwebapp/target/sfdcwebapp-0.0.1-SNAPSHOT.jar
-  buildpack: java_buildpack
+  #buildpack: java_buildpack
   services: [ config-service, service-registry ]

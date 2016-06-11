@@ -44,12 +44,7 @@ public class AuthService {
     	logger.debug("Password: "+redisConnFactory.getPassword());
     }
 
-    @HystrixCommand(fallbackMethod = "getApiSessionFallback",
-		    commandProperties = {
-		      @HystrixProperty(name="execution.isolation.strategy", value="THREAD"),
-		      @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="2500")
-		    })
-	public ApiSession getApiSession() {
+	public ApiSession getApiSessionFallback() {
 		logger.debug("Fetching ApiSession with key: " + ACCESS_TOKEN);
         ApiSession apiSession = null;
     	ValueOperations<String, String> ops = this.redisTemplate.opsForValue();
@@ -61,7 +56,12 @@ public class AuthService {
         return apiSession;
 	}
 	
-	private ApiSession getApiSessionFallback() {
+    @HystrixCommand(fallbackMethod = "getApiSessionFallback",
+		    commandProperties = {
+		      @HystrixProperty(name="execution.isolation.strategy", value="THREAD"),
+		      @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="2500")
+		    })
+	public ApiSession getApiSession() {
 		logger.debug("Fetching fallback ApiSession from authservice");
 		ApiSession apiSession = restTemplate.getForObject("http://authservice/oauth2", ApiSession.class);
 		return apiSession;

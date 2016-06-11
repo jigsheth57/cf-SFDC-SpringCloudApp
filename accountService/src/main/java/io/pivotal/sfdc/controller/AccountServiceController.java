@@ -2,8 +2,6 @@ package io.pivotal.sfdc.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,15 +17,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.util.UriComponentsBuilder;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.force.api.ForceApi;
 
 import io.pivotal.sfdc.domain.Account;
+import io.pivotal.sfdc.domain.View;
 import io.pivotal.sfdc.service.AccountService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 /**
  * SFDC Account Service Controller
@@ -38,6 +37,7 @@ import io.pivotal.sfdc.service.AccountService;
  */
 @RestController
 @RefreshScope
+@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 public class AccountServiceController {
 
     @Autowired
@@ -56,7 +56,9 @@ public class AccountServiceController {
 	 * 
 	 * @return List<Account> account list
 	 */
+	@JsonView(View.ContactByAccountSummary.class)
     @RequestMapping(value = "/accounts", method = RequestMethod.GET)
+	@ApiOperation(value = "Retrieve all contacts by accounts", notes = "Calls a account service with cache key to retrieve result of a sfdc query", response = Account.class, responseContainer = "List")
     public @ResponseBody List<Account> getContactsByAccounts() {
 		logger.debug("Fetching getContactsByAccounts");
     	List<Account> result = null;
@@ -74,7 +76,9 @@ public class AccountServiceController {
 	 * 
 	 * @return List<Account> account list
 	 */
+	@JsonView(View.OpportunityByAccountSummary.class)
     @RequestMapping(value = "/opp_by_accts", method = RequestMethod.GET)
+	@ApiOperation(value = "Retrieve all opportunites by accounts", notes = "Calls a account service with cache key to retrieve result of a sfdc query", response = Account.class, responseContainer = "List")
     public @ResponseBody List<Account> getOpportunitiesByAccounts() {
 		logger.debug("Fetching getOpportunitesByAccounts");
     	List<Account> result = null;
@@ -88,79 +92,93 @@ public class AccountServiceController {
     }
     
 	/**
-	 * Calls a account service with account object to either create new account or update existing account based on account id in sfdc.
-	 * Note: for new account, the id is represented as "new"
+	 * Calls a account service with account object to create new account in sfdc.
 	 * 
-	 * @return Account account newly or updated account object
+	 * @return Account newly created account object
 	 */
-	@RequestMapping(value = "/account/{id}", method={RequestMethod.POST, RequestMethod.PUT})
-	public ResponseEntity<Account> cuAccount(@PathVariable("id") final String accountId, @RequestBody final Account account, UriComponentsBuilder builder) {
-		logger.debug("(C)-R(U)-D operation on Account");
-	    RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-	    HttpServletRequest request = ((ServletRequestAttributes)requestAttributes).getRequest();
-		String method = request.getMethod().toLowerCase();
-		HttpHeaders responseHeaders = new HttpHeaders();
-		logger.debug("method: "+method);
-		Account newAccount = null;
+	@RequestMapping(value = "/account", method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "Create new account",notes = "Calls a account service to create new account", response = Account.class)
+	public ResponseEntity<Account> post(@ApiParam(value = "Account model", required = true) @RequestBody Account account) {
+		account.setId(null);
 		try {
-			switch (method) {
-			case "put":
-				account.setId(accountId);
-				newAccount = accountService.updateAccount(account);
-				break;
-			default:
-				newAccount = accountService.addAccount(account);
-				break;
-			}
+			account = accountService.addAccount(account);
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(String.format("Can not create new account: [%s]", account));
+			return new ResponseEntity<Account>(account, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		responseHeaders.setLocation(builder.path("/account/{id}")
-				.buildAndExpand(newAccount.getId()).toUri());
-		if (newAccount != null && newAccount.getId() != null) {
-			return new ResponseEntity<Account>(newAccount, responseHeaders, (method.equalsIgnoreCase("post") ? HttpStatus.CREATED : HttpStatus.OK));
-		} else {
-			logger.warn("new Account not created!");
-			return new ResponseEntity<Account>(newAccount, responseHeaders, HttpStatus.INTERNAL_SERVER_ERROR);
+		HttpStatus httpstatus = HttpStatus.CREATED;
+		logger.debug(String.format("Created new account with id %s: [%s]",account.getId(), account));
+		return new ResponseEntity<Account>(account, new HttpHeaders(), httpstatus);
+	}
+
+	/**
+	 * Calls a account service with account object to update existing account in sfdc.
+	 * 
+	 * @return Account updated account object
+	 */
+	@RequestMapping(value = "/account/{accountId}", method = RequestMethod.PUT, consumes=MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "Update account by id",notes = "Calls a account service to update existing account by id", response = Account.class)
+	public ResponseEntity<Account> put(@ApiParam(value = "Account ID", required = true) @PathVariable String accountId, @ApiParam(value = "Account model", required = true) @RequestBody Account account) {
+		HttpStatus httpstatus = HttpStatus.OK;
+		account.setId(accountId);
+		try {
+			account = accountService.updateAccount(account);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(String.format("Can not update existing account with id %s: [%s]",account.getId(), account));
+			return new ResponseEntity<Account>(account, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+		logger.debug(String.format("Updated existing account with id %s: [%s]",account.getId(), account));
+		return new ResponseEntity<Account>(account, new HttpHeaders(), httpstatus);
 	}
 	
+	
 	/**
-	 * Calls a account service with account id to either retrieve or delete account from sfdc.
+	 * Calls a account service with account id to delete account from sfdc.
+	 * 
+	 * @return void 
+	 */
+	@RequestMapping(value = "/account/{accountId}", method = RequestMethod.DELETE)
+	@ApiOperation(value = "Delete account by id",notes = "Calls a account service to remove account by id")
+	public ResponseEntity<?> delete(@ApiParam(value = "Account ID", required = true) @PathVariable String accountId) {
+		HttpStatus httpstatus = HttpStatus.OK;
+		try {
+			accountService.deleteAccount(accountId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(String.format("Can not remove existing account with id %s",accountId));
+			ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
+			return ResponseEntity.noContent().build();
+		}
+		logger.debug(String.format("Remove account for id %s",accountId));
+		ResponseEntity.status(httpstatus);
+		return ResponseEntity.noContent().build();
+	}
+
+	/**
+	 * Calls a account service with account id to retrieve account from sfdc.
 	 * 
 	 * @return Account account 
 	 */
-	@RequestMapping(value = "/account/{id}", method={RequestMethod.GET, RequestMethod.DELETE})
-	public ResponseEntity<Account> rdAccount(@PathVariable("id") final String accountId, UriComponentsBuilder builder) {
-		logger.debug("-C(R)-U(D) operation on Account");
-	    RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-	    HttpServletRequest request = ((ServletRequestAttributes)requestAttributes).getRequest();
-		String method = request.getMethod().toLowerCase();
-		HttpHeaders responseHeaders = new HttpHeaders();
-
+	@JsonView(View.AccountDetailSummary.class)
+	@RequestMapping(value = "/account/{accountId}", method = RequestMethod.GET)
+	@ApiOperation(value = "Retrieve account by id", notes = "Calls a account service to retrieve account by id", response = Account.class)
+	public ResponseEntity<Account> get(@ApiParam(value = "Account ID", required = true) @PathVariable String accountId) {
+		HttpStatus httpstatus = HttpStatus.OK;
 		Account account = null;
 		try {
-			switch (method) {
-			case "delete":
-				accountService.deleteAccount(accountId);
-				account = new Account();
-				account.setId(accountId);
-				break;
-			default:
-				account = accountService.getAccount(accountId);
-				break;
-			}
+			account = accountService.getAccount(accountId);
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(String.format("Can not retrieve existing account with id %s",accountId));
 		}
-		responseHeaders.setLocation(builder.path("/account/{id}")
-				.buildAndExpand(account.getId()).toUri());
-		if (account != null && account.getId() != null) {
-			return new ResponseEntity<Account>(account, responseHeaders, HttpStatus.OK);
-		} else {
-			logger.warn("Problem retrieving/deleting Account");
-			return new ResponseEntity<Account>(account, responseHeaders, HttpStatus.INTERNAL_SERVER_ERROR);
+		if(account == null) {
+			account = new Account();
+			account.setId(accountId);
+			httpstatus = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
+		return new ResponseEntity<Account>(account, new HttpHeaders(), httpstatus);
 	}
 }
 

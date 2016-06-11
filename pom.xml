@@ -34,6 +34,7 @@
 		<module>opportunityService</module>
 		<module>sfdcapigateway</module>
 		<module>sfdcwebapp</module>
+		<module>dataloadService</module>
   </modules>
 
 	<build>

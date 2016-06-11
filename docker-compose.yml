@@ -1,5 +1,5 @@
 sfdcwebapp:
-  image: jigsheth57/sfdcwebapp:latest
+  image: jigsheth57/sfdcwebapp:2.0
   environment:
     - SPRING_PROFILES_ACTIVE=local
   ports:
@@ -14,8 +14,17 @@ smoketest:
     - "SFDC_API_GATEWAY_BASEURL=http://sfdcapigateway:9011"
   links:
    - sfdcapigateway
+#dataloadservice:
+#  image: jigsheth57/dataloadservice:2.0
+#  environment:
+#    - SPRING_PROFILES_ACTIVE=local
+#    - SPRING_REDIS_HOST=redis
+#  ports:
+#   - "9004:9004"
+#  links:
+#   - redis
 sfdcapigateway:
-  image: jigsheth57/sfdcapigateway:latest
+  image: jigsheth57/sfdcapigateway:2.0
   environment:
     - SPRING_PROFILES_ACTIVE=local
     - SPRING_RABBITMQ_HOST=rabbitmq
@@ -35,7 +44,7 @@ sfdcapigateway:
    - contactservice
    - opportunityservice
 opportunityservice:
-  image: jigsheth57/opportunityservice:latest
+  image: jigsheth57/opportunityservice:2.0
   environment:
     - SPRING_PROFILES_ACTIVE=local
     - SPRING_RABBITMQ_HOST=rabbitmq
@@ -52,7 +61,7 @@ opportunityservice:
    - authservice
    - redis
 contactservice:
-  image: jigsheth57/contactservice:latest
+  image: jigsheth57/contactservice:2.0
   environment:
     - SPRING_PROFILES_ACTIVE=local
     - SPRING_RABBITMQ_HOST=rabbitmq
@@ -69,7 +78,7 @@ contactservice:
    - authservice
    - redis
 accountservice:
-  image: jigsheth57/accountservice:latest
+  image: jigsheth57/accountservice:2.0
   environment:
     - SPRING_PROFILES_ACTIVE=local
     - SPRING_RABBITMQ_HOST=rabbitmq
@@ -86,7 +95,7 @@ accountservice:
    - authservice
    - redis
 authservice:
-  image: jigsheth57/authservice:latest
+  image: jigsheth57/authservice:2.0
   environment:
     - SPRING_PROFILES_ACTIVE=local
   ports:
@@ -96,7 +105,7 @@ authservice:
    - discovery
    - redis
 hystrixdashboard:
-  image: jigsheth57/hystrixdashboard:latest
+  image: jigsheth57/hystrixdashboard:2.0
   environment:
     - SPRING_PROFILES_ACTIVE=local
     - SPRING_RABBITMQ_HOST=rabbitmq
@@ -121,11 +130,11 @@ turbine:
    - opportunityservice
    - contactservice
 discovery:
-  image: jigsheth57/eurekaserver:latest
+  image: jigsheth57/eurekaserver:2.0
   ports:
    - "8761:8761"
 configserver:
-  image: jigsheth57/configserver:latest
+  image: jigsheth57/configserver:2.0
   environment:
     - SPRING_CLOUD_CONFIG_SERVER_GIT_URI=https://github.com/jigsheth57/config-repo
   ports:

@@ -1,29 +1,29 @@
 package io.pivotal.sfdc.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import com.force.api.ForceApi;
 
 import io.pivotal.sfdc.domain.Contact;
 import io.pivotal.sfdc.service.ContactService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 @RestController
+@RefreshScope
+@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 public class ContactServiceController {
 
     @Autowired
@@ -33,68 +33,91 @@ public class ContactServiceController {
 
 	ForceApi api;
     
-	@RequestMapping(value = "/contact/{id}", method={RequestMethod.POST, RequestMethod.PUT})
-	public ResponseEntity<Contact> cuContact(@PathVariable("id") final String contactId, @RequestBody final Contact contact, UriComponentsBuilder builder) {
-		logger.debug("(C)-R(U)-D operation on Contact");
-	    RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-	    HttpServletRequest request = ((ServletRequestAttributes)requestAttributes).getRequest();
-		String method = request.getMethod().toLowerCase();
-		HttpHeaders responseHeaders = new HttpHeaders();
-		logger.debug("method: "+method);
-		Contact newContact = null;
+	/**
+	 * Calls a contact service with contact object to create new contact in sfdc.
+	 * 
+	 * @return Contact newly created contact object
+	 */
+	@RequestMapping(value = "/contact", method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "Create new contact",notes = "Calls a contact service to create new contact", response = Contact.class)
+	public ResponseEntity<Contact> post(@ApiParam(value = "Contact model", required = true) @RequestBody Contact contact) {
+		contact.setId(null);
 		try {
-			switch (method) {
-			case "put":
-				contact.setId(contactId);
-				newContact = contactService.updateContact(contact);
-				break;
-			default:
-				newContact = contactService.addContact(contact);
-				break;
-			}
+			contact = contactService.addContact(contact);
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(String.format("Can not create new contact: [%s]", contact));
+			return new ResponseEntity<Contact>(contact, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		responseHeaders.setLocation(builder.path("/contact/{id}")
-				.buildAndExpand(newContact.getId()).toUri());
-		if (newContact != null && newContact.getId() != null) {
-			return new ResponseEntity<Contact>(newContact, responseHeaders, (method.equalsIgnoreCase("post") ? HttpStatus.CREATED : HttpStatus.OK));
-		} else {
-			logger.warn("new Contact not created!");
-			return new ResponseEntity<Contact>(newContact, responseHeaders, HttpStatus.INTERNAL_SERVER_ERROR);
+		HttpStatus httpstatus = HttpStatus.CREATED;
+		logger.debug(String.format("Created new contact with id %s: [%s]",contact.getId(), contact));
+		return new ResponseEntity<Contact>(contact, new HttpHeaders(), httpstatus);
+	}
+
+	/**
+	 * Calls a contact service with contact object to update existing contact in sfdc.
+	 * 
+	 * @return Contact updated contact object
+	 */
+	@RequestMapping(value = "/contact/{contactId}", method = RequestMethod.PUT, consumes=MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "Update contact by id",notes = "Calls a contact service to update existing contact by id", response = Contact.class)
+	public ResponseEntity<Contact> put(@ApiParam(value = "Contact ID", required = true) @PathVariable String contactId, @ApiParam(value = "Contact model", required = true) @RequestBody Contact contact) {
+		HttpStatus httpstatus = HttpStatus.OK;
+		contact.setId(contactId);
+		try {
+			contact = contactService.updateContact(contact);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(String.format("Can not update existing contact with id %s: [%s]",contact.getId(), contact));
+			return new ResponseEntity<Contact>(contact, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+		logger.debug(String.format("Updated existing contact with id %s: [%s]",contact.getId(), contact));
+		return new ResponseEntity<Contact>(contact, new HttpHeaders(), httpstatus);
+	}
+
+	/**
+	 * Calls a contact service with contact id to delete contact from sfdc.
+	 * 
+	 * @return void 
+	 */
+	@RequestMapping(value = "/contact/{contactId}", method = RequestMethod.DELETE)
+	@ApiOperation(value = "Delete contact by id",notes = "Calls a contact service to remove contact by id")
+	public ResponseEntity<?> delete(@ApiParam(value = "Contact ID", required = true) @PathVariable String contactId) {
+		HttpStatus httpstatus = HttpStatus.OK;
+		try {
+			contactService.deleteContact(contactId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(String.format("Can not remove existing contact with id %s",contactId));
+			ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
+			return ResponseEntity.noContent().build();
+		}
+		logger.debug(String.format("Remove contact for id %s",contactId));
+		ResponseEntity.status(httpstatus);
+		return ResponseEntity.noContent().build();
 	}
 	
-	@RequestMapping(value = "/contact/{id}", method={RequestMethod.GET, RequestMethod.DELETE})
-	public ResponseEntity<Contact> rdContact(@PathVariable("id") final String contactId, UriComponentsBuilder builder) {
-		logger.debug("-C(R)-U(D) operation on Contact");
-	    RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-	    HttpServletRequest request = ((ServletRequestAttributes)requestAttributes).getRequest();
-		String method = request.getMethod().toLowerCase();
-		HttpHeaders responseHeaders = new HttpHeaders();
-
+	/**
+	 * Calls a contact service with contact id to retrieve contact from sfdc.
+	 * 
+	 * @return Contact contact 
+	 */
+	@RequestMapping(value = "/contact/{contactId}", method = RequestMethod.GET)
+	@ApiOperation(value = "Retrieve contact by id", notes = "Calls a contact service to retrieve contact by id", response = Contact.class)
+	public ResponseEntity<Contact> get(@ApiParam(value = "Contact ID", required = true) @PathVariable String contactId) {
+		HttpStatus httpstatus = HttpStatus.OK;
 		Contact contact = null;
 		try {
-			switch (method) {
-			case "delete":
-				contactService.deleteContact(contactId);
-				contact = new Contact();
-				contact.setId(contactId);
-				break;
-			default:
-				contact = contactService.getContact(contactId);
-				break;
-			}
+			contact = contactService.getContact(contactId);
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(String.format("Can not retrieve existing contact with id %s",contactId));
 		}
-		responseHeaders.setLocation(builder.path("/contact/{id}")
-				.buildAndExpand(contact.getId()).toUri());
-		if (contact != null && contact.getId() != null) {
-			return new ResponseEntity<Contact>(contact, responseHeaders, HttpStatus.OK);
-		} else {
-			logger.warn("Problem retrieving/deleting Contact");
-			return new ResponseEntity<Contact>(contact, responseHeaders, HttpStatus.INTERNAL_SERVER_ERROR);
+		if(contact == null) {
+			contact = new Contact();
+			contact.setId(contactId);
+			httpstatus = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
+		return new ResponseEntity<Contact>(contact, new HttpHeaders(), httpstatus);
 	}
 }

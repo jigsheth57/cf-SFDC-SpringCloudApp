@@ -2,6 +2,7 @@ package io.pivotal.sfdc.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
 
 /**
  * SFDC Contact Object representation
@@ -12,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class Contact {
 
+	@JsonView(View.ContactByAccountSummary.class)
     @JsonProperty(value="Id")
     private String id;
     
@@ -100,6 +102,7 @@ public class Contact {
 	@JsonProperty("FirstName")
 	private String firstName;
 
+	@JsonView(View.ContactByAccountSummary.class)
 	@JsonProperty("LastName")
 	private String lastName;
 

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
 
 /**
  * SFDC Opportunity Object representation
@@ -14,8 +15,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class Opportunity {
 	
+	@JsonView(View.OpportunityByAccountSummary.class)
 	@JsonProperty(value="Id")
 	String id;
+	@JsonView(View.OpportunityByAccountSummary.class)
 	@JsonProperty(value="Name")
 	String name;
 	@JsonProperty(value="Description")
