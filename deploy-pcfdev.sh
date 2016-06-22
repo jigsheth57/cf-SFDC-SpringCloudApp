@@ -1,7 +1,7 @@
 #!/bin/bash
 #set -e
 ## Last tested on PCFDev 0.15 (api.run.pez.pivotal.io) 5/13/2016. Jig Sheth
-mvn clean install package
+#mvn clean install package
 cf login -u admin -p admin -a api.local.pcfdev.io --skip-ssl-validation
 cf cs p-redis shared-vm data-grid-service
 cf p -f ./manifest-registry.yml

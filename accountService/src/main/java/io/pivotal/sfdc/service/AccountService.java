@@ -1,6 +1,7 @@
 package io.pivotal.sfdc.service;
 
 import java.io.StringWriter;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -23,6 +24,8 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 
 import io.pivotal.sfdc.domain.Account;
 import io.pivotal.sfdc.domain.AccountList;
+import io.pivotal.sfdc.domain.Contact;
+import io.pivotal.sfdc.domain.Opportunity;
 
 /**
  * SFDC Account Service
@@ -51,6 +54,8 @@ public class AccountService {
     private String accountsSQL;
 	@Value("${sfdc.query.opp_by_accts}")
     private String opp_by_acctsSQL;
+	@Value("${sfdc.query.loadsql}")
+    private String preloadSQL;
 
 	ForceApi api;
 	final ObjectMapper mapper = new ObjectMapper();
@@ -231,6 +236,55 @@ public class AccountService {
     	return account;
 	}
 
+    /**
+	 * Calls AuthService to retrieve oauth2 token from SFDC and then executes query to retrieve all of the accounts, contacts & opportunities from sfdc.
+	 * 
+	 * @param key URI for storing result in redis
+	 * @return void
+	 * 
+	 * @throws Exception
+	 */
+	public void preload() throws Exception {
+		logger.debug("Preloading data objects from SFDC");
+    	try {
+			api = new ForceApi(authService.getApiSession());
+		} catch (Exception e) {
+			Thread.sleep(30000);
+			api = new ForceApi(authService.getApiSession());
+		}
+    	List<Account> result = api.query(preloadSQL,Account.class).getRecords();
+    	store("/accounts",new AccountList(result));
+    	store("/opp_by_accts",new AccountList(result));
+    	Iterator<Account> accountListIterator = result.iterator();
+    	while (accountListIterator.hasNext()) {
+    		Account acct = accountListIterator.next();
+    		if(acct != null) {
+    			List<Contact> contactList = acct.getContacts();
+    			if(contactList != null) {
+    				Iterator<Contact> contactListInterator = contactList.iterator();
+    				while(contactListInterator.hasNext()) {
+    					Contact contact = contactListInterator.next();
+    					store(contact.getId(),contact);
+    				}
+    			}
+    			List<Opportunity> opportunityList = acct.getOpportunities();
+    			if(opportunityList != null) {
+    				Iterator<Opportunity> opportunityListInterator = opportunityList.iterator();
+    				while(opportunityListInterator.hasNext()) {
+    					Opportunity opportunity = opportunityListInterator.next();
+    					store(opportunity.getId(),opportunity);
+    				}
+    			}
+    			acct.setContacts(null);
+    			acct.setOpportunities(null);
+    			store(acct.getId(),acct);
+    		}
+    			
+    		
+    	}
+        return;
+	}
+	
 	/**
 	 * Stores serialized domain object in redis
 	 * 

@@ -2,13 +2,10 @@
 timeout: 180
 instances: 1
 memory: 768M
+#health-check-type: none
 env:
     SPRING_PROFILES_ACTIVE: cloud
 applications:
-- name: dataloadService
-  path: dataloadService/target/dataloadService-0.0.1-SNAPSHOT.jar
-  random-route: true
-  services: [ data-grid-service ]
 - name: authService
   path: authService/target/authService-0.0.1-SNAPSHOT.jar
   random-route: true

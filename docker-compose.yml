@@ -8,21 +8,6 @@ sfdcwebapp:
    - configserver
    - discovery
    - sfdcapigateway
-smoketest:
-  image: jigsheth57/smoketest:latest
-  environment:
-    - "SFDC_API_GATEWAY_BASEURL=http://sfdcapigateway:9011"
-  links:
-   - sfdcapigateway
-#dataloadservice:
-#  image: jigsheth57/dataloadservice:2.0
-#  environment:
-#    - SPRING_PROFILES_ACTIVE=local
-#    - SPRING_REDIS_HOST=redis
-#  ports:
-#   - "9004:9004"
-#  links:
-#   - redis
 sfdcapigateway:
   image: jigsheth57/sfdcapigateway:2.0
   environment:
