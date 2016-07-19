@@ -15,9 +15,9 @@ function jsonValue() {
   read
   appdomain=`cf curl /v2/domains | jsonValue name 1 | sed -e 's/^[[:space:]]*//'`
   echo "Domain: \"$appdomain\""
-  cf cs p-config-server standard config-service -c '{"git":{"uri":"https://github.com/jigsheth57/config-repo"}}'
+  cf cs p-config-server standard config-service -c '{"git":{"uri":"https://github.com/Pivotal-Field-Engineering/cf-SFDC-config-repo"}}'
   cf cs p-service-registry standard service-registry
-  cf cs rediscloud 30mb data-grid-service
+  cf cs redis dedicated-vm data-grid-service
   cf cs p-circuit-breaker-dashboard standard circuit-breaker-dashboard
   echo -n "Make sure service-registry, config-service, circuit-breaker-dashboard instances are UP and RUNNING before continuing!"
   read
@@ -32,16 +32,16 @@ function jsonValue() {
 #  echo \"$app_host\"
 
   app_fqdn=`cf app sfdcapigateway | awk '/urls: / {print $2}'`
-  csJSONStr={\"tag\":\"sfdcgateway\",\"uri\":\"http://$app_fqdn\"}
-  echo \"$csJSONStr\"
-  cf cups sfdcgateway -p \"$csJSONStr\"
-  if [ "$?" -ne "0" ]; then
-    cf update-user-provided-service sfdcgateway -p \"$csJSONStr\"
-    if [ "$?" -ne "0" ]; then
-      exit $?
-    fi
-  fi
-  cf p -f ./manifest-webapp.yml -d $appdomain
+#  csJSONStr={\"tag\":\"sfdcgateway\",\"uri\":\"http://$app_fqdn\"}
+#  echo \"$csJSONStr\"
+#  cf cups sfdcgateway -p \"$csJSONStr\"
+#  if [ "$?" -ne "0" ]; then
+#    cf update-user-provided-service sfdcgateway -p \"$csJSONStr\"
+#    if [ "$?" -ne "0" ]; then
+#      exit $?
+#    fi
+#  fi
+#  cf p -f ./manifest-webapp.yml -d $appdomain
   for i in {1..5}
   do
     echo "$i"
@@ -58,7 +58,7 @@ function jsonValue() {
   # requires cf open plugin installed https://github.com/cloudfoundry-community/cf-plugin-open
   # cf open sfdcbootwebapp
   webapp_fqdn=`cf app sfdcbootwebapp | awk '/urls: / {print $2}'`
-  open http://$webapp_fqdn
+  open https://$webapp_fqdn
 #else
 #  echo "Usage: deploy-pws <github config-repo e.g. https://github.com/jigsheth57/config-repo>"
 #  echo "example: ./deploy-pws.sh https://github.com/jigsheth57/config-repo"

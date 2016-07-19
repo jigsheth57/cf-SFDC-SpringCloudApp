@@ -2,7 +2,6 @@
 timeout: 180
 instances: 1
 memory: 768M
-#health-check-type: none
 env:
     SPRING_PROFILES_ACTIVE: cloud
 applications:
