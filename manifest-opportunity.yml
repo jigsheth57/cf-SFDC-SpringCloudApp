@@ -8,4 +8,4 @@ applications:
 - name: opportunityService
   path: opportunityService/target/opportunityService-0.0.1-SNAPSHOT.jar
   random-route: true
-  services: [ p-config-server, p-service-registry, data-grid-service ]
+  services: [ config-service, service-registry, data-grid-service, circuit-breaker-dashboard ]

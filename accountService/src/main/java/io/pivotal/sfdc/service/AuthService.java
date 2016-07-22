@@ -59,12 +59,12 @@ public class AuthService {
     }
 
     /**
-     * Retrieves oauth2 token from redis.
+     * This method uses circuit breaker pattern to fallback and retrieves oauth2 token from redis.
      * 
      * @return ApiSession
      */
 	public ApiSession getApiSessionFallback() {
-		logger.debug("Fetching ApiSession with key: " + ACCESS_TOKEN);
+		logger.debug("Fetching fallback ApiSession with key: " + ACCESS_TOKEN);
         ApiSession apiSession = null;
     	ValueOperations<String, String> ops = this.redisTemplate.opsForValue();
 		if (this.redisTemplate.hasKey(ACCESS_TOKEN)) {
@@ -76,7 +76,7 @@ public class AuthService {
 	}
 	
 	/**
-	 * This method uses circuit breaker pattern to fallback and retrieve the oauth2 token from remote authservice.
+	 * Retrieves the oauth2 token from remote authservice.
 	 * @return ApiSession
 	 */
 	@HystrixCommand(fallbackMethod = "getApiSessionFallback",
@@ -85,7 +85,7 @@ public class AuthService {
 		      @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="2500")
 		    })
 	public ApiSession getApiSession() {
-		logger.debug("Fetching fallback ApiSession from authservice");
+		logger.debug("Fetching ApiSession from authservice");
 		ApiSession apiSession = restTemplate.getForObject(authserviceEP+"/oauth2", ApiSession.class);
 		return apiSession;
 	}

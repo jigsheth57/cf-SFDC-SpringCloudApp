@@ -76,8 +76,12 @@ public class AuthServiceController {
     @RequestMapping(value = "/oauth2", method = RequestMethod.GET)
 	@ApiOperation(value = "Retrieve SFDC oauth2 token", notes = "Retrieves SalesForce.com timebase oauth2 token and stores it into Redis with TTL", response = ApiSession.class)
     public @ResponseBody ApiSession oauth2() {
+        ApiSession apiSession = getApiSession();
+        return apiSession;
+    }
+    
+    public ApiSession getApiSession() {
 		logger.debug("Fetching ApiSession");
-
     	Calendar cal = Calendar.getInstance(); // creates calendar
         cal.setTime(new Date()); // sets calendar time/date
         cal.add(Calendar.HOUR_OF_DAY, 2); // adds two hour
@@ -97,6 +101,6 @@ public class AuthServiceController {
 		} else {
 			apiSession = new ApiSession(ops.get(ACCESS_TOKEN),ops.get(INSTANCE_URL));
 		}
-        return apiSession;
+		return apiSession;
     }
 }

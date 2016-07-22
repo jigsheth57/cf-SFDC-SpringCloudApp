@@ -1,7 +1,5 @@
 package io.pivotal.sfdc.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,17 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import com.force.api.ForceApi;
 
-import io.pivotal.sfdc.domain.Account;
 import io.pivotal.sfdc.domain.Opportunity;
-import io.pivotal.sfdc.domain.View;
 import io.pivotal.sfdc.service.OpportunityService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

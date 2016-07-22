@@ -1,15 +1,12 @@
 ---
 timeout: 180
 instances: 1
-memory: 512M
-#buildpack: js-unlimited-jce-java-buildpack
+memory: 768M
 env:
     SPRING_PROFILES_ACTIVE: cloud
-    #CONFIG_SERVER_URL: http://config-server-20150831.west-1.fe.gopivotal.com
-    #EUREKA_SERVER_URL: http://eureka-server-20150831.west-1.fe.gopivotal.com
-    #JAVA_OPTS: -Djava.security.egd=file:///dev/urandom
 applications:
 - name: sfdcapigateway
   host: sfdcapigateway
   path: sfdcapigateway/target/sfdcapigateway-0.0.1-SNAPSHOT.jar
+  random-route: true
   services: [ config-service, service-registry, data-grid-service, circuit-breaker-dashboard ]

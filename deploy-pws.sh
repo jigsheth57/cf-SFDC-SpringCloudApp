@@ -15,7 +15,7 @@ function jsonValue() {
   read
   appdomain=`cf curl /v2/domains | jsonValue name 1 | sed -e 's/^[[:space:]]*//'`
   echo "Domain: \"$appdomain\""
-  cf cs p-config-server standard config-service -c '{"git":{"uri":"https://github.com/Pivotal-Field-Engineering/cf-SFDC-config-repo"}}'
+  cf cs p-config-server standard config-service -c '{"git":{"uri":"https://github.com/jigsheth57/config-repo"}}'
   cf cs p-service-registry standard service-registry
   cf cs redis dedicated-vm data-grid-service
   cf cs p-circuit-breaker-dashboard standard circuit-breaker-dashboard
@@ -45,16 +45,16 @@ function jsonValue() {
   for i in {1..5}
   do
     echo "$i"
-    rsp=`curl http://$app_fqdn/authservice/oauth2 | jsonValue accessToken 1`
+    rsp=`curl https://$app_fqdn/authservice/oauth2 | jsonValue accessToken 1`
     if [ ! -z "$rsp" -a "$rsp" != "" ]; then
           echo "$rsp"
           break
     fi
   done
-  curl http://$app_fqdn/accountservice/accounts
-  curl http://$app_fqdn/accountservice/opp_by_accts
-  curl http://$app_fqdn/contactservice/contact/003i000000eXDVVAA4
-  curl http://$app_fqdn/opportunityservice/opportunity/006i000000HiNOyAAN
+  curl https://$app_fqdn/accountservice/accounts
+  curl https://$app_fqdn/accountservice/opp_by_accts
+  curl https://$app_fqdn/contactservice/contact/003i000000eXDVVAA4
+  curl https://$app_fqdn/opportunityservice/opportunity/006i000000HiNOyAAN
   # requires cf open plugin installed https://github.com/cloudfoundry-community/cf-plugin-open
   # cf open sfdcbootwebapp
   webapp_fqdn=`cf app sfdcbootwebapp | awk '/urls: / {print $2}'`
