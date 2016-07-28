@@ -32,7 +32,7 @@ public class ContactService {
     private JedisConnectionFactory redisConnFactory;
 
     @Autowired
-    private AuthService authService;
+    AuthService authService;
 
 	ForceApi api;
 	final ObjectMapper mapper = new ObjectMapper();

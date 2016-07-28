@@ -12,7 +12,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,13 +30,13 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
+@EnableDiscoveryClient
 public class ServiceController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ServiceController.class);
 
 	@Autowired
-	@LoadBalanced
-	private RestTemplate restTemplate;
+	RestTemplate restTemplate;
 
 	@Value("${sfdc.apigateway.endpoint}")
     private String apigatewayEP;
@@ -42,6 +44,13 @@ public class ServiceController {
 	@Value("${sfdc.service.unavailable}")
 	private String unavailable;
 
+    @Bean
+    @LoadBalanced
+    RestTemplate rest() {
+      return new RestTemplate();
+    }
+
+	
    @RequestMapping(value = "/oauth2", method = RequestMethod.GET)
     public @ResponseBody String getoauth2() {
     	return restTemplate.getForObject(apigatewayEP+"/authservice/oauth2", String.class);

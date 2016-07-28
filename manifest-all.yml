@@ -8,24 +8,25 @@ applications:
 - name: authService
   path: authService/target/authService-0.0.1-SNAPSHOT.jar
   random-route: true
-  services: [ config-service, service-registry, data-grid-service ]
+  services: [ config-service, config-event-bus, service-registry, data-grid-service ]
 - name: accountService
   path: accountService/target/accountService-0.0.1-SNAPSHOT.jar
   random-route: true
-  services: [ config-service, service-registry, data-grid-service, circuit-breaker-dashboard ]
+  services: [ config-service, config-event-bus, service-registry, data-grid-service, circuit-breaker-dashboard ]
 - name: contactService
   path: contactService/target/contactService-0.0.1-SNAPSHOT.jar
   random-route: true
-  services: [ config-service, service-registry, data-grid-service, circuit-breaker-dashboard ]
+  services: [ config-service, config-event-bus, service-registry, data-grid-service, circuit-breaker-dashboard ]
 - name: opportunityService
   path: opportunityService/target/opportunityService-0.0.1-SNAPSHOT.jar
   random-route: true
-  services: [ config-service, service-registry, data-grid-service, circuit-breaker-dashboard ]
+  services: [ config-service, config-event-bus, service-registry, data-grid-service, circuit-breaker-dashboard ]
 - name: sfdcapigateway
   path: sfdcapigateway/target/sfdcapigateway-0.0.1-SNAPSHOT.jar
+  instances: 2
   random-route: true
-  services: [ config-service, service-registry, data-grid-service, circuit-breaker-dashboard ]
+  services: [ config-service, config-event-bus, service-registry, data-grid-service, circuit-breaker-dashboard ]
 - name: sfdcbootwebapp
   path: sfdcwebapp/target/sfdcwebapp-0.0.1-SNAPSHOT.jar
   random-route: true
-  services: [ config-service, service-registry ]
+  services: [ config-service, config-event-bus, service-registry ]

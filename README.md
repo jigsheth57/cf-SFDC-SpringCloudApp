@@ -7,7 +7,7 @@ Demonstrated concepts:
 * Integration testing using Docker
 * Microservice architecture
 * Configuration Server
-* Service discovery
+* Service Registry
 * API gateway
 * Circuit Breaker Pattern
 
@@ -27,29 +27,29 @@ The mobile friendly responsive web application allows user to manage SFDC domain
 
 This example project demonstrates how to build a new application using microservices, as opposed to a monolith-first strategy. Since each microservice in the project is a module of a single parent project, developers have the advantage of being able to run and develop with each microservice running on their local machine. Adding a new microservice is easy, as the discovery microservice will automatically discover new services running on the cluster.
 
-In this example, the system is composed of four microservices (Auth, Account, Contact & Opportunity). Also, it leverages Market Place services such as Data Grid (Redis) and Spring Cloud Services (Config Server, Service Discovery Server (Eureka), Circuit Breaker & Monitoring Dashboard (Hystrix), API Gateway (Zuul)). In addition, there are multiple Web Applications written to expose the backend microservices to show the power of polyglot language ([Spring Boot + AngularJS](/sfdcwebapp) & [NodeJS + AngularJS](/sfdc-web-app)) support by PCF.
+In this example, the system is composed of four microservices (Auth, Account, Contact & Opportunity). Also, it leverages Market Place services such as Data Grid (Redis) and Spring Cloud Services (Config Server, Service Registry (Eureka), Circuit Breaker Dashboard (Hystrix), API Gateway (Zuul)). In addition, there are multiple Web Applications written to expose the backend microservices to show the power of polyglot language ([Spring Boot + AngularJS](/sfdcwebapp) & [NodeJS + AngularJS](/sfdc-web-app)) support by PCF.
 
 The relationship between the microservices is illustrated below.
 
 ![SFDC Web App Architecture](/document/architecture.png)
 
-### Service discovery
+### Service Registry
 
-This project contains a [discovery services](http://projects.spring.io/spring-cloud/spring-cloud.html#_spring_cloud_netflix), Netflix Eureka. The service allows microservices and API Gateway to discover each other location and health of the service. By leveraging Ribbon+Eureka, it can provide client side load balancing to microservice instances.
+This project contains a [service registry](http://projects.spring.io/spring-cloud/spring-cloud.html#_spring_cloud_netflix), Netflix Eureka. The service allows microservices and API Gateway to discover each other location and health of the service. By leveraging Ribbon+Eureka, it can provide client side load balancing to microservice instances.
 
-![Discovery Service App](/document/service-discovery.png)
+![Service Registry Dashboard](/document/service-discovery.png)
 
-### Monitoring Dashboard
+### Circuit Breaker Dashboard
 
-This example project leverages [Hystrix Dashboard](http://projects.spring.io/spring-cloud/spring-cloud.html#_circuit_breaker_hystrix_dashboard) to displays the health of each microservice in an efficient manner.
+This example project leverages [Circuit Breaker Dashboard](http://projects.spring.io/spring-cloud/spring-cloud.html#_circuit_breaker_hystrix_dashboard) to displays the health of each microservice in an efficient manner.
 
-![Hystrix Dashboard](/document/hystrix-monitor-01.png)
-Figure 1. Hystrix Dashboard
+![Circuit Breaker Dashboard](/document/hystrix-monitor-01.png)
+Figure 1. Circuit Breaker Dashboard
 
 Below shows example of when exception is occured and circuit breaker is trigger and opened.
 
-![Hystrix Dashboard](/document/hystrix-monitor-02.png)
-Figure 2. Hystrix Dashboard during exception
+![Circuit Breaker Dashboard](/document/hystrix-monitor-02.png)
+Figure 2. Circuit Breaker Dashboard during exception
 
 
 ### API gateway

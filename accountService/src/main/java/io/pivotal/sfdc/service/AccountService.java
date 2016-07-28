@@ -36,7 +36,6 @@ import io.pivotal.sfdc.domain.Opportunity;
  *
  */
 @Service
-@RefreshScope
 public class AccountService {
 
 	private static final Logger logger = LoggerFactory
@@ -48,7 +47,7 @@ public class AccountService {
     private JedisConnectionFactory redisConnFactory;
 
     @Autowired
-    private AuthService authService;
+	AuthService authService;
 
 	@Value("${sfdc.query.accounts}")
     private String accountsSQL;

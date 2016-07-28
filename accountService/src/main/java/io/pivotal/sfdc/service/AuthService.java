@@ -7,8 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -28,7 +29,7 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
  */
 
 @Service
-@RefreshScope
+@EnableDiscoveryClient
 public class AuthService {
 
 	private static final Logger logger = LoggerFactory
@@ -39,9 +40,8 @@ public class AuthService {
 	@Resource
     private JedisConnectionFactory redisConnFactory;
 
-	@Autowired
-	@LoadBalanced
-	private RestTemplate restTemplate;
+    @Autowired
+    RestTemplate restTemplate;
 
 	@Value("${sfdc.authservice.endpoint}")
     private String authserviceEP;
@@ -56,6 +56,12 @@ public class AuthService {
     	logger.debug("HostName: "+redisConnFactory.getHostName());
     	logger.debug("Port: "+redisConnFactory.getPort());
     	logger.debug("Password: "+redisConnFactory.getPassword());
+    }
+
+    @Bean
+    @LoadBalanced
+    RestTemplate rest() {
+      return new RestTemplate();
     }
 
     /**

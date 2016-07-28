@@ -6,7 +6,7 @@ function jsonValue() {
   awk -F"[,:}]" '{for(i=1;i<=NF;i++){if($i~/'$KEY'\042/){print $(i+1)}}}' | tr -d '"' | sed -n ${num}p
 }
 
-## Last tested on PWS (run.pivotal.io) 4/28/2016. Jig Sheth
+## Last tested on PWS (run.pivotal.io) 7/27/2016. Jig Sheth
 #if [ -n "$1" ]
  #then
   mvn clean install package
@@ -17,10 +17,25 @@ function jsonValue() {
   echo "Domain: \"$appdomain\""
   cf cs p-config-server standard config-service -c '{"git":{"uri":"https://github.com/jigsheth57/config-repo"}}'
   cf cs p-service-registry standard service-registry
-  cf cs redis dedicated-vm data-grid-service
   cf cs p-circuit-breaker-dashboard standard circuit-breaker-dashboard
-  echo -n "Make sure service-registry, config-service, circuit-breaker-dashboard instances are UP and RUNNING before continuing!"
-  read
+  cf cs p-rabbitmq standard config-event-bus
+  cf cs redis dedicated-vm data-grid-service
+  until [ `cf service config-service | grep -c "succeeded"` -eq 1  ]
+  do
+    echo -n "."
+  done
+  until [ `cf service service-registry | grep -c "succeeded"` -eq 1  ]
+  do
+    echo -n "."
+  done
+  until [ `cf service circuit-breaker-dashboard | grep -c "succeeded"` -eq 1  ]
+  do
+    echo -n "."
+  done
+  echo
+  echo "Services created. Pushing applications."
+#  echo -n "Make sure service-registry, config-service, circuit-breaker-dashboard instances are UP and RUNNING before continuing!"
+#  read
   cf p -f ./manifest-all.yml
   if [ "$?" -ne "0" ]; then
     exit $?
