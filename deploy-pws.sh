@@ -20,20 +20,24 @@ function jsonValue() {
   cf cs p-circuit-breaker-dashboard standard circuit-breaker-dashboard
   cf cs p-rabbitmq standard config-event-bus
   cf cs redis dedicated-vm data-grid-service
+  echo "Checking status of the Spring Cloud Service Instances!"
   until [ `cf service config-service | grep -c "succeeded"` -eq 1  ]
   do
     echo -n "."
+    sleep 10s
   done
   until [ `cf service service-registry | grep -c "succeeded"` -eq 1  ]
   do
     echo -n "."
+    sleep 10s
   done
   until [ `cf service circuit-breaker-dashboard | grep -c "succeeded"` -eq 1  ]
   do
     echo -n "."
+    sleep 10s
   done
   echo
-  echo "Services created. Pushing applications."
+  echo "Service instances created. Pushing all required applications."
 #  echo -n "Make sure service-registry, config-service, circuit-breaker-dashboard instances are UP and RUNNING before continuing!"
 #  read
   cf p -f ./manifest-all.yml
@@ -47,16 +51,17 @@ function jsonValue() {
 #  echo \"$app_host\"
 
   app_fqdn=`cf app sfdcapigateway | awk '/urls: / {print $2}'`
-#  csJSONStr={\"tag\":\"sfdcgateway\",\"uri\":\"http://$app_fqdn\"}
-#  echo \"$csJSONStr\"
-#  cf cups sfdcgateway -p \"$csJSONStr\"
-#  if [ "$?" -ne "0" ]; then
-#    cf update-user-provided-service sfdcgateway -p \"$csJSONStr\"
-#    if [ "$?" -ne "0" ]; then
-#      exit $?
-#    fi
-#  fi
-#  cf p -f ./manifest-webapp.yml -d $appdomain
+  csJSONStr={\"tag\":\"sfdcgateway\",\"uri\":\"http://$app_fqdn\"}
+  echo \"$csJSONStr\"
+  cf cups sfdcgateway -p \"$csJSONStr\"
+  if [ "$?" -ne "0" ]; then
+    cf ds sfdcgateway -f
+    cf cups sfdcgateway -p \"$csJSONStr\"
+    if [ "$?" -ne "0" ]; then
+      exit $?
+    fi
+  fi
+  cf p -f ./manifest-webapp.yml
   for i in {1..5}
   do
     echo "$i"

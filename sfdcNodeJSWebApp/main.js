@@ -61,7 +61,7 @@ app.all('/api/account/:id', function(req, res) {
 	//console.log("account id: "+req.params.id);
 	var reqObj = "";
 	switch(req.method) {
-		case "POST" : reqObj = {url: endpoint + "/accountservice/account/new", method: req.method, body: JSON.stringify(req.body)};break;
+		case "POST" : reqObj = {url: endpoint + "/accountservice/account", method: req.method, body: JSON.stringify(req.body)};break;
 		case "PUT" : delete req.body.Id; reqObj = {url: endpoint + "/accountservice/account/"+req.params.id, method: req.method, body: JSON.stringify(req.body)};break;
 		case "DELETE" : reqObj = {url: endpoint + "/accountservice/account/"+req.params.id, method: req.method, body: ""};break;
 		default : reqObj = {url: endpoint + "/accountservice/account/"+req.params.id, method: "GET", body: ""};break;
@@ -80,7 +80,7 @@ app.get('/api/opp_by_accts', function(req, res) {
 app.all('/api/contact/:id', function(req, res) {
 	var reqObj = "";
 	switch(req.method) {
-		case "POST" : reqObj = {url: endpoint + "/contactservice/contact/new", method: req.method, body: JSON.stringify(req.body)};break;
+		case "POST" : reqObj = {url: endpoint + "/contactservice/contact", method: req.method, body: JSON.stringify(req.body)};break;
 		case "PUT" : delete req.body.Id; delete req.body.Name; reqObj = {url: endpoint + "/contactservice/contact/"+req.params.id, method: req.method, body: JSON.stringify(req.body)};break;
 		case "DELETE" : reqObj = {url: endpoint + "/contactservice/contact/"+req.params.id, method: req.method, body: ""};break;
 		default : reqObj = {url: endpoint + "/contactservice/contact/"+req.params.id, method: "GET", body: ""};break;
@@ -92,7 +92,7 @@ app.all('/api/contact/:id', function(req, res) {
 app.all('/api/opportunity/:id', function(req, res) {
 	var reqObj = "";
 	switch(req.method) {
-		case "POST" : reqObj = {url: endpoint + "/opportunityservice/opportunity/new", method: req.method, body: JSON.stringify(req.body)};break;
+		case "POST" : reqObj = {url: endpoint + "/opportunityservice/opportunity", method: req.method, body: JSON.stringify(req.body)};break;
 		case "PUT" : delete req.body.Id; delete req.body.ExpectedRevenue; delete req.body.IsClosed; delete req.body.IsWon; reqObj = {url: endpoint + "/opportunityservice/opportunity/"+req.params.id, method: req.method, body: JSON.stringify(req.body)};break;
 		case "DELETE" : reqObj = {url: endpoint + "/opportunityservice/opportunity/"+req.params.id, method: req.method, body: ""};break;
 		default : reqObj = {url: endpoint + "/opportunityservice/opportunity/"+req.params.id, method: "GET", body: ""};break;
