@@ -60,9 +60,11 @@
 						<input type="text" id="Phone" class="form-control" ng-model="account.Phone" value="{{account.Phone}}" placeholder="Main Phone #" required="false"/>
 					</div>
 					<div class="well">
-						<input type="submit" ng-click="update(account)" class="btn btn-primary" value="Save"/>
-						<input type="button" ng-click="reset()" class="btn btn-warning" value="Reset"/>
-						<input type="button" ng-click="delete(account.Id)" class="btn btn-danger" value="Delete"/>
+						<span ng-show="isAccountServiceUP" class="ng-hide">
+							<input type="submit" ng-click="update(account)" class="btn btn-primary" value="Save"/>
+							<input type="button" ng-click="reset()" class="btn btn-warning" value="Reset"/>
+							<input type="button" ng-click="delete(account.Id)" class="btn btn-danger" value="Delete"/>
+						</span>
 					</div>
 				</form>
 			</div>

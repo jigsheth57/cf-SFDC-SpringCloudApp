@@ -29,12 +29,12 @@
 					<tbody>
 						<!-- Display each entry in a row -->
 						<tr ng-repeat="account in accounts">
-							<td><a href="#/account/e/{{account.Id}}"><img
+							<td><span ng-show="isAccountServiceUP" class="ng-hide"><a href="#/account/e/{{account.Id}}"><img
 									alt="update" src="../images/update.jpg"
 									style="height: 16px; width: 16px;" /></a>&nbsp;&nbsp; <a
 								href="#/accounts" ng-click="delete(account.Id)"><img
 									src="../images/delete.jpg" style="height: 16px; width: 16px;"
-									alt="Delete" /></a></td>
+									alt="Delete" /></a></span></td>
 							<td><a href="#/account/{{account.Id}}">{{account.Name}}</a></td>
 							<td>{{account.Type}}</td>
 							<td><div ng-repeat="contact in account.Contacts">

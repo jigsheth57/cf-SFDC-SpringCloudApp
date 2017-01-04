@@ -8,9 +8,10 @@
  */
 var sfdcControllers = angular.module('sfdcControllers', []);
 
-sfdcApp.controller('AccountListController', function($scope, $http) {
+sfdcApp.controller('AccountListController', function($scope, $http, $interval) {
 	
 	$scope.getAccounts = function() {
+		$scope.getAccountServiceStatus();
 		// when landing on the page, get all accounts and show them
 		$http.get('/accounts').success(function(data) {
 			console.log("response data: " + JSON.stringify(data));
@@ -34,11 +35,28 @@ sfdcApp.controller('AccountListController', function($scope, $http) {
 		});
 	};
 
+	$scope.getAccountServiceStatus = function() {
+		// when landing on the page, get all accounts and show them
+		$http.get('/manage/health').success(function(data) {
+			console.log("response data: " + JSON.stringify(data));
+			var serviceStatus = JSON.stringify(data.discoveryComposite.discoveryClient.services);
+			console.log("serviceStatus: " + serviceStatus);
+			$scope.isAccountServiceUP = serviceStatus.search("accountservice") != -1 ? true : false;
+			console.log("isAccountServiceUP: " + serviceStatus.search("accountservice") != -1 ? true : false);
+		}).error(function(data) {
+			console.log('Error: ' + data);
+			$scope.message = data.message;
+			$scope.error = data.code;
+		});
+	};
+	
+	$interval($scope.getAccountServiceStatus(), 10000);
+		
 	// Initial page load
 	$scope.getAccounts();
 });
 
-sfdcApp.controller('EditAccountInfoController', function($scope, $http, $routeParams) {
+sfdcApp.controller('EditAccountInfoController', function($scope, $http, $routeParams, $interval) {
 	//Handles the update request function
 	$scope.update = function(account) {
 		console.log("updating account: "+JSON.stringify(account));
@@ -87,13 +105,31 @@ sfdcApp.controller('EditAccountInfoController', function($scope, $http, $routePa
 			});
 		}
 	}
+
+	$scope.getAccountServiceStatus = function() {
+		// when landing on the page, get all accounts and show them
+		$http.get('/manage/health').success(function(data) {
+			console.log("response data: " + JSON.stringify(data));
+			var serviceStatus = JSON.stringify(data.discoveryComposite.discoveryClient.services);
+			console.log("serviceStatus: " + serviceStatus);
+			$scope.isAccountServiceUP = serviceStatus.search("accountservice") != -1 ? true : false;
+			console.log("isAccountServiceUP: " + serviceStatus.search("accountservice") != -1 ? true : false);
+		}).error(function(data) {
+			console.log('Error: ' + data);
+			$scope.message = data.message;
+			$scope.error = data.code;
+		});
+	};
+	
+	$interval($scope.getAccountServiceStatus(), 10000);
 	
 	//Initial load
 	$scope.reset();
 });
 
-sfdcApp.controller('OppAcctListController', function($scope, $http) {
+sfdcApp.controller('OppAcctListController', function($scope, $http, $interval) {
 	$scope.getAccounts = function() {
+		$scope.getAccountServiceStatus();
 		$http.get('/opp_by_accts').success(function(data) {
 			console.log("response data: " + JSON.stringify(data));
 			$scope.accounts = data;
@@ -103,13 +139,30 @@ sfdcApp.controller('OppAcctListController', function($scope, $http) {
 			$scope.error = data.code;
 		});
 	};
+	$scope.getAccountServiceStatus = function() {
+		// when landing on the page, get all accounts and show them
+		$http.get('/manage/health').success(function(data) {
+			console.log("response data: " + JSON.stringify(data));
+			var serviceStatus = JSON.stringify(data.discoveryComposite.discoveryClient.services);
+			console.log("serviceStatus: " + serviceStatus);
+			$scope.isAccountServiceUP = serviceStatus.search("accountservice") != -1 ? true : false;
+			console.log("isAccountServiceUP: " + serviceStatus.search("accountservice") != -1 ? true : false);
+		}).error(function(data) {
+			console.log('Error: ' + data);
+			$scope.message = data.message;
+			$scope.error = data.code;
+		});
+	};
+	
+	$interval($scope.getAccountServiceStatus(), 10000);
 
 	// Initial page load
 	$scope.getAccounts();
 });
 
-sfdcApp.controller('AccountInfoController', function($scope, $http, $routeParams) {
+sfdcApp.controller('AccountInfoController', function($scope, $http, $routeParams, $interval) {
 	$scope.getAccount = function() {
+		$scope.getAccountServiceStatus();
 		$http.get("/account/" + $routeParams.id).success(function(data) {
 			$scope.account = data;
 		});				
@@ -126,12 +179,27 @@ sfdcApp.controller('AccountInfoController', function($scope, $http, $routeParams
 		}
 	}
 
+	$scope.getAccountServiceStatus = function() {
+		// when landing on the page, get all accounts and show them
+		$http.get('/manage/health').success(function(data) {
+			console.log("response data: " + JSON.stringify(data));
+			var serviceStatus = JSON.stringify(data.discoveryComposite.discoveryClient.services);
+			console.log("serviceStatus: " + serviceStatus);
+			$scope.isAccountServiceUP = serviceStatus.search("accountservice") != -1 ? true : false;
+			console.log("isAccountServiceUP: " + serviceStatus.search("accountservice") != -1 ? true : false);
+		}).error(function(data) {
+			console.log('Error: ' + data);
+			$scope.message = data.message;
+			$scope.error = data.code;
+		});
+	};
 	
+	$interval($scope.getAccountServiceStatus(), 10000);
 	// Initial page load
 	$scope.getAccount();
 });
 
-sfdcApp.controller('EditContactInfoController', function($scope, $http, $routeParams) {
+sfdcApp.controller('EditContactInfoController', function($scope, $http, $routeParams, $interval) {
 	//Handles the update request function
 	$scope.update = function(contact) {
 		console.log("updating contact: "+JSON.stringify(contact));
@@ -182,13 +250,31 @@ sfdcApp.controller('EditContactInfoController', function($scope, $http, $routePa
 			});
 		}
 	}
+
+	$scope.getContactServiceStatus = function() {
+		// when landing on the page, get all accounts and show them
+		$http.get('/manage/health').success(function(data) {
+			console.log("response data: " + JSON.stringify(data));
+			var serviceStatus = JSON.stringify(data.discoveryComposite.discoveryClient.services);
+			console.log("serviceStatus: " + serviceStatus);
+			$scope.isContactServiceUP = serviceStatus.search("contactservice") != -1 ? true : false;
+			console.log("isContactServiceUP: " + serviceStatus.search("contactservice") != -1 ? true : false);
+		}).error(function(data) {
+			console.log('Error: ' + data);
+			$scope.message = data.message;
+			$scope.error = data.code;
+		});
+	};
+	
+	$interval($scope.getContactServiceStatus(), 10000);
 	
 	//Initial load
 	$scope.reset();
 });
 
-sfdcApp.controller('ContactInfoController', function($scope, $http, $routeParams) {
+sfdcApp.controller('ContactInfoController', function($scope, $http, $routeParams, $interval) {
 	$scope.getContact = function() {
+		$scope.getContactServiceStatus();
 		$http.get('/contact/'+$routeParams.id).success(function(data) {
 			//console.log("response data: " + JSON.stringify(data));
 			$scope.contact = data;
@@ -209,12 +295,29 @@ sfdcApp.controller('ContactInfoController', function($scope, $http, $routeParams
 			});
 		}
 	}
+	
+	$scope.getContactServiceStatus = function() {
+		// when landing on the page, get all accounts and show them
+		$http.get('/manage/health').success(function(data) {
+			console.log("response data: " + JSON.stringify(data));
+			var serviceStatus = JSON.stringify(data.discoveryComposite.discoveryClient.services);
+			console.log("serviceStatus: " + serviceStatus);
+			$scope.isContactServiceUP = serviceStatus.search("contactservice") != -1 ? true : false;
+			console.log("isContactServiceUP: " + serviceStatus.search("contactservice") != -1 ? true : false);
+		}).error(function(data) {
+			console.log('Error: ' + data);
+			$scope.message = data.message;
+			$scope.error = data.code;
+		});
+	};
+	
+	$interval($scope.getContactServiceStatus(), 10000);
 
 	// Initial page load
 	$scope.getContact();
 });
 
-sfdcApp.controller('EditOpportunityInfoController', function($scope, $http, $routeParams) {
+sfdcApp.controller('EditOpportunityInfoController', function($scope, $http, $routeParams, $interval) {
 	//Handles the update request function
 	$scope.update = function(opportunity) {
 		console.log("updating opportunity: "+JSON.stringify(opportunity));
@@ -266,13 +369,31 @@ sfdcApp.controller('EditOpportunityInfoController', function($scope, $http, $rou
 			});
 		}
 	}
+
+	$scope.getOpportunityServiceStatus = function() {
+		// when landing on the page, get all accounts and show them
+		$http.get('/manage/health').success(function(data) {
+			console.log("response data: " + JSON.stringify(data));
+			var serviceStatus = JSON.stringify(data.discoveryComposite.discoveryClient.services);
+			console.log("serviceStatus: " + serviceStatus);
+			$scope.isOpportunityServiceUP = serviceStatus.search("opportunityservice") != -1 ? true : false;
+			console.log("isOpportunityServiceUP: " + serviceStatus.search("opportunityservice") != -1 ? true : false);
+		}).error(function(data) {
+			console.log('Error: ' + data);
+			$scope.message = data.message;
+			$scope.error = data.code;
+		});
+	};
+	
+	$interval($scope.getOpportunityServiceStatus(), 10000);
 	
 	//Initial load
 	$scope.reset();
 });
 
-sfdcApp.controller('OpportunityInfoController', function($scope, $http, $routeParams) {
+sfdcApp.controller('OpportunityInfoController', function($scope, $http, $routeParams, $interval) {
 	$scope.getOpportunity = function() {
+		$scope.getOpportunityServiceStatus();
 		$http.get('/opportunity/'+$routeParams.id).success(function(data) {
 			//console.log("response data: " + JSON.stringify(data));
 			$scope.opportunity = data;
@@ -295,6 +416,23 @@ sfdcApp.controller('OpportunityInfoController', function($scope, $http, $routePa
 			});
 		}
 	}
+
+	$scope.getOpportunityServiceStatus = function() {
+		// when landing on the page, get all accounts and show them
+		$http.get('/manage/health').success(function(data) {
+			console.log("response data: " + JSON.stringify(data));
+			var serviceStatus = JSON.stringify(data.discoveryComposite.discoveryClient.services);
+			console.log("serviceStatus: " + serviceStatus);
+			$scope.isOpportunityServiceUP = serviceStatus.search("opportunityservice") != -1 ? true : false;
+			console.log("isOpportunityServiceUP: " + serviceStatus.search("opportunityservice") != -1 ? true : false);
+		}).error(function(data) {
+			console.log('Error: ' + data);
+			$scope.message = data.message;
+			$scope.error = data.code;
+		});
+	};
+	
+	$interval($scope.getOpportunityServiceStatus(), 10000);
 	
 	// Initial page load
 	$scope.getOpportunity();

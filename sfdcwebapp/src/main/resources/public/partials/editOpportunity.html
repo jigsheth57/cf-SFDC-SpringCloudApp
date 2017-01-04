@@ -56,9 +56,11 @@
 						<input type="text" id="NextStep" class="form-control" ng-model="opportunity.NextStep" value="{{opportunity.NextStep}}" placeholder="Next Step" required="false"/>
 					</div>
 					<div class="well">
-						<input type="submit" ng-click="update(opportunity)" class="btn btn-primary" value="Save"/>
-						<input type="button" ng-click="reset()" class="btn btn-warning" value="Reset"/>
-						<input type="button" ng-click="delete(opportunity.Id)" class="btn btn-danger" value="Delete"/>
+						<span ng-show="isOpportunityServiceUP" class="ng-hide">
+							<input type="submit" ng-click="update(opportunity)" class="btn btn-primary" value="Save"/>
+							<input type="button" ng-click="reset()" class="btn btn-warning" value="Reset"/>
+							<input type="button" ng-click="delete(opportunity.Id)" class="btn btn-danger" value="Delete"/>
+						</span>
 					</div>
 				</form>
 			</div>
