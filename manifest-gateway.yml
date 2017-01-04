@@ -4,6 +4,7 @@ instances: 2
 memory: 768M
 env:
     SPRING_PROFILES_ACTIVE: cloud
+    JBP_CONFIG_CONTAINER_CERTIFICATE_TRUST_STORE: '{enabled: true}'
 applications:
 - name: sfdcapigateway
   host: sfdcapigateway

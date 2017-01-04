@@ -55,8 +55,7 @@ function jsonValue() {
   echo \'$csJSONStr\'
   cf cups sfdcgateway -p \'$csJSONStr\'
   if [ "$?" -ne "0" ]; then
-    cf ds sfdcgateway -f
-    cf cups sfdcgateway -p \'$csJSONStr\'
+    cf uups sfdcgateway -p \'$csJSONStr\'
     if [ "$?" -ne "0" ]; then
       exit $?
     fi

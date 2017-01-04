@@ -41,10 +41,10 @@ function jsonValue() {
   echo "Service instances created. Pushing all required applications."
 #  echo -n "Make sure service-registry, config-service, circuit-breaker-dashboard instances are UP and RUNNING before continuing!"
 #  read
-  cf p -f ./manifest-all.yml
-  if [ "$?" -ne "0" ]; then
-    exit $?
-  fi
+#  cf p -f ./manifest-all.yml
+#  if [ "$?" -ne "0" ]; then
+#    exit $?
+#  fi
 
 #  A_GUID=`cf app sfdcapigateway --guid`
 #  echo \"$A_GUID\"
@@ -56,8 +56,9 @@ function jsonValue() {
   echo \'$csJSONStr\'
   cf cups sfdcgateway -p \'$csJSONStr\'
   if [ "$?" -ne "0" ]; then
-    cf ds sfdcgateway -f
-    cf cups sfdcgateway -p \'$csJSONStr\'
+    #cf us sfdcnodewebapp sfdcgateway
+    #cf ds sfdcgateway -f
+    cf uups sfdcgateway -p \'$csJSONStr\'
     if [ "$?" -ne "0" ]; then
       exit $?
     fi
