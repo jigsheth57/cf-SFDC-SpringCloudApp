@@ -52,11 +52,11 @@ function jsonValue() {
 
   app_fqdn=`cf app sfdcapigateway | awk '/urls: / {print $2}'`
   csJSONStr={\"tag\":\"sfdcgateway\",\"uri\":\"http://$app_fqdn\"}
-  echo \"$csJSONStr\"
-  cf cups sfdcgateway -p \"$csJSONStr\"
+  echo \'$csJSONStr\'
+  cf cups sfdcgateway -p \'$csJSONStr\'
   if [ "$?" -ne "0" ]; then
     cf ds sfdcgateway -f
-    cf cups sfdcgateway -p \"$csJSONStr\"
+    cf cups sfdcgateway -p \'$csJSONStr\'
     if [ "$?" -ne "0" ]; then
       exit $?
     fi
