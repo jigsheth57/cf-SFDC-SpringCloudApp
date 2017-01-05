@@ -19,7 +19,7 @@ function jsonValue() {
   cf cs p-service-registry standard service-registry
   cf cs p-circuit-breaker-dashboard standard circuit-breaker-dashboard
   cf cs p-rabbitmq standard config-event-bus
-  cf cs redis dedicated-vm data-grid-service
+  cf cs p-redis dedicated-vm data-grid-service
   echo "Checking status of the Spring Cloud Service Instances!"
   until [ `cf service config-service | grep -c "succeeded"` -eq 1  ]
   do
