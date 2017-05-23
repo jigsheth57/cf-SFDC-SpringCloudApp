@@ -52,7 +52,7 @@ function jsonValue() {
 #  echo \"$app_host\"
 
   app_fqdn=`cf app sfdcapigateway | awk '/urls: / {print $2}'`
-  csJSONStr={\"tag\":\"sfdcgateway\",\"uri\":\"http://$app_fqdn\"}
+  csJSONStr={\"tag\":\"sfdcgateway\",\"uri\":\"https://$app_fqdn\"}
   echo \'$csJSONStr\'
   cf cups sfdcgateway -p \'$csJSONStr\'
   if [ "$?" -ne "0" ]; then
