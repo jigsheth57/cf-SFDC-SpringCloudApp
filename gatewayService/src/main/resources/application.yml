@@ -1,0 +1,131 @@
+server:
+  port: ${PORT:0}
+
+management:
+  cloudfoundry:
+    skip-ssl-validation: true
+    enabled: true
+  endpoints:
+    web:
+      base-path: /manage
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      roles: USER
+      show-details: always
+    env:
+      keys-to-sanitize:  pwd,uid,password,secret,key,client_id,client_key # suffix or regex
+
+logging:
+  level:
+    com.netflix: INFO
+    org.springframework.cloud: INFO
+    io.pivotal.sfdc: DEBUG
+    org.springframework.cloud.gateway.filter.factory: DEBUG
+
+info:
+  component: SFDC Api Gateway
+  build:
+    name: ${project.name:gatewayService}
+    description: ${project.description:API Gateway to proxy calls to one or more back end SalesForce.com services}
+    version: ${project.version:0.0.1-SNAPSHOT}
+    group: ${project.groupId:io.pivotal.sfdc}
+    artifact: ${project.artifactId:gatewayService}
+
+sfdc:
+  service:
+    unavailable: '{"status":503,"data": "Service currently unavailable."}'
+
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+      - id: accountservice
+        uri: lb://accountservice
+        predicates:
+        - Path=/accountservice/**
+        filters:
+        - RewritePath=/accountservice/(?<path>.*), /$\{path}
+        - name: Hystrix
+          args:
+            name: accounts_fallback
+            fallbackUri: forward:/servicefallback
+      - id: contactservice
+        uri: lb://contactservice
+        predicates:
+        - Path=/contactservice/**
+        filters:
+        - RewritePath=/contactservice/(?<path>.*), /$\{path}
+        - name: Hystrix
+          args:
+            name: contact_fallback
+            fallbackUri: forward:/servicefallback
+      - id: opportunityservice
+        uri: lb://opportunityservice
+        predicates:
+        - Path=/opportunityservice/**
+        filters:
+        - RewritePath=/opportunityservice/(?<path>.*), /$\{path}
+        - name: Hystrix
+          args:
+            name: opportunity_fallback
+            fallbackUri: forward:/servicefallback
+---
+spring:
+  profiles: local
+  instance:
+    nonSecurePort: ${server.port}
+  redis:
+    host: redis
+    port: 6379
+eureka:
+  instance:
+    preferIpAddress: true
+    hostname: gatewayService
+    nonSecurePort: ${server.port}
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://${EUREKA_HOST:discovery}:8761/eureka/
+# Ribbon Configurations
+producer:
+  ribbon:
+    ServerListRefreshInterval: 5000
+ribbon:
+  IsSecure: false
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+---
+spring:
+  profiles: cloud # For deployment in Cloud Foundry
+  redis:
+    host: ${vcap.services.p-redis.credentials.host}
+    port: ${vcap.services.p-redis.credentials.port}
+    password: ${vcap.services.p-redis.credentials.password}
+  cloud:
+    services:
+      registrationMethod: route
+producer:
+  ribbon:
+    ServerListRefreshInterval: 5000
+ribbon:
+  IsSecure: false
+  ConnectTimeout: 3000
+  ReadTimeout: 60000
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000

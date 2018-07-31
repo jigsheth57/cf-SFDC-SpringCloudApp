@@ -1,60 +1,257 @@
-redis:
-  image: redis:latest
-  ports:
-    - "6379:6379"
+version: '2.1'
 
-rabbitmq:
-  image: rabbitmq:3-management
-  ports:
-  - "15671:15671"
-  - "15672:15672"
-  - "5672:5672"
-  - "4369:4369"
-  - "5671:5671"
-  - "25672:25672"
+services:
+#  mysql:
+#    image: mysql:latest
+#    volumes:
+#     - "./zipkin/mysql.sql:/docker-entrypoint-initdb.d/mysql.sql"
+#    container_name: mysql
+#    environment:
+#      - MYSQL_DATABASE=zipkin
+#      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+#    ports:
+#    - "3306:3306"
 
-discovery:
-  image: jigsheth57/eurekaserver:2.0
-  ports:
-   - "8761:8761"
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+    - "15671:15671"
+    - "15672:15672"
+    - "5672:5672"
+    - "4369:4369"
+    - "5671:5671"
+    - "25672:25672"
 
-configserver:
-  image: jigsheth57/configserver:2.0
-  environment:
-    - SPRING_CLOUD_CONFIG_SERVER_GIT_URI=https://github.com/jigsheth57/config-repo
-  ports:
-   - "8888:8888"
-  links:
-   - discovery
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
 
-hystrixdashboard:
-  image: jigsheth57/hystrixdashboard:2.0
-  environment:
-    - SPRING_PROFILES_ACTIVE=local
-    - SPRING_RABBITMQ_HOST=rabbitmq
-    - SPRING_RABBITMQ_PORT=5672
-    - SPRING_RABBITMQ_USERNAME=guest
-    - SPRING_RABBITMQ_PASSWORD=guest
-  ports:
-   - "7979:7979"
-  links:
-   - configserver
-   - discovery
-   - rabbitmq
+  configserver:
+    image: jigsheth57/configserver:latest
+    environment:
+      - PORT=8888
+      - SPRING_PROFILES_ACTIVE=local
+      - SPRING_CLOUD_CONFIG_SERVER_GIT_URI=https://github.com/jigsheth57/config-repo
+    ports:
+     - "8888:8888"
 
-authservice:
-  image: jigsheth57/authservice:2.0
-  environment:
-    - PORT=9000
-    - SPRING_PROFILES_ACTIVE=local
-    - SPRING_RABBITMQ_HOST=rabbitmq
-    - SPRING_RABBITMQ_PORT=5672
-    - SPRING_RABBITMQ_USERNAME=guest
-    - SPRING_RABBITMQ_PASSWORD=guest
-  ports:
-   - "9000:9000"
-  links:
-   - configserver
-   - discovery
-   - rabbitmq
-   - redis
+  discovery:
+    image: jigsheth57/eurekaserver:latest
+    container_name: discovery
+    environment:
+      - PORT=8761
+      - SPRING_PROFILES_ACTIVE=local
+    ports:
+     - "8761:8761"
+
+  hystrixdashboard:
+    image: jigsheth57/hystrixdashboard:latest
+    environment:
+      - PORT=7979
+      - SPRING_PROFILES_ACTIVE=local
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=guest
+      - SPRING_RABBITMQ_PASSWORD=guest
+    ports:
+     - "7979:7979"
+    depends_on:
+     rabbitmq:
+       condition: service_started
+     configserver:
+       condition: service_healthy
+     discovery:
+       condition: service_healthy
+
+  authservice:
+    image: jigsheth57/authservice:latest
+    environment:
+      - PORT=9000
+      - SPRING_PROFILES_ACTIVE=local
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=guest
+      - SPRING_RABBITMQ_PASSWORD=guest
+    ports:
+     - "9000:9000"
+    depends_on:
+     rabbitmq:
+       condition: service_started
+     configserver:
+       condition: service_healthy
+     discovery:
+       condition: service_healthy
+     redis:
+       condition: service_started
+
+  accountservice:
+    image: jigsheth57/accountservice:latest
+    environment:
+      - PORT=9001
+      - SPRING_PROFILES_ACTIVE=local
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=guest
+      - SPRING_RABBITMQ_PASSWORD=guest
+    ports:
+     - "9001:9001"
+    depends_on:
+     rabbitmq:
+       condition: service_started
+     redis:
+       condition: service_started
+     configserver:
+       condition: service_healthy
+     discovery:
+       condition: service_healthy
+     hystrixdashboard:
+       condition: service_healthy
+     authservice:
+       condition: service_healthy
+
+  contactservice:
+    image: jigsheth57/contactservice:latest
+    environment:
+      - PORT=9002
+      - SPRING_PROFILES_ACTIVE=local
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=guest
+      - SPRING_RABBITMQ_PASSWORD=guest
+    ports:
+     - "9002:9002"
+    depends_on:
+     rabbitmq:
+       condition: service_started
+     redis:
+       condition: service_started
+     configserver:
+       condition: service_healthy
+     discovery:
+       condition: service_healthy
+     hystrixdashboard:
+       condition: service_healthy
+     authservice:
+       condition: service_healthy
+
+  opportunityservice:
+    image: jigsheth57/opportunityservice:latest
+    environment:
+      - PORT=9003
+      - SPRING_PROFILES_ACTIVE=local
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=guest
+      - SPRING_RABBITMQ_PASSWORD=guest
+    ports:
+     - "9003:9003"
+    depends_on:
+     rabbitmq:
+       condition: service_started
+     redis:
+       condition: service_started
+     configserver:
+       condition: service_healthy
+     discovery:
+       condition: service_healthy
+     hystrixdashboard:
+       condition: service_healthy
+     authservice:
+       condition: service_healthy
+
+  gatewayservice:
+    image: jigsheth57/gatewayservice:latest
+    environment:
+      - PORT=9012
+      - SPRING_PROFILES_ACTIVE=local
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=guest
+      - SPRING_RABBITMQ_PASSWORD=guest
+    ports:
+     - "9012:9012"
+    depends_on:
+     rabbitmq:
+       condition: service_started
+     redis:
+       condition: service_started
+     configserver:
+       condition: service_healthy
+     discovery:
+       condition: service_healthy
+     hystrixdashboard:
+       condition: service_healthy
+     authservice:
+       condition: service_healthy
+     accountservice:
+       condition: service_healthy
+     contactservice:
+       condition: service_healthy
+     opportunityservice:
+       condition: service_healthy
+
+  turbine:
+    image: jigsheth57/turbine:latest
+    environment:
+      - PORT=8000
+      - TURBINE_STREAMS=http://accountservice:9001/manage/hystrix.stream http://contactservice:9002/manage/hystrix.stream http://opportunityservice:9003/manage/hystrix.stream http://gatewayservice:9012/manage/hystrix.stream
+    ports:
+     - "8000:8000"
+    depends_on:
+     gatewayservice:
+       condition: service_healthy
+     authservice:
+       condition: service_healthy
+     accountservice:
+       condition: service_healthy
+     contactservice:
+       condition: service_healthy
+     opportunityservice:
+       condition: service_healthy
+
+  sfdcwebapp:
+    image: jigsheth57/sfdcwebapp:latest
+    environment:
+      - PORT=9090
+      - SPRING_PROFILES_ACTIVE=local
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=guest
+      - SPRING_RABBITMQ_PASSWORD=guest
+    ports:
+     - "9090:9090"
+    depends_on:
+     rabbitmq:
+       condition: service_started
+     redis:
+       condition: service_started
+     configserver:
+       condition: service_healthy
+     discovery:
+       condition: service_healthy
+     gatewayservice:
+       condition: service_healthy
+
+#  zipkin:
+#    image: jigsheth57/zipkin:2.7.1
+#    environment:
+#      - HTTP_COLLECTOR_ENABLED=false
+#      - STORAGE_TYPE=mysql
+#      - MYSQL_HOST=mysql
+#      - MYSQL_USER=root
+#      - MYSQL_DB=zipkin
+#      - RABBIT_HOST=rabbitmq
+#      - RABBIT_USER=guest
+#      - RABBIT_PASSWORD=guest
+#      - RABBIT_USE_SSL=false
+#    ports:
+#     - "9411:9411"
+#    depends_on:
+#     rabbitmq:
+#       condition: service_started
+#     mysql:
+#       condition: service_started
+

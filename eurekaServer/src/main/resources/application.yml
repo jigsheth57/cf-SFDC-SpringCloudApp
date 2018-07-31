@@ -2,33 +2,22 @@ server:
   port: ${PORT:8761}
 
 management:
-  context-path: /manage
+  endpoints:
+    web:
+      base-path: /manage
 
-eureka:
-  instance:
-    hostname: ${vcap.application.uris[0]:discovery}
-#    metadataMap:
-#      instanceId: ${spring.application.name}:${vcap.application.instance_index:${server.port}}
-  client:
-    registerWithEureka: false
-    fetchRegistry: false
-    serviceUrl:
-      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
-
-spring:
-  cloud:
-    config:
-      discovery:
-        enabled: true
 logging:
   level:
     com.netflix: INFO
-    org.springframework.cloud: DEBUG
+    org.springframework.cloud: INFO
 
 ---
 spring:
   profiles: local
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
 ---
 spring:
   profiles: cloud
----

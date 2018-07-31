@@ -82,9 +82,6 @@ public class AuthServiceController {
     
     public ApiSession getApiSession() {
 		logger.debug("Fetching ApiSession");
-    	Calendar cal = Calendar.getInstance(); // creates calendar
-        cal.setTime(new Date()); // sets calendar time/date
-        cal.add(Calendar.HOUR_OF_DAY, 2); // adds two hour
         ApiSession apiSession = null;
     	ValueOperations<String, String> ops = this.redisTemplate.opsForValue();
 		if (!this.redisTemplate.hasKey(ACCESS_TOKEN)) {
@@ -95,6 +92,9 @@ public class AuthServiceController {
 			.setClientSecret(clientSecret);
 	    	apiSession = Auth.authenticate(apiconfig);
 			ops.set(ACCESS_TOKEN, apiSession.getAccessToken());
+			Calendar cal = Calendar.getInstance(); // creates calendar
+			cal.setTime(new Date()); // sets calendar time/date
+			cal.add(Calendar.HOUR_OF_DAY, 2); // adds two hour
 			this.redisTemplate.expireAt(ACCESS_TOKEN, cal.getTime());
 			ops.setIfAbsent(INSTANCE_URL, apiSession.getApiEndpoint());
 			this.redisTemplate.expireAt(INSTANCE_URL, cal.getTime());

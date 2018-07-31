@@ -29,13 +29,13 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
  */
 
 @Service
-@EnableDiscoveryClient
 public class AuthService {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(AuthService.class);
-	
-	private StringRedisTemplate redisTemplate;
+
+	@Autowired
+	StringRedisTemplate redisTemplate;
     
 	@Resource
     private JedisConnectionFactory redisConnFactory;
@@ -88,7 +88,7 @@ public class AuthService {
 	@HystrixCommand(fallbackMethod = "getApiSessionFallback",
 		    commandProperties = {
 		      @HystrixProperty(name="execution.isolation.strategy", value="THREAD"),
-		      @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="2500")
+		      @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="1500")
 		    })
 	public ApiSession getApiSession() {
 		logger.debug("Fetching ApiSession from authservice");

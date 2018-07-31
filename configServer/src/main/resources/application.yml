@@ -1,49 +1,80 @@
 server:
   port: ${PORT:8888}
 
-security:
-  basic:
-    enabled: false
 management:
-  context-path: /manage
-  security:
-    enabled: false
+  endpoints:
+    web:
+      base-path: /manage
 
 logging:
   level:
-    org.springframework.cloud: DEBUG
-
-info:
-  build:
-    name: ${project.name}
-    description: ${project.description}
-    version: ${project.version}
-    group: ${project.groupId}
-    artifact: ${project.artifactId}
+    org.springframework.cloud: INFO
 
 spring:
   cloud:
     config:
       server:
         git:
-          uri: https://github.com/jigsheth57/config-repo
+          uri: git@github.com:jigsheth57/config-repo.git
+          ignoreLocalSshSettings: true
+          privateKey: |
+            -----BEGIN RSA PRIVATE KEY-----
+            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
+            -----END RSA PRIVATE KEY-----
       enabled: false
-      
-eureka:
-  instance:
-    hostname: ${vcap.application.uris[0]:configserver}
-    preferIpAddress: true
-    statusPageUrlPath: ${management.context-path}/info
-    healthCheckUrlPath: ${management.context-path}/health
-  client:
-    registerWithEureka: true
-    fetchRegistry: true
-    serviceUrl:
-      defaultZone: ${vcap.services.p-service-registry.credentials.uri:http://${EUREKA_HOST:discovery}:8761}/eureka/
 
 ---
 spring:
   profiles: local
+
 ---
 spring:
   profiles: cloud

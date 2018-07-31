@@ -1,9 +1,0 @@
----
-timeout: 180
-instances: 1
-memory: 512M
-env:
-    SPRING_PROFILES_DEFAULT: cloud
-applications:
-- name: eurekaserver
-  path: eurekaServer/target/eurekaServer-0.0.1-SNAPSHOT.jar

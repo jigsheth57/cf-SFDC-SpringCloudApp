@@ -2,6 +2,7 @@ package io.pivotal.sfdc.controller;
 
 import java.util.List;
 
+import io.pivotal.sfdc.domain.AccountList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,7 @@ public class AccountServiceController {
     
 	private static final Logger logger = LoggerFactory.getLogger(AccountServiceController.class);
 
+	@Autowired
 	ForceApi api;
 
 	/**
@@ -58,12 +60,11 @@ public class AccountServiceController {
 	 */
 	@JsonView(View.ContactByAccountSummary.class)
     @RequestMapping(value = "/accounts", method = RequestMethod.GET)
-	@ApiOperation(value = "Retrieve all contacts by accounts", notes = "Calls a account service with cache key to retrieve result of a sfdc query", response = Account.class, responseContainer = "List")
-    public @ResponseBody List<Account> getContactsByAccounts() {
+    public @ResponseBody String getContactsByAccounts() {
 		logger.debug("Fetching getContactsByAccounts");
-    	List<Account> result = null;
+		String result = null;
 		try {
-			result = accountService.getContactsByAccounts("/accounts");
+			result = accountService.getContactsByAccounts("accounts");
 			if (result == null) throw new NullPointerException(unavailable);
 		} catch (Exception e) {
 			throw new NullPointerException(unavailable);
@@ -79,11 +80,11 @@ public class AccountServiceController {
 	@JsonView(View.OpportunityByAccountSummary.class)
     @RequestMapping(value = "/opp_by_accts", method = RequestMethod.GET)
 	@ApiOperation(value = "Retrieve all opportunites by accounts", notes = "Calls a account service with cache key to retrieve result of a sfdc query", response = Account.class, responseContainer = "List")
-    public @ResponseBody List<Account> getOpportunitiesByAccounts() {
+    public @ResponseBody String getOpportunitiesByAccounts() {
 		logger.debug("Fetching getOpportunitesByAccounts");
-    	List<Account> result = null;
+		String result = null;
 		try {
-			result = accountService.getOpportunitesByAccounts("/opp_by_accts");
+			result = accountService.getOpportunitesByAccounts("opp_by_accts");
 			if (result == null) throw new NullPointerException(unavailable);
 		} catch (Exception e) {
 			throw new NullPointerException(unavailable);

@@ -1,33 +1,63 @@
 ---
-timeout: 180
-instances: 1
-memory: 768M
-env:
+bck_service: &bck_service
+  buildpack: java_buildpack_offline
+  memory: 1G
+  env:
+    TRUST_CERTS: api.run.haas-76.pez.pivotal.io
     SPRING_PROFILES_ACTIVE: cloud
-    JBP_CONFIG_CONTAINER_CERTIFICATE_TRUST_STORE: '{enabled: true}' 
+    SPRING_RABBITMQ_ADDRESSES: ${vcap.services.event-bus.credentials.uri}
+  services:
+  - service-registry
+  - config-server
+  - circuit-breaker
+  - event-bus
+  - cache-service
+
+fd_service: &fd_service
+  buildpack: java_buildpack_offline
+  memory: 1G
+  health-check-type: http
+  health-check-http-endpoint: /manage/health
+  env:
+    SPRING_PROFILES_ACTIVE: cloud
+    SPRING_RABBITMQ_ADDRESSES: ${vcap.services.event-bus.credentials.uri}
+  services:
+  - service-registry
+  - config-server
+  - event-bus
+  - cache-service
+
 applications:
-- name: authService
-  path: authService/target/authService-0.0.1-SNAPSHOT.jar
-  random-route: true
-  services: [ config-service, config-event-bus, service-registry, data-grid-service ]
-- name: accountService
-  path: accountService/target/accountService-0.0.1-SNAPSHOT.jar
-  random-route: true
-  services: [ config-service, config-event-bus, service-registry, data-grid-service, circuit-breaker-dashboard ]
-- name: contactService
-  path: contactService/target/contactService-0.0.1-SNAPSHOT.jar
-  random-route: true
-  services: [ config-service, config-event-bus, service-registry, data-grid-service, circuit-breaker-dashboard ]
-- name: opportunityService
-  path: opportunityService/target/opportunityService-0.0.1-SNAPSHOT.jar
-  random-route: true
-  services: [ config-service, config-event-bus, service-registry, data-grid-service, circuit-breaker-dashboard ]
-- name: sfdcapigateway
-  path: sfdcapigateway/target/sfdcapigateway-0.0.1-SNAPSHOT.jar
-  instances: 2
-  random-route: true
-  services: [ config-service, config-event-bus, service-registry, data-grid-service, circuit-breaker-dashboard ]
-- name: sfdcbootwebapp
-  path: sfdcwebapp/target/sfdcwebapp-0.0.1-SNAPSHOT.jar
-  random-route: true
-  services: [ config-service, config-event-bus, service-registry ]
+  - name: authservice
+    path: authService/target/authService.jar
+    health-check-type: http
+    health-check-http-endpoint: /manage/health
+    no-route: true
+    <<: *bck_service
+  - name: accountservice
+    path: accountService/target/accountService.jar
+    health-check-type: http
+    health-check-http-endpoint: /manage/health
+    no-route: true
+    <<: *bck_service
+  - name: contactservice
+    path: contactService/target/contactService.jar
+    health-check-type: http
+    health-check-http-endpoint: /manage/health
+    no-route: true
+    <<: *bck_service
+  - name: opportunityservice
+    path: opportunityService/target/opportunityService.jar
+    health-check-type: http
+    health-check-http-endpoint: /manage/health
+    no-route: true
+    <<: *bck_service
+  - name: gatewayservice
+    path: gatewayService/target/gatewayService.jar
+    health-check-type: http
+    health-check-http-endpoint: /manage/health
+    instances: 1
+    <<: *bck_service
+  - name: portal
+    path: sfdcwebapp/target/sfdcwebapp.jar
+    <<: *fd_service

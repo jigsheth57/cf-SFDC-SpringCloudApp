@@ -15,7 +15,7 @@ sfdcApp.controller('AccountListController', function($scope, $http, $interval) {
 		// when landing on the page, get all accounts and show them
 		$http.get('/accounts').success(function(data) {
 			console.log("response data: " + JSON.stringify(data));
-			$scope.accounts = data;
+			$scope.accounts = data.accounts;
 		}).error(function(data) {
 			console.log('Error: ' + data);
 			$scope.message = data.message;
@@ -39,12 +39,12 @@ sfdcApp.controller('AccountListController', function($scope, $http, $interval) {
 		// when landing on the page, get all accounts and show them
 		$http.get('/manage/health').success(function(data) {
 			console.log("response data: " + JSON.stringify(data));
-			var serviceStatus = JSON.stringify(data.discoveryComposite.discoveryClient.services);
+			var serviceStatus = JSON.stringify(data.details.discoveryComposite.details.discoveryClient.details.services);
 			console.log("serviceStatus: " + serviceStatus);
-			$scope.isAccountServiceUP = serviceStatus.search("accountservice") != -1 ? true : false;
+            $scope.isAccountServiceUP = serviceStatus.search("accountservice") != -1 ? true : false;
 			console.log("isAccountServiceUP: " + serviceStatus.search("accountservice") != -1 ? true : false);
 		}).error(function(data) {
-			console.log('Error: ' + data);
+			console.log('Error: ' + JSON.stringify(data));
 			$scope.message = data.message;
 			$scope.error = data.code;
 		});
@@ -110,7 +110,7 @@ sfdcApp.controller('EditAccountInfoController', function($scope, $http, $routePa
 		// when landing on the page, get all accounts and show them
 		$http.get('/manage/health').success(function(data) {
 			console.log("response data: " + JSON.stringify(data));
-			var serviceStatus = JSON.stringify(data.discoveryComposite.discoveryClient.services);
+			var serviceStatus = JSON.stringify(data.details.discoveryComposite.details.discoveryClient.details.services);
 			console.log("serviceStatus: " + serviceStatus);
 			$scope.isAccountServiceUP = serviceStatus.search("accountservice") != -1 ? true : false;
 			console.log("isAccountServiceUP: " + serviceStatus.search("accountservice") != -1 ? true : false);
@@ -132,7 +132,7 @@ sfdcApp.controller('OppAcctListController', function($scope, $http, $interval) {
 		$scope.getAccountServiceStatus();
 		$http.get('/opp_by_accts').success(function(data) {
 			console.log("response data: " + JSON.stringify(data));
-			$scope.accounts = data;
+			$scope.accounts = data.accounts;
 		}).error(function(data) {
 			console.log('Error: ' + data);
 			$scope.message = data.message;
@@ -143,7 +143,7 @@ sfdcApp.controller('OppAcctListController', function($scope, $http, $interval) {
 		// when landing on the page, get all accounts and show them
 		$http.get('/manage/health').success(function(data) {
 			console.log("response data: " + JSON.stringify(data));
-			var serviceStatus = JSON.stringify(data.discoveryComposite.discoveryClient.services);
+			var serviceStatus = JSON.stringify(data.details.discoveryComposite.details.discoveryClient.details.services);
 			console.log("serviceStatus: " + serviceStatus);
 			$scope.isAccountServiceUP = serviceStatus.search("accountservice") != -1 ? true : false;
 			console.log("isAccountServiceUP: " + serviceStatus.search("accountservice") != -1 ? true : false);
@@ -183,7 +183,7 @@ sfdcApp.controller('AccountInfoController', function($scope, $http, $routeParams
 		// when landing on the page, get all accounts and show them
 		$http.get('/manage/health').success(function(data) {
 			console.log("response data: " + JSON.stringify(data));
-			var serviceStatus = JSON.stringify(data.discoveryComposite.discoveryClient.services);
+			var serviceStatus = JSON.stringify(data.details.discoveryComposite.details.discoveryClient.details.services);
 			console.log("serviceStatus: " + serviceStatus);
 			$scope.isAccountServiceUP = serviceStatus.search("accountservice") != -1 ? true : false;
 			console.log("isAccountServiceUP: " + serviceStatus.search("accountservice") != -1 ? true : false);
@@ -255,7 +255,7 @@ sfdcApp.controller('EditContactInfoController', function($scope, $http, $routePa
 		// when landing on the page, get all accounts and show them
 		$http.get('/manage/health').success(function(data) {
 			console.log("response data: " + JSON.stringify(data));
-			var serviceStatus = JSON.stringify(data.discoveryComposite.discoveryClient.services);
+			var serviceStatus = JSON.stringify(data.details.discoveryComposite.details.discoveryClient.details.services);
 			console.log("serviceStatus: " + serviceStatus);
 			$scope.isContactServiceUP = serviceStatus.search("contactservice") != -1 ? true : false;
 			console.log("isContactServiceUP: " + serviceStatus.search("contactservice") != -1 ? true : false);
@@ -300,7 +300,7 @@ sfdcApp.controller('ContactInfoController', function($scope, $http, $routeParams
 		// when landing on the page, get all accounts and show them
 		$http.get('/manage/health').success(function(data) {
 			console.log("response data: " + JSON.stringify(data));
-			var serviceStatus = JSON.stringify(data.discoveryComposite.discoveryClient.services);
+			var serviceStatus = JSON.stringify(data.details.discoveryComposite.details.discoveryClient.details.services);
 			console.log("serviceStatus: " + serviceStatus);
 			$scope.isContactServiceUP = serviceStatus.search("contactservice") != -1 ? true : false;
 			console.log("isContactServiceUP: " + serviceStatus.search("contactservice") != -1 ? true : false);
@@ -374,7 +374,7 @@ sfdcApp.controller('EditOpportunityInfoController', function($scope, $http, $rou
 		// when landing on the page, get all accounts and show them
 		$http.get('/manage/health').success(function(data) {
 			console.log("response data: " + JSON.stringify(data));
-			var serviceStatus = JSON.stringify(data.discoveryComposite.discoveryClient.services);
+			var serviceStatus = JSON.stringify(data.details.discoveryComposite.details.discoveryClient.details.services);
 			console.log("serviceStatus: " + serviceStatus);
 			$scope.isOpportunityServiceUP = serviceStatus.search("opportunityservice") != -1 ? true : false;
 			console.log("isOpportunityServiceUP: " + serviceStatus.search("opportunityservice") != -1 ? true : false);
@@ -421,7 +421,7 @@ sfdcApp.controller('OpportunityInfoController', function($scope, $http, $routePa
 		// when landing on the page, get all accounts and show them
 		$http.get('/manage/health').success(function(data) {
 			console.log("response data: " + JSON.stringify(data));
-			var serviceStatus = JSON.stringify(data.discoveryComposite.discoveryClient.services);
+			var serviceStatus = JSON.stringify(data.details.discoveryComposite.details.discoveryClient.details.services);
 			console.log("serviceStatus: " + serviceStatus);
 			$scope.isOpportunityServiceUP = serviceStatus.search("opportunityservice") != -1 ? true : false;
 			console.log("isOpportunityServiceUP: " + serviceStatus.search("opportunityservice") != -1 ? true : false);

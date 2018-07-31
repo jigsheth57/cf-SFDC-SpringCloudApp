@@ -1,0 +1,19 @@
+---
+bck_service: &bck_service
+  memory: 1G
+  health-check-type: http
+  health-check-http-endpoint: /manage/health
+  env:
+    SPRING_PROFILES_ACTIVE: cloud
+    SPRING_RABBITMQ_ADDRESSES: ${vcap.services.event-bus.credentials.uri}
+  services:
+  - service-registry
+  - config-server
+  - circuit-breaker
+  - event-bus
+  - cache-service
+applications:
+  - name: accountService
+    path: accountService/target/accountService.jar
+    no-route: true
+    <<: *bck_service

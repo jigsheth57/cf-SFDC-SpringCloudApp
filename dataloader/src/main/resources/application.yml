@@ -1,0 +1,24 @@
+logging:
+  level:
+    com.netflix: INFO
+    org.springframework.cloud: INFO
+    io.pivotal.sfdc: INFO
+
+sfdc:
+  service:
+    unavailable: '{"status":503,"data": "Service currently unavailable."}'
+  authservice:
+    endpoint: http://authservice.apps.internal:8080
+  query:
+    loadsql: select account.id, account.name, account.type, account.description, account.industry, account.ownership, account.website, account.phone, account.NumberOfEmployees, (select contact.id, contact.title, contact.department, contact.email, contact.name, contact.salutation, contact.phone, contact.mobilePhone, contact.firstName, contact.accountId, contact.lastname from account.contacts), (select opportunity.id, opportunity.name, opportunity.type, opportunity.amount, opportunity.stagename, opportunity.closedate, opportunity.description, opportunity.nextStep, opportunity.leadSource, opportunity.accountId from account.opportunities) from account
+---
+spring:
+  profiles: local
+  # instance:
+  #   nonSecurePort: ${server.port}
+  redis:
+    host: redis
+    port: 6379
+---
+spring:
+  profiles: cloud # For deployment in Cloud Foundry

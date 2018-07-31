@@ -1,6 +1,13 @@
 spring:
   application:
     name: configserver
+
+# spring.cloud.config.server.encrypt.enabled: true
+
 encrypt:
-  failOnError: false
-  key: ${ENCRYPT_KEY:pivotal}
+  keyStore:
+    location: classpath:/config-server.jks
+    password: my-s70r3-s3cr3t
+    alias: config-server-key
+    secret: my-k34-s3cr3t
+  failOnError: true
