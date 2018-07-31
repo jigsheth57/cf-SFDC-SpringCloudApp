@@ -31,7 +31,7 @@ In this example, the system is composed of four microservices (Auth, Account, Co
 
 The relationship between the microservices is illustrated below.
 
-![SFDC Web App Architecture](/document/architecture.png)
+![SFDC Web App Architecture](/document/architecture-new.png)
 
 ### Service Registry
 
