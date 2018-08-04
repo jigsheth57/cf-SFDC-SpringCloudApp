@@ -27,7 +27,7 @@ The mobile friendly responsive web application allows user to manage SFDC domain
 
 This example project demonstrates how to build a new application using microservices, as opposed to a monolith-first strategy. Since each microservice in the project is a module of a single parent project, developers have the advantage of being able to run and develop with each microservice running on their local machine. Adding a new microservice is easy, as the discovery microservice will automatically discover new services running on the cluster.
 
-In this example, the system is composed of four microservices (Auth, Account, Contact & Opportunity). Also, it leverages Market Place services such as Data Grid (Redis) and Spring Cloud Services (Config Server, Service Registry (Eureka), Circuit Breaker Dashboard (Hystrix), API Gateway (Zuul)). In addition, there are multiple Web Applications written to expose the backend microservices to show the power of polyglot language ([Spring Boot + AngularJS](/sfdcwebapp) & [NodeJS + AngularJS](/sfdc-web-app)) support by PCF.
+In this example, the system is composed of four microservices (Auth, Account, Contact & Opportunity). Also, it leverages Market Place services such as Cache Service (Redis) and Spring Cloud Services (Config Server, Service Registry (Eureka), Circuit Breaker (Hystrix), Api Gateway (Spring Cloud Gateway)). In addition, there are multiple Web Applications written to expose the backend microservices to show the power of polyglot language ([Spring Boot + AngularJS](/sfdcwebapp) & [NodeJS + AngularJS](/sfdc-web-app)) support by PCF.
 
 The relationship between the microservices is illustrated below.
 
