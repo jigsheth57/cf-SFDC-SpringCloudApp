@@ -10,6 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +36,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableDiscoveryClient
 @EnableCircuitBreaker
 @Controller
+@EnableFeignClients
 public class AccountServiceApplication implements CommandLineRunner {
 
 	private static final Logger logger = LoggerFactory.getLogger(AccountServiceApplication.class);
@@ -51,8 +53,9 @@ public class AccountServiceApplication implements CommandLineRunner {
     public Docket newsApi() {
         return new Docket(DocumentationType.SWAGGER_2)
         		.apiInfo(apiInfo())
-        		.select()                                  
-                .apis(RequestHandlerSelectors.any())              
+        		.select()
+				.apis(RequestHandlerSelectors.basePackage("io.pivotal.sfdc.controller"))
+//                .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())                          
                 .build();  
     }

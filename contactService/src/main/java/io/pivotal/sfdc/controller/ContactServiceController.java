@@ -31,6 +31,7 @@ public class ContactServiceController {
     
 	private static final Logger logger = LoggerFactory.getLogger(ContactServiceController.class);
 
+	@Autowired
 	ForceApi api;
     
 	/**
@@ -50,7 +51,7 @@ public class ContactServiceController {
 			return new ResponseEntity<Contact>(contact, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		HttpStatus httpstatus = HttpStatus.CREATED;
-		logger.debug(String.format("Created new contact with id %s: [%s]",contact.getId(), contact));
+		logger.debug("Created new contact with id {}: [{}]",contact.getId(), contact);
 		return new ResponseEntity<Contact>(contact, new HttpHeaders(), httpstatus);
 	}
 
@@ -71,7 +72,7 @@ public class ContactServiceController {
 			logger.error(String.format("Can not update existing contact with id %s: [%s]",contact.getId(), contact));
 			return new ResponseEntity<Contact>(contact, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		logger.debug(String.format("Updated existing contact with id %s: [%s]",contact.getId(), contact));
+		logger.debug("Updated existing contact with id {}: [{}]",contact.getId(), contact);
 		return new ResponseEntity<Contact>(contact, new HttpHeaders(), httpstatus);
 	}
 
@@ -92,7 +93,7 @@ public class ContactServiceController {
 			ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
 			return ResponseEntity.noContent().build();
 		}
-		logger.debug(String.format("Remove contact for id %s",contactId));
+		logger.debug("Remove contact for id {}",contactId);
 		ResponseEntity.status(httpstatus);
 		return ResponseEntity.noContent().build();
 	}

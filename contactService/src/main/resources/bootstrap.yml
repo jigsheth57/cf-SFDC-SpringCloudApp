@@ -1,9 +1,7 @@
 spring:
   application:
-    name: contactService
+    name: contactservice
   cloud:
     config:
       uri: ${vcap.services.p-config-server.credentials.uri:http://configserver:8888}
       failFast: true
-encrypt:
-  failOnError: false

@@ -3,6 +3,8 @@ package io.pivotal.sfdc.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.force.api.ForceApi;
+import io.lettuce.core.api.StatefulRedisConnection;
+import io.lettuce.core.api.sync.RedisCommands;
 import io.pivotal.sfdc.domain.Account;
 import io.pivotal.sfdc.domain.AccountList;
 import io.pivotal.sfdc.domain.Contact;
@@ -12,12 +14,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import java.io.StringWriter;
 import java.util.Iterator;
 import java.util.List;
@@ -36,11 +34,10 @@ public class AccountService {
 	private static final Logger logger = LoggerFactory
 			.getLogger(AccountService.class);
 
-    @Autowired
-	private StringRedisTemplate redisTemplate;
-    
-	@Resource
-    private JedisConnectionFactory redisConnFactory;
+	@Autowired
+	private StatefulRedisConnection<String, String> redisConnection;
+
+	private RedisCommands<String, String> redisCommands;
 
     @Autowired
 	AuthService authService;
@@ -48,23 +45,16 @@ public class AccountService {
 	@Value("${sfdc.query.loadsql}")
     private String preloadSQL;
 
+	@Autowired
 	ForceApi api;
 	final ObjectMapper mapper = new ObjectMapper();
-	
-    @PostConstruct
-    public void init() {
-		this.redisTemplate = new StringRedisTemplate(redisConnFactory);
-//		this.api = new ForceApi(authService.getApiSession());
-    	logger.debug("HostName: "+redisConnFactory.getHostName());
-    	logger.debug("Port: "+redisConnFactory.getPort());
-    	logger.debug("Password: "+redisConnFactory.getPassword());
-    }
 
-    @Bean
-    ForceApi api() {
-        this.api = new ForceApi(authService.getApiSession());
-        return this.api;
-    }
+	@Bean
+	ForceApi api() {
+		this.api = new ForceApi(authService.getApiSession());
+		this.redisCommands = redisConnection.sync();
+		return this.api;
+	}
 
     /**
 	 * Calls AuthService to retrieve oauth2 token from SFDC and then executes query to retrieve all of the accounts, contacts & opportunities from sfdc.
@@ -128,9 +118,8 @@ public class AccountService {
         StringWriter jsonData = new StringWriter();
         mapper.writeValue(jsonData, obj);
         String jsonDataStr = jsonData.toString();
-		logger.debug("key: "+key);
-        logger.debug("value: "+jsonDataStr);
-        this.redisTemplate.opsForValue().set(key, jsonDataStr);
+		logger.debug("key: {}, value: {}",key,jsonDataStr);
+        redisCommands.set(key,jsonDataStr);
 
         return jsonDataStr;
 	}

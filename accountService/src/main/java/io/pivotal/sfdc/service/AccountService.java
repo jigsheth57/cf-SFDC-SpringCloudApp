@@ -1,32 +1,27 @@
 package io.pivotal.sfdc.service;
 
-import java.io.StringWriter;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.force.api.ForceApi;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
+import io.lettuce.core.api.StatefulRedisConnection;
+import io.lettuce.core.api.sync.RedisCommands;
+import io.pivotal.sfdc.domain.Account;
+import io.pivotal.sfdc.domain.AccountList;
+import io.pivotal.sfdc.domain.Contact;
+import io.pivotal.sfdc.domain.Opportunity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.force.api.ForceApi;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
-
-import io.pivotal.sfdc.domain.Account;
-import io.pivotal.sfdc.domain.AccountList;
-import io.pivotal.sfdc.domain.Contact;
-import io.pivotal.sfdc.domain.Opportunity;
+import java.io.StringWriter;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * SFDC Account Service
@@ -42,11 +37,10 @@ public class AccountService {
 	private static final Logger logger = LoggerFactory
 			.getLogger(AccountService.class);
 
-    @Autowired
-	private StringRedisTemplate redisTemplate;
-    
-	@Resource
-    private JedisConnectionFactory redisConnFactory;
+	@Autowired
+	private StatefulRedisConnection<String, String> redisConnection;
+
+	private RedisCommands<String, String> redisCommands;
 
     @Autowired
 	AuthService authService;
@@ -58,22 +52,15 @@ public class AccountService {
 	@Value("${sfdc.query.loadsql}")
     private String preloadSQL;
 
-	ForceApi api;
+    @Autowired
+    ForceApi api;
 	final ObjectMapper mapper = new ObjectMapper();
 	
-    @PostConstruct
-    public void init() {
-		this.redisTemplate = new StringRedisTemplate(redisConnFactory);
-//		this.api = new ForceApi(authService.getApiSession());
-    	logger.debug("HostName: "+redisConnFactory.getHostName());
-    	logger.debug("Port: "+redisConnFactory.getPort());
-    	logger.debug("Password: "+redisConnFactory.getPassword());
-    }
-
     @Bean
     @RefreshScope
     ForceApi api() {
         this.api = new ForceApi(authService.getApiSession());
+        this.redisCommands = redisConnection.sync();
         return this.api;
     }
     /**
@@ -87,7 +74,7 @@ public class AccountService {
 	@HystrixCommand(fallbackMethod = "getContactsByAccountsFallback",
 		    commandProperties = {
 		      @HystrixProperty(name="execution.isolation.strategy", value="THREAD"),
-		      @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="1500")
+		      @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="2500")
 		    })
 	public String getContactsByAccounts(String key) throws Exception {
 		logger.debug("Fetching getContactsByAccounts from SFDC");
@@ -104,7 +91,7 @@ public class AccountService {
 	 * @return String account list
 	 */
 	public String getContactsByAccountsFallback(String key) {
-		logger.debug("Fetching getContactsByAccountsFallback from Cache with key "+key);
+		logger.debug("Fetching getContactsByAccountsFallback from Cache with key {}",key);
 		String result = null;
 		try {
 			result = retrieve(key);
@@ -126,7 +113,7 @@ public class AccountService {
 	@HystrixCommand(fallbackMethod = "getOpportunitesByAccountsFallback",
 		    commandProperties = {
 		      @HystrixProperty(name="execution.isolation.strategy", value="THREAD"),
-		      @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="1500")
+		      @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="2500")
 		    })
 	public String getOpportunitesByAccounts(String key) throws Exception {
 		logger.debug("Fetching getOpportunitesByAccounts from SFDC");
@@ -143,7 +130,7 @@ public class AccountService {
 	 * @return String account list
 	 */
 	public String getOpportunitesByAccountsFallback(String key) {
-		logger.debug("Fetching fallback getOpportunitesByAccountsFallback from Cache with key "+key);
+		logger.debug("Fetching fallback getOpportunitesByAccountsFallback from Cache with key {}",key);
 		String result = null;
 		try {
 			result = retrieve(key);
@@ -165,7 +152,7 @@ public class AccountService {
 		logger.debug("Storing new Account to SFDC");
 //        api = new ForceApi(authService.getApiSession());
     	String id = api.createSObject("account", account);
-    	logger.debug("accountId: "+id);
+    	logger.debug("accountId: {}",id);
     	account.setId(id);
     	store(id,account);
     	return account;
@@ -179,7 +166,7 @@ public class AccountService {
 	 * @throws Exception
 	 */
 	public Account updateAccount(Account account) throws Exception {
-		logger.debug("Updating Account("+account.getId()+") to SFDC");
+		logger.debug("Updating Account {} to SFDC",account.getId());
 		String id = account.getId();
 		account.setId(null);
 //        api = new ForceApi(authService.getApiSession());
@@ -196,10 +183,11 @@ public class AccountService {
 	 * @throws Exception
 	 */
 	public void deleteAccount(String id) throws Exception {
-		logger.debug("Deleting Account("+id+") from SFDC");
+		logger.debug("Deleting Account {} from SFDC",id);
 //        api = new ForceApi(authService.getApiSession());
         api.deleteSObject("account", id);
-        this.redisTemplate.delete(id);
+        redisCommands.del(id);
+//        this.redisTemplate.delete(id);
     	return;
 	}
 	
@@ -213,10 +201,10 @@ public class AccountService {
 	@HystrixCommand(fallbackMethod = "getAccountFallback",
 		    commandProperties = {
 		      @HystrixProperty(name="execution.isolation.strategy", value="THREAD"),
-		      @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="1500")
+		      @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="2500")
 		    })
 	public Account getAccount(String id) throws Exception {
-		logger.debug("Retrieving Account by id "+id+" from SFDC");
+		logger.debug("Retrieving Account by id {} from SFDC",id);
 //        api = new ForceApi(authService.getApiSession());
         Account account = api.getSObject("account", id).as(Account.class);
         store(id,account);
@@ -229,7 +217,7 @@ public class AccountService {
 	 * @return Account
 	 */
 	public Account getAccountFallback(String id) {
-		logger.debug("Fetching getAccount by id "+id+" from cache");
+		logger.debug("Fetching getAccount by id {} from cache",id);
 		Account account = null;
 		try {
 			String result = retrieve(id);
@@ -302,9 +290,8 @@ public class AccountService {
         StringWriter jsonData = new StringWriter();
         mapper.writeValue(jsonData, obj);
         String jsonDataStr = jsonData.toString();
-		logger.debug("key: "+key);
-        logger.debug("value: "+jsonDataStr);
-        this.redisTemplate.opsForValue().set(key, jsonDataStr);
+		logger.debug("key: {}, value: {}",key,jsonDataStr);
+        redisCommands.set(key, jsonDataStr);
 
         return jsonDataStr;
 	}
@@ -317,11 +304,10 @@ public class AccountService {
 	 * @throws Exception
 	 */
 	private String retrieve(String key) throws Exception {
-		logger.debug("key: "+key);
-		String jsonDataStr = this.redisTemplate.opsForValue().get(key);
-        logger.debug("value: "+jsonDataStr);
-//		Object obj = mapper.readValue(jsonDataStr, classType);
-		
+		logger.debug("key: {}",key);
+		String jsonDataStr = redisCommands.get(key);
+        logger.debug("value: {}",jsonDataStr);
+
 		return jsonDataStr;
 	}
 }

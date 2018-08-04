@@ -1,14 +1,18 @@
 package io.pivotal.sfdc.controller;
 
+import io.lettuce.core.api.StatefulRedisConnection;
+import io.lettuce.core.api.sync.RedisCommands;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.gateway.support.ServerWebExchangeUtils;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
@@ -30,51 +34,26 @@ public class HystrixFallbackServiceController {
     private String unavailable;
 
     @Autowired
-    private StringRedisTemplate redisTemplate;
+    private StatefulRedisConnection<String, String> redisConnection;
+
+    private RedisCommands<String, String> redisCommands;
 
     private static final Logger logger = LoggerFactory.getLogger(HystrixFallbackServiceController.class);
-
-//    @RequestMapping(value = "/accountsfallback", method = RequestMethod.GET)
-//    public @ResponseBody Mono<String> getAccountServiceFallback() {
-//        logger.debug("Fetching getAccountServiceFallback");
-//        String cachedata = unavailable;
-//        try {
-//            cachedata = this.redisTemplate.opsForValue().get("/accounts");
-//            if(cachedata == null || cachedata.isEmpty())
-//                cachedata = unavailable;
-//        } catch (Exception e) {
-//            logger.error(e.getMessage());
-//        }
-//        return Mono.just(cachedata);
-//    }
-//
-//    @RequestMapping(value = "/opp_by_acctsfallback", method = RequestMethod.GET)
-//    public @ResponseBody Mono<String> getOppByAccountsServiceFallback() {
-//        logger.debug("Fetching getAccountServiceFallback");
-//        String cachedata = unavailable;
-//        try {
-//            cachedata = this.redisTemplate.opsForValue().get("/opp_by_accts");
-//            if(cachedata == null || cachedata.isEmpty())
-//                cachedata = unavailable;
-//        } catch (Exception e) {
-//            logger.error(e.getMessage());
-//        }
-//        return Mono.just(cachedata);
-//    }
 
     @RequestMapping(value = "/servicefallback", method = RequestMethod.GET)
     public @ResponseBody Mono<String> getServiceFallback(ServerWebExchange exchange) {
         logger.debug("Fetching getServiceFallback(ServerWebExchange)");
         logger.debug(exchange.getAttributes().get(ServerWebExchangeUtils.GATEWAY_ORIGINAL_REQUEST_URL_ATTR).toString());
+        redisCommands = redisConnection.sync();
         LinkedHashSet lhs = (LinkedHashSet)exchange.getAttributes().get(ServerWebExchangeUtils.GATEWAY_ORIGINAL_REQUEST_URL_ATTR);
         URI requestUrl = (URI)lhs.iterator().next();
         String path = requestUrl.getPath();
-        logger.debug("path: "+path);
+        logger.debug("path: {}",path);
         String id = path.substring(path.lastIndexOf('/')+1);
-        logger.debug("key: "+id);
+        logger.debug("key: {}",id);
         String cachedata = unavailable;
         try {
-            cachedata = this.redisTemplate.opsForValue().get(id);
+            cachedata = redisCommands.get(id);
             if(cachedata == null || cachedata.isEmpty())
                 cachedata = unavailable;
         } catch (Exception e) {

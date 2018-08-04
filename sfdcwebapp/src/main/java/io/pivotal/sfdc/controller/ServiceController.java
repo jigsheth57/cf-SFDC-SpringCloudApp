@@ -1,45 +1,38 @@
 package io.pivotal.sfdc.controller;
 
 
-
+import io.pivotal.sfdc.client.GatewayClient;
 import io.pivotal.sfdc.domain.Account;
 import io.pivotal.sfdc.domain.Contact;
 import io.pivotal.sfdc.domain.Opportunity;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
-@EnableDiscoveryClient
 public class ServiceController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ServiceController.class);
 
-	@Autowired
-	RestTemplate restTemplate;
+//	@Autowired
+//	RestTemplate restTemplate;
 
-	@Value("${sfdc.apigateway.endpoint}")
-    private String apigatewayEP;
+	@Autowired
+	GatewayClient gatewayClient;
+
+//	@Value("${sfdc.apigateway.endpoint}")
+//    private String apigatewayEP;
 
 	@Value("${sfdc.service.unavailable}")
 	private String unavailable;
@@ -53,33 +46,37 @@ public class ServiceController {
 	
    @RequestMapping(value = "/oauth2", method = RequestMethod.GET)
     public @ResponseBody String getoauth2() {
-    	return restTemplate.getForObject(apigatewayEP+"/authservice/oauth2", String.class);
+    	return gatewayClient.getApiSession();
+//       return restTemplate.getForObject(apigatewayEP+"/authservice/oauth2", String.class);
     }
 
    @RequestMapping(value = "/accounts", method = RequestMethod.GET)
     public @ResponseBody String getContactsByAccounts() {
-    	return restTemplate.getForObject(apigatewayEP+"/accountservice/accounts", String.class);
+    	return gatewayClient.getContactsByAccounts();
+//       return restTemplate.getForObject(apigatewayEP+"/accountservice/accounts", String.class);
     }
 
    @RequestMapping(value = "/opp_by_accts", method = RequestMethod.GET)
     public @ResponseBody String getOpportunitiesByAccounts() {
-    	return restTemplate.getForObject(apigatewayEP+"/accountservice/opp_by_accts", String.class);
+    	return gatewayClient.getOpportunitiesByAccounts();
+//       return restTemplate.getForObject(apigatewayEP+"/accountservice/opp_by_accts", String.class);
     }
 
    @RequestMapping(value = "/account/{id}", method={RequestMethod.POST, RequestMethod.PUT})
 	public @ResponseBody String cuAccount(@PathVariable("id") final String accountId, @RequestBody final Account account) {
-	    logger.debug("{cuAccount}Creating account: "+accountId);
+	    logger.debug("{cuAccount}Creating account: {}",accountId);
 	    RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
 	    HttpServletRequest request = ((ServletRequestAttributes)requestAttributes).getRequest();
 		String method = request.getMethod().toLowerCase();
 		String result = unavailable;
 		switch (method) {
 		case "put":
-			restTemplate.put(apigatewayEP+"/accountservice/account/"+accountId, account);
+		    gatewayClient.updateAccount(accountId,account);
+//			restTemplate.put(apigatewayEP+"/accountservice/account/"+accountId, account);
 			break;
 		default:
-			result = restTemplate.postForObject(apigatewayEP+"/accountservice/account/", account, String.class);
-			logger.debug("result: "+result);
+		    result = gatewayClient.createAccount(account);
+//			result = restTemplate.postForObject(apigatewayEP+"/accountservice/account/", account, String.class);
 			break;
 		}
 		return result;
@@ -93,10 +90,12 @@ public class ServiceController {
 		String result = unavailable;
 		switch (method) {
 		case "delete":
-			restTemplate.delete(apigatewayEP+"/accountservice/account/"+accountId);
+		    gatewayClient.deleteAccount(accountId);
+//			restTemplate.delete(apigatewayEP+"/accountservice/account/"+accountId);
 			break;
 		default:
-			result = restTemplate.getForObject(apigatewayEP+"/accountservice/account/"+accountId, String.class);
+		    result = gatewayClient.getAccount(accountId);
+//			result = restTemplate.getForObject(apigatewayEP+"/accountservice/account/"+accountId, String.class);
 			break;
 		}
 		return result;
@@ -111,10 +110,12 @@ public class ServiceController {
 		switch (method) {
 		case "put":
 			contact.setName(null);
-			restTemplate.put(apigatewayEP+"/contactservice/contact/"+contactId, contact);
+			gatewayClient.updateContact(contactId,contact);
+//			restTemplate.put(apigatewayEP+"/contactservice/contact/"+contactId, contact);
 			break;
 		default:
-			result = restTemplate.postForObject(apigatewayEP+"/contactservice/contact/", contact, String.class);
+		    result = gatewayClient.createContact(contact);
+//			result = restTemplate.postForObject(apigatewayEP+"/contactservice/contact/", contact, String.class);
 			break;
 		}
 		return result;
@@ -128,10 +129,12 @@ public class ServiceController {
 		String result = unavailable;
 		switch (method) {
 		case "delete":
-			restTemplate.delete(apigatewayEP+"/contactservice/contact/"+contactId);
+		    gatewayClient.deleteContact(contactId);
+//			restTemplate.delete(apigatewayEP+"/contactservice/contact/"+contactId);
 			break;
 		default:
-			result = restTemplate.getForObject(apigatewayEP+"/contactservice/contact/"+contactId, String.class);
+		    result = gatewayClient.getContact(contactId);
+//			result = restTemplate.getForObject(apigatewayEP+"/contactservice/contact/"+contactId, String.class);
 			break;
 		}
 		return result;
@@ -145,10 +148,12 @@ public class ServiceController {
 		String result = unavailable;
 		switch (method) {
 		case "put":
-			restTemplate.put(apigatewayEP+"/opportunityservice/opportunity/"+opportunityId, opportunity);
+		    gatewayClient.updateOpportunity(opportunityId, opportunity);
+//			restTemplate.put(apigatewayEP+"/opportunityservice/opportunity/"+opportunityId, opportunity);
 			break;
 		default:
-			result = restTemplate.postForObject(apigatewayEP+"/opportunityservice/opportunity/", opportunity, String.class);
+		    result = gatewayClient.createOpportunity(opportunity);
+//			result = restTemplate.postForObject(apigatewayEP+"/opportunityservice/opportunity/", opportunity, String.class);
 			break;
 		}
 		return result;
@@ -162,10 +167,12 @@ public class ServiceController {
 		String result = unavailable;
 		switch (method) {
 		case "delete":
-			restTemplate.delete(apigatewayEP+"/opportunityservice/opportunity/"+opportunityId);
+		    gatewayClient.deleteOpportunity(opportunityId);
+//			restTemplate.delete(apigatewayEP+"/opportunityservice/opportunity/"+opportunityId);
 			break;
 		default:
-			result = restTemplate.getForObject(apigatewayEP+"/opportunityservice/opportunity/"+opportunityId, String.class);
+		    result = gatewayClient.getOpportunity(opportunityId);
+//			result = restTemplate.getForObject(apigatewayEP+"/opportunityservice/opportunity/"+opportunityId, String.class);
 			break;
 		}
 		return result;

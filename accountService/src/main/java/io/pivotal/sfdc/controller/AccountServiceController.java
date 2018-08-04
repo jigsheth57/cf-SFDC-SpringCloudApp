@@ -109,7 +109,7 @@ public class AccountServiceController {
 			return new ResponseEntity<Account>(account, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		HttpStatus httpstatus = HttpStatus.CREATED;
-		logger.debug(String.format("Created new account with id %s: [%s]",account.getId(), account));
+		logger.debug("Created new account with id {}: [{}]",account.getId(), account);
 		return new ResponseEntity<Account>(account, new HttpHeaders(), httpstatus);
 	}
 
@@ -130,7 +130,7 @@ public class AccountServiceController {
 			logger.error(String.format("Can not update existing account with id %s: [%s]",account.getId(), account));
 			return new ResponseEntity<Account>(account, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		logger.debug(String.format("Updated existing account with id %s: [%s]",account.getId(), account));
+		logger.debug("Updated existing account with id {}: [{}]",account.getId(), account);
 		return new ResponseEntity<Account>(account, new HttpHeaders(), httpstatus);
 	}
 	
@@ -152,7 +152,7 @@ public class AccountServiceController {
 			ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
 			return ResponseEntity.noContent().build();
 		}
-		logger.debug(String.format("Remove account for id %s",accountId));
+		logger.debug("Remove account for id {}",accountId);
 		ResponseEntity.status(httpstatus);
 		return ResponseEntity.noContent().build();
 	}

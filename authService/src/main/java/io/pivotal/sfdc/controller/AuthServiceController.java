@@ -6,8 +6,12 @@ import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
+import io.lettuce.core.SetArgs;
+import io.lettuce.core.api.StatefulRedisConnection;
+import io.lettuce.core.api.sync.RedisCommands;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
@@ -37,11 +41,11 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 public class AuthServiceController {
 
-	private StringRedisTemplate redisTemplate;
-    
-	@Resource
-    private JedisConnectionFactory redisConnFactory;
-    
+    @Autowired
+    private StatefulRedisConnection<String, String> redisConnection;
+
+    private RedisCommands<String, String> redisCommands;
+
 	@Value("${sfdc.uid}")
     private String username;
     
@@ -60,14 +64,6 @@ public class AuthServiceController {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthServiceController.class);
 
-    @PostConstruct
-    public void init() {
-		this.redisTemplate = new StringRedisTemplate(redisConnFactory);
-    	logger.debug("HostName: "+redisConnFactory.getHostName());
-    	logger.debug("Port: "+redisConnFactory.getPort());
-    	logger.debug("Password: "+redisConnFactory.getPassword());
-    }
-
     /**
      * Retrieves SalesForce.com timebase oauth2 token and stores it into Redis with TTL
      * 
@@ -76,30 +72,28 @@ public class AuthServiceController {
     @RequestMapping(value = "/oauth2", method = RequestMethod.GET)
 	@ApiOperation(value = "Retrieve SFDC oauth2 token", notes = "Retrieves SalesForce.com timebase oauth2 token and stores it into Redis with TTL", response = ApiSession.class)
     public @ResponseBody ApiSession oauth2() {
-        ApiSession apiSession = getApiSession();
-        return apiSession;
+        return getApiSession();
     }
     
     public ApiSession getApiSession() {
 		logger.debug("Fetching ApiSession");
         ApiSession apiSession = null;
-    	ValueOperations<String, String> ops = this.redisTemplate.opsForValue();
-		if (!this.redisTemplate.hasKey(ACCESS_TOKEN)) {
+        redisCommands = redisConnection.sync();
+
+        if (redisCommands.exists(ACCESS_TOKEN,INSTANCE_URL) == 0) {
 	    	ApiConfig apiconfig = new ApiConfig()
 			.setUsername(username)
 			.setPassword(password)
 			.setClientId(clientId)
 			.setClientSecret(clientSecret);
 	    	apiSession = Auth.authenticate(apiconfig);
-			ops.set(ACCESS_TOKEN, apiSession.getAccessToken());
 			Calendar cal = Calendar.getInstance(); // creates calendar
 			cal.setTime(new Date()); // sets calendar time/date
 			cal.add(Calendar.HOUR_OF_DAY, 2); // adds two hour
-			this.redisTemplate.expireAt(ACCESS_TOKEN, cal.getTime());
-			ops.setIfAbsent(INSTANCE_URL, apiSession.getApiEndpoint());
-			this.redisTemplate.expireAt(INSTANCE_URL, cal.getTime());
+            redisCommands.set(ACCESS_TOKEN, apiSession.getAccessToken(),SetArgs.Builder.ex(cal.getTime().getTime()));
+            redisCommands.set(INSTANCE_URL, apiSession.getApiEndpoint(), SetArgs.Builder.nx().ex(cal.getTime().getTime()));
 		} else {
-			apiSession = new ApiSession(ops.get(ACCESS_TOKEN),ops.get(INSTANCE_URL));
+            apiSession = new ApiSession(redisCommands.get(ACCESS_TOKEN),redisCommands.get(INSTANCE_URL));
 		}
 		return apiSession;
     }

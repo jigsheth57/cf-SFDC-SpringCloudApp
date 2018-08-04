@@ -6,13 +6,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 
 /**
  * SFDC Auth Service
@@ -28,12 +23,6 @@ public class AuthService {
 	private static final Logger logger = LoggerFactory
 			.getLogger(AuthService.class);
 
-	@Autowired
-	StringRedisTemplate redisTemplate;
-    
-	@Resource
-    private JedisConnectionFactory redisConnFactory;
-
     @Autowired
     RestTemplate restTemplate;
 
@@ -43,14 +32,6 @@ public class AuthService {
 	private static String ACCESS_TOKEN = "access_token";
 
     private static String INSTANCE_URL = "instance_url";
-
-    @PostConstruct
-    public void init() {
-		this.redisTemplate = new StringRedisTemplate(redisConnFactory);
-    	logger.debug("HostName: "+redisConnFactory.getHostName());
-    	logger.debug("Port: "+redisConnFactory.getPort());
-    	logger.debug("Password: "+redisConnFactory.getPassword());
-    }
 
     @Bean
     RestTemplate rest() {

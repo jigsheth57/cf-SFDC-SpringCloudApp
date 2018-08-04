@@ -1,17 +1,6 @@
 version: '2.1'
 
 services:
-#  mysql:
-#    image: mysql:latest
-#    volumes:
-#     - "./zipkin/mysql.sql:/docker-entrypoint-initdb.d/mysql.sql"
-#    container_name: mysql
-#    environment:
-#      - MYSQL_DATABASE=zipkin
-#      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-#    ports:
-#    - "3306:3306"
-
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq
@@ -136,6 +125,8 @@ services:
        condition: service_healthy
      authservice:
        condition: service_healthy
+     accountservice:
+       condition: service_healthy
 
   opportunityservice:
     image: jigsheth57/opportunityservice:latest
@@ -160,6 +151,10 @@ services:
      hystrixdashboard:
        condition: service_healthy
      authservice:
+       condition: service_healthy
+     accountservice:
+       condition: service_healthy
+     contactservice:
        condition: service_healthy
 
   gatewayservice:
@@ -226,8 +221,6 @@ services:
     depends_on:
      rabbitmq:
        condition: service_started
-     redis:
-       condition: service_started
      configserver:
        condition: service_healthy
      discovery:
@@ -235,23 +228,25 @@ services:
      gatewayservice:
        condition: service_healthy
 
-#  zipkin:
-#    image: jigsheth57/zipkin:2.7.1
-#    environment:
-#      - HTTP_COLLECTOR_ENABLED=false
-#      - STORAGE_TYPE=mysql
-#      - MYSQL_HOST=mysql
-#      - MYSQL_USER=root
-#      - MYSQL_DB=zipkin
-#      - RABBIT_HOST=rabbitmq
-#      - RABBIT_USER=guest
-#      - RABBIT_PASSWORD=guest
-#      - RABBIT_USE_SSL=false
-#    ports:
-#     - "9411:9411"
-#    depends_on:
-#     rabbitmq:
-#       condition: service_started
-#     mysql:
-#       condition: service_started
+  mysql:
+    image: openzipkin/zipkin-mysql
+    container_name: mysql
+    ports:
+    - "3306:3306"
 
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    ports:
+    - "9411:9411"
+    environment:
+      - STORAGE_TYPE=mysql
+      - MYSQL_HOST=mysql
+      - RABBIT_ADDRESSES=rabbitmq
+      - RABBIT_USER=guest
+      - RABBIT_PASSWORD=guest
+    depends_on:
+     rabbitmq:
+       condition: service_started
+     mysql:
+       condition: service_started

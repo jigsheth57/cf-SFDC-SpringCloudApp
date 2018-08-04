@@ -1,10 +1,8 @@
 spring:
   application:
-    name: opportunityService
+    name: opportunityservice
   cloud:
     config:
       uri: ${vcap.services.p-config-server.credentials.uri:http://configserver:8888}
       failFast: true
 
-encrypt:
-  failOnError: false

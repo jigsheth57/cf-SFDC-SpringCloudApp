@@ -50,7 +50,7 @@ public class AuthServiceApplication implements CommandLineRunner {
         return new Docket(DocumentationType.SWAGGER_2)
         		.apiInfo(apiInfo())
         		.select()                                  
-                .apis(RequestHandlerSelectors.any())              
+                .apis(RequestHandlerSelectors.basePackage("io.pivotal.sfdc.controller"))
                 .paths(PathSelectors.any())
                 .build();  
     }
