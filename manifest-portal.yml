@@ -2,6 +2,7 @@
 fd_service: &fd_service
   buildpack: java_buildpack_offline
   memory: 1G
+  # health-check-type: none
   health-check-type: http
   health-check-http-endpoint: /manage/health
   env:

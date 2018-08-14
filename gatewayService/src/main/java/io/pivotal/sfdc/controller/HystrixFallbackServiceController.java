@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import javax.annotation.Resource;
 import java.net.URI;
 import java.util.LinkedHashSet;
 
@@ -33,7 +34,7 @@ public class HystrixFallbackServiceController {
     @Value("${sfdc.service.unavailable}")
     private String unavailable;
 
-    @Autowired
+    @Resource(name="redisConnection")
     private StatefulRedisConnection<String, String> redisConnection;
 
     private RedisCommands<String, String> redisCommands;

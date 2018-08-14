@@ -9,20 +9,20 @@ cf cs p-config-server standard config-server -c '{"git":{"privateKey":"-----BEGI
 cf cs p-service-registry standard service-registry
 cf cs p-circuit-breaker-dashboard standard circuit-breaker
 cf cs p-rabbitmq standard event-bus
-cf cs p-redis dedicated-vm cache-service
+cf cs p-redis shared-vm cache-service
 cf cs scheduler-for-pcf standard scheduler-dataloader
 echo "Checking status of the Spring Cloud Service Instances!"
-until [ `cf service config-server | grep -c "succeeded"` -eq 1  ]
+until [ `cf service config-server | grep -c "succeeded"` -ge 1  ]
 do
   echo -n "."
   sleep 5s
 done
-until [ `cf service service-registry | grep -c "succeeded"` -eq 1  ]
+until [ `cf service service-registry | grep -c "succeeded"` -ge 1  ]
 do
   echo -n "."
   sleep 5s
 done
-until [ `cf service circuit-breaker | grep -c "succeeded"` -eq 1  ]
+until [ `cf service circuit-breaker | grep -c "succeeded"` -ge 1  ]
 do
   echo -n "."
   sleep 5s
@@ -30,18 +30,23 @@ done
 echo
 echo "Service instances created. Pushing all required applications."
 
-cf p authservice -f ./manifest-authservice.yml
+cf p authservice -f ./manifest-authservice.yml --no-start
 cf p accountservice -f ./manifest-accountservice.yml --no-start
-cf p contactservice -f ./manifest-contactservice.yml
-cf p opportunityservice -f ./manifest-opportunityservice.yml
-cf p gatewayservice -f ./manifest-gatewayservice.yml
-cf p portal -f ./manifest-portal.yml
+cf p contactservice -f ./manifest-contactservice.yml --no-start
+cf p opportunityservice -f ./manifest-opportunityservice.yml --no-start
+cf p gatewayservice -f ./manifest-gatewayservice.yml --no-start
+cf p portal -f ./manifest-portal.yml --no-start
 cf p dataloader -f ./manifest-dataloader.yml
 cf sp dataloader
 
 ( exec "./network-policies.sh" )
 
+cf st authservice
 cf st accountservice
+cf st contactservice
+cf st opportunityservice
+cf st gatewayservice
+cf st portal
 
 DATALOADER_START_CMD=$(cf curl /v2/apps/`cf app dataloader --guid`/summary | jq -r '.detected_start_command')
 #CF_TASK_DATALOADER_CMD="cf run-task dataloader '$DATALOADER_START_CMD' --name preload-cache"
