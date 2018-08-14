@@ -18,11 +18,11 @@ public class Configuration {
     @org.springframework.context.annotation.Configuration
     @Profile("cloud")
     static class CloudConfiguration {
-        @Value("${vcap.services.cache-service.credentials.host:spring.redis.host}")
+        @Value("${spring.redis.host:vcap.services.cache-service.credentials.host}")
         String redis_host;
-        @Value("${vcap.services.cache-service.credentials.port:spring.redis.port}")
+        @Value("${spring.redis.port:vcap.services.cache-service.credentials.port}")
         String redis_port;
-        @Value("${vcap.services.cache-service.credentials.password:spring.redis.password}")
+        @Value("${spring.redis.password:vcap.services.cache-service.credentials.password}")
         String redis_password;
 
         private static final Logger logger = LoggerFactory.getLogger(CloudConfiguration.class);
