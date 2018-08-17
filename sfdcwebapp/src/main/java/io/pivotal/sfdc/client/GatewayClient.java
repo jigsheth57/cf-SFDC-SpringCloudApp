@@ -10,7 +10,11 @@ import org.springframework.web.bind.annotation.*;
 @FeignClient(name = "gatewayservice")
 public interface GatewayClient {
 
-    @GetMapping("/authservice/oauth2")
+
+    @RequestMapping(value = "/manage/health", method = RequestMethod.GET)
+    String getHealth();
+
+    @RequestMapping(value = "/authservice/oauth2", method = RequestMethod.GET)
     String getApiSession();
 
     @RequestMapping(value = "/accountservice/accounts", method = RequestMethod.GET)

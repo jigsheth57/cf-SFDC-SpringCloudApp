@@ -43,6 +43,16 @@
 				</table>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-md-10">
+				<div class="well">
+					<a href="#/accounts" class="btn btn-info btn-sm">Contacts by Account</a>&nbsp;&nbsp;&nbsp;
+					<a href="#/opp_by_accts" class="btn btn-info btn-sm">Opportunities by Account</a>&nbsp;&nbsp;&nbsp;
+					<span ng-show="isContactServiceUP" class="ng-hide"><a href="#/contact/e/{{contact.Id}}" class="btn btn-success btn-sm">Update Contact</a></span>&nbsp;&nbsp;&nbsp;
+					<span ng-show="isContactServiceUP" class="ng-hide"><a ng-click="delete(contact.Id)" class="btn btn-danger btn-sm">Delete Contact</a></span>&nbsp;&nbsp;&nbsp;
+				</div>
+			</div>
+		</div>
 		<div ng-include src="'/partials/footer.html'"></div>
 	</div>
 </div>
