@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: accountservice
+  name: accountservice
+spec:
+  ports:
+  - name: "9001"
+    port: 9001
+    targetPort: 9001
+    nodePort: 31001
+  selector:
+    app: accountservice
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: accountservice
+  name: accountservice
+spec:
+  selector:
+    matchLabels:
+      app: accountservice
+  template:
+    metadata:
+      labels:
+        app: accountservice
+    spec:
+      containers:
+      - env:
+        - name: PORT
+          value: "9001"
+        - name: SPRING_PROFILES_ACTIVE
+          value: local
+        - name: SPRING_RABBITMQ_HOST
+          value: rabbitmq
+        - name: SPRING_RABBITMQ_PASSWORD
+          value: guest
+        - name: SPRING_RABBITMQ_PORT
+          value: "5672"
+        - name: SPRING_RABBITMQ_USERNAME
+          value: guest
+        image: jigsheth57/accountservice:latest
+        name: accountservice
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 9001
+        readinessProbe:
+          httpGet:
+            path: /manage/health
+            port: 9001
+          initialDelaySeconds: 90
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /manage/health
+            port: 9001
+          initialDelaySeconds: 120
+          periodSeconds: 15

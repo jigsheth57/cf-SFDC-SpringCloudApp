@@ -22,3 +22,7 @@ spring:
 ---
 spring:
   profiles: cloud # For deployment in Cloud Foundry
+  redis:
+    host: ${vcap.services.cache-service.credentials.host}
+    port: ${vcap.services.cache-service.credentials.port:6379}
+    password: ${vcap.services.cache-service.credentials.password}
