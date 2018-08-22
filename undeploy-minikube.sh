@@ -24,7 +24,8 @@ kubectl delete deployment turbine
 kubectl delete service turbine
 kubectl delete deployment hystrixdashboard
 kubectl delete service hystrixdashboard
-kubectl delete deployment zipkin
-kubectl delete service zipkin
-kubectl delete deployment mysql
-kubectl delete service mysql
+# kubectl delete deployment zipkin
+# kubectl delete service zipkin
+# kubectl delete deployment mysql
+# kubectl delete service mysql
+kubectl delete ingress ingress-controller
