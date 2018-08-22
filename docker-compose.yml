@@ -223,25 +223,25 @@ services:
       gatewayservice:
         condition: service_healthy
 
-  mysql:
-    image: openzipkin/zipkin-mysql
-    container_name: mysql
-    ports:
-      - "3306:3306"
-
-  zipkin:
-    image: openzipkin/zipkin
-    container_name: zipkin
-    environment:
-      - STORAGE_TYPE=mysql
-      - MYSQL_HOST=mysql
-      - RABBIT_ADDRESSES=rabbitmq
-      - RABBIT_USER=guest
-      - RABBIT_PASSWORD=guest
-    ports:
-      - "9411:9411"
-    depends_on:
-      rabbitmq:
-        condition: service_started
-      mysql:
-        condition: service_started
+  # mysql:
+  #   image: openzipkin/zipkin-mysql
+  #   container_name: mysql
+  #   ports:
+  #     - "3306:3306"
+  #
+  # zipkin:
+  #   image: openzipkin/zipkin
+  #   container_name: zipkin
+  #   environment:
+  #     - STORAGE_TYPE=mysql
+  #     - MYSQL_HOST=mysql
+  #     - RABBIT_ADDRESSES=rabbitmq
+  #     - RABBIT_USER=guest
+  #     - RABBIT_PASSWORD=guest
+  #   ports:
+  #     - "9411:9411"
+  #   depends_on:
+  #     rabbitmq:
+  #       condition: service_started
+  #     mysql:
+  #       condition: service_started
