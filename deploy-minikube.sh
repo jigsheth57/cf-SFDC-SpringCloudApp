@@ -85,7 +85,7 @@ do
   sleep 5s
 done
 
-open sfdcwebapp.minikube.io
+open http://sfdcwebapp.minikube.io
 # kubectl apply -f ./k8/mysql-deployment.yaml
 # until [ `kubectl describe pods -l app=mysql | awk '/Ready:/ {print $2}' | grep -c "True"` -ge 1  ]
 # do
