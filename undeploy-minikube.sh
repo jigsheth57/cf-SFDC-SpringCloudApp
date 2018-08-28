@@ -1,31 +1,19 @@
 #!/bin/bash
 
-kubectl delete deployment rabbitmq
-kubectl delete service rabbitmq
-kubectl delete deployment redis
-kubectl delete service redis
-kubectl delete deployment configserver
-kubectl delete service configserver
-kubectl delete deployment discovery
-kubectl delete service discovery
-kubectl delete deployment authservice
-kubectl delete service authservice
-kubectl delete deployment accountservice
-kubectl delete service accountservice
-kubectl delete deployment contactservice
-kubectl delete service contactservice
-kubectl delete deployment opportunityservice
-kubectl delete service opportunityservice
-kubectl delete deployment gatewayservice
-kubectl delete service gatewayservice
-kubectl delete deployment sfdcwebapp
-kubectl delete service sfdcwebapp
-kubectl delete deployment turbine
-kubectl delete service turbine
-kubectl delete deployment hystrixdashboard
-kubectl delete service hystrixdashboard
+kubectl delete -f ./k8/rabbitmq-deployment.yaml
+kubectl delete -f ./k8/redis-deployment.yaml
+kubectl delete -f ./k8/configserver-deployment.yaml
+kubectl delete -f ./k8/discovery-deployment.yaml
+kubectl delete -f ./k8/authservice-deployment.yaml
+kubectl delete -f ./k8/accountservice-deployment.yaml
+kubectl delete -f ./k8/contactservice-deployment.yaml
+kubectl delete -f ./k8/opportunityservice-deployment.yaml
+kubectl delete -f ./k8/gatewayservice-deployment.yaml
+kubectl delete -f ./k8/sfdcwebapp-deployment.yaml
+kubectl delete -f ./k8/turbine-deployment.yaml
+kubectl delete -f ./k8/hystrixdashboard-deployment.yaml
 # kubectl delete deployment zipkin
 # kubectl delete service zipkin
 # kubectl delete deployment mysql
 # kubectl delete service mysql
-kubectl delete ingress ingress-controller
+kubectl delete -f ./k8/ingress.yaml
