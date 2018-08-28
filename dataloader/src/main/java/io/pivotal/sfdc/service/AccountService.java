@@ -64,7 +64,7 @@ public class AccountService {
 	 * @throws Exception
 	 */
 	public void preload() throws Exception {
-		logger.debug("Preloading data objects from SFDC");
+		logger.debug("Start preloading data objects from SFDC");
     	try {
 			this.api = new ForceApi(authService.getApiSession());
 		} catch (Exception e) {
@@ -98,10 +98,9 @@ public class AccountService {
     			acct.setOpportunities(null);
     			store(acct.getId(),acct);
     		}
-    			
-    		
     	}
-        return;
+		logger.debug("Done preloading data objects from SFDC");
+		return;
 	}
 	
 	/**

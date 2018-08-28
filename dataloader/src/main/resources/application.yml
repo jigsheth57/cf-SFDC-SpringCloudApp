@@ -2,7 +2,7 @@ logging:
   level:
     com.netflix: INFO
     org.springframework.cloud: INFO
-    io.pivotal.sfdc: INFO
+    io.pivotal.sfdc: DEBUG
 
 sfdc:
   service:
