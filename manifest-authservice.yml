@@ -2,10 +2,10 @@
 bck_service: &bck_service
   memory: 1G
   # health-check-type: none
-  health-check-type: http
-  health-check-http-endpoint: /manage/health
-  routes:
-  - route: authservice.apps.internal
+  health-check-type: port
+  # health-check-http-endpoint: /manage/health
+  # routes:
+  # - route: authservice.apps.internal
   env:
     SPRING_PROFILES_ACTIVE: cloud
     SPRING_RABBITMQ_ADDRESSES: ${vcap.services.event-bus.credentials.uri}
@@ -17,5 +17,6 @@ bck_service: &bck_service
   - cache-service
 applications:
   - name: authService
+    no-route: true
     path: authService/target/authService.jar
     <<: *bck_service
