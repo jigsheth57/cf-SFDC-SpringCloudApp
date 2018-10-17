@@ -46,6 +46,11 @@
             <name>force-rest-api repository on GitHub</name>
             <url>http://jesperfj.github.com/force-rest-api/repository/</url>
         </repository>
+        <repository>
+            <id>sfdc-repository</id>
+            <name>sfdc-repository repository on GitHub</name>
+            <url>https://github.com/jigsheth57/cf-SFDC-SpringCloudApp/raw/repository/</url>
+        </repository>
     </repositories>
 
     <dependencies>
