@@ -1,7 +1,0 @@
-spring:
-  application:
-    name: accountservice
-  cloud:
-    config:
-      uri: ${vcap.services.p-config-server.credentials.uri:http://configserver:8888}
-      failFast: true
