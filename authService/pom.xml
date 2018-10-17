@@ -81,6 +81,7 @@
     </dependencies>
     <build>
         <plugins>
+<!--
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>dockerfile-maven-plugin</artifactId>
@@ -109,6 +110,7 @@
                     </buildArgs>
                 </configuration>
             </plugin>
+-->            
         </plugins>
     </build>
 </project>
