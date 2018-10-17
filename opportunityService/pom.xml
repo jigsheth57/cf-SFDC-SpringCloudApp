@@ -6,11 +6,11 @@
 	<parent>
 		<groupId>io.pivotal.sfdc</groupId>
 		<artifactId>sfdcapp</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1.0.0</version>
 	</parent>
 
 	<artifactId>opportunityService</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
 	<name>opportunityService</name>
@@ -94,6 +94,7 @@
 
 	<build>
 		<plugins>
+<!--
 			<plugin>
 				<groupId>com.spotify</groupId>
 				<artifactId>dockerfile-maven-plugin</artifactId>
@@ -122,6 +123,7 @@
 					</buildArgs>
 				</configuration>
 			</plugin>
+-->
 		</plugins>
 	</build>
 

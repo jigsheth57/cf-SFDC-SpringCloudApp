@@ -5,7 +5,7 @@
 
 	<groupId>io.pivotal.sfdc</groupId>
 	<artifactId>hystrixDashboard</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
 	<name>hystrixDashboard</name>
