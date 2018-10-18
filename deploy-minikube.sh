@@ -6,8 +6,8 @@ minikube addons enable ingress
 if [ -z "$(grep authservice.minikube.io /etc/hosts)" ]
 then
   echo "adding following host to /etc/hosts file ..."
-  echo "authservice.minikube.io accountservice.minikube.io contactservice.minikube.io opportunityservice.minikube.io gatewayservice.minikube.io sfdcwebapp.minikube.io"
-  echo "$(minikube ip) authservice.minikube.io accountservice.minikube.io contactservice.minikube.io opportunityservice.minikube.io gatewayservice.minikube.io sfdcwebapp.minikube.io" | sudo tee -a /etc/hosts
+  echo "authservice.minikube.io accountservice.minikube.io contactservice.minikube.io opportunityservice.minikube.io gatewayservice.minikube.io sfdcwebapp.minikube.io hystrixdashboard.minikube.io discovery.minikube.io"
+  echo "$(minikube ip) authservice.minikube.io accountservice.minikube.io contactservice.minikube.io opportunityservice.minikube.io gatewayservice.minikube.io sfdcwebapp.minikube.io hystrixdashboard.minikube.io discovery.minikube.io" | sudo tee -a /etc/hosts
 fi
 
 kubectl apply -f ./k8/ingress.yaml

@@ -52,3 +52,17 @@ spec:
         backend:
           serviceName: sfdcwebapp
           servicePort: 9090
+  - host: hystrixdashboard.pks.pcfdemo.pcfapps.org
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: hystrixdashboard
+          servicePort: 7979
+  - host: discovery.pks.pcfdemo.pcfapps.org
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: discovery
+          servicePort: 8761
