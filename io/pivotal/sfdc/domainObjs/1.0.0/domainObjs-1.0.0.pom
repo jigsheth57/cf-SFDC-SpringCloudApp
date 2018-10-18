@@ -10,6 +10,28 @@
 
 	<name>domainObjs</name>
 	<description>Domain objects for SFDC</description>
+	<inceptionYear>2015</inceptionYear>
+	<url>https://github.com/jigsheth57/cf-SFDC-SpringCloudApp/tree/master/domainObjs</url>
+
+	<!-- Organization -->
+	<organization>
+		<name>Pivotal</name>
+		<url>http://www.pivotal.io</url>
+	</organization>
+
+	<!-- Developers -->
+	<developers>
+		<developer>
+			<name>Jignesh Sheth</name>
+			<email>jigsheth@pivotal.io</email>
+			<organization>Pivotal</organization>
+		</developer>
+	</developers>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+	</properties>
 
 	<dependencies>
 		<dependency>
@@ -25,6 +47,13 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>build-info</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

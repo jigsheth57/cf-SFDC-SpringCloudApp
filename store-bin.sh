@@ -24,3 +24,7 @@ mvn install:install-file -DgroupId=io.pivotal.sfdc -DartifactId=gatewayService -
 mvn install:install-file -DgroupId=io.pivotal.sfdc -DartifactId=sfdcwebapp -Dversion=1.0.0 -Dfile=../SFDCApp/sfdcwebapp/target/sfdcwebapp.jar -Dpackaging=jar -DpomFile=../SFDCApp/sfdcwebapp/pom.xml -DlocalRepositoryPath=.  -DcreateChecksum=true
 
 mvn install:install-file -DgroupId=io.pivotal.sfdc -DartifactId=dataloader -Dversion=1.0.0 -Dfile=../SFDCApp/dataloader/target/dataloader.jar -Dpackaging=jar -DpomFile=../SFDCApp/dataloader/pom.xml -DlocalRepositoryPath=.  -DcreateChecksum=true
+
+git add -A . && git commit -m "released version 1.0.0"
+
+git push origin repository
