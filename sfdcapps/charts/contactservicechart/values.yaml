@@ -1,0 +1,10 @@
+replicaCount: 1
+
+image:
+  repository: jigsheth57/contactservice
+  tag: latest
+  pullPolicy: IfNotPresent
+
+contactservice:
+  port: 9002
+  nodePort: 31002

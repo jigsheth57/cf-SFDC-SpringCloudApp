@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-authservice-svc
+  labels:
+    sfdcdemo: authservice-svc
+    {{- include "sfdcapps.labels" . | indent 4 }}
+spec:
+  ports:
+  - name: "authservice-port-9000"
+    port: {{ .Values.global.authservice.port | default .Values.authservice.port }}
+    targetPort: {{ .Values.global.authservice.port | default .Values.authservice.port }}
+    nodePort: {{ .Values.authservice.nodePort }}
+  selector:
+    app: {{ .Release.Name }}-authservice
+  type: NodePort

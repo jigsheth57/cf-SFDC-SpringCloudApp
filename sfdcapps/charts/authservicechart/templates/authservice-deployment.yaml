@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-authservice
+  labels:
+    app: {{ .Release.Name }}-authservice
+    {{- include "sfdcapps.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-authservice
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-authservice
+        {{- include "sfdcapps.labels" . | indent 8 }}
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-authservice
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.global.image.pullPolicy }}
+          envFrom:
+          - configMapRef:
+              name: {{ .Release.Name }}-configmap
+          env:
+          - name: PORT
+            value: {{ .Values.global.authservice.port | default .Values.authservice.port | quote }}
+          ports:
+          - containerPort: {{ .Values.global.authservice.port | default .Values.authservice.port }}
+          {{- include "authservice.healthProbes" . | indent 10 }}

@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-redis
+  labels:
+    app: {{ .Release.Name }}-redis
+    {{- include "sfdcapps.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-redis
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-redis
+        {{- include "sfdcapps.labels" . | indent 8 }}
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-redis
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.global.image.pullPolicy }}
+          ports:
+          - containerPort: {{ .Values.global.redis.port | default .Values.redis.port }}
+          {{- include "redis.healthProbes" . | indent 10 }}

@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-discovery-svc
+  labels:
+    sfdcdemo: discovery-svc
+    {{- include "sfdcapps.labels" . | indent 4 }}
+spec:
+  ports:
+  - name: "discovery-port-8761"
+    port: {{ .Values.global.discovery.port | default .Values.discovery.port }}
+    targetPort: {{ .Values.global.discovery.port | default .Values.discovery.port }}
+    nodePort: {{ .Values.discovery.nodePort }}
+  selector:
+    app: {{ .Release.Name }}-discovery
+  type: NodePort

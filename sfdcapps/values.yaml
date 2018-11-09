@@ -1,0 +1,45 @@
+# Default values for sfdcapps.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+spring:
+  profiles:
+    active: local
+  rabbitmq:
+    port: 5672
+    username: guest
+    password: guest
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/jigsheth57/config-repo
+
+global:
+  redis:
+    port: 6379
+  rabbitmq:
+    port: 5672
+  configserver:
+    port: 8888
+  discovery:
+    port: 8761
+  hystrixdashboard:
+    port: 7979
+  turbine:
+    port: 8000
+  authservice:
+    port: 9000
+  accountservice:
+    port: 9001
+  contactservice:
+    port: 9002
+  opportunityservice:
+    port: 9003
+  gatewayservice:
+    port: 9012
+  portalservice:
+    port: 9090
+  image:
+    pullPolicy: IfNotPresent
+  domain: pks.pcfdemo.pcfapps.org

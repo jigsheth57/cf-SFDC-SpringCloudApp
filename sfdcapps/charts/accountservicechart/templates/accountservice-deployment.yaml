@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-accountservice
+  labels:
+    app: {{ .Release.Name }}-accountservice
+    {{- include "sfdcapps.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-accountservice
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-accountservice
+        {{- include "sfdcapps.labels" . | indent 8 }}
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-accountservice
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.global.image.pullPolicy }}
+          envFrom:
+          - configMapRef:
+              name: {{ .Release.Name }}-configmap
+          env:
+          - name: PORT
+            value: {{ .Values.global.accountservice.port | default .Values.accountservice.port | quote }}
+          ports:
+          - containerPort: {{ .Values.global.accountservice.port | default .Values.accountservice.port }}
+          {{- include "accountservice.healthProbes" . | indent 10 }}

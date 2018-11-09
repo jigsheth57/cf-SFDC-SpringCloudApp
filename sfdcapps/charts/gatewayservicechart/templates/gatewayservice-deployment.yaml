@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-gatewayservice
+  labels:
+    app: {{ .Release.Name }}-gatewayservice
+    {{- include "sfdcapps.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-gatewayservice
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-gatewayservice
+        {{- include "sfdcapps.labels" . | indent 8 }}
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-gatewayservice
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.global.image.pullPolicy }}
+          envFrom:
+          - configMapRef:
+              name: {{ .Release.Name }}-configmap
+          env:
+          - name: PORT
+            value: {{ .Values.global.gatewayservice.port | default .Values.gatewayservice.port | quote }}
+          ports:
+          - containerPort: {{ .Values.global.gatewayservice.port | default .Values.gatewayservice.port }}
+          {{- include "gatewayservice.healthProbes" . | indent 10 }}

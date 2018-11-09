@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-rabbitmq
+  labels:
+    app: {{ .Release.Name }}-rabbitmq
+    {{- include "sfdcapps.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-rabbitmq
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-rabbitmq
+        {{- include "sfdcapps.labels" . | indent 8 }}
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-rabbitmq
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.global.image.pullPolicy | default .Values.image.pullPolicy }}
+          ports:
+          - containerPort: 4369
+          - containerPort: 5671
+          - containerPort: {{ .Values.global.rabbitmq.port | default .Values.rabbitmq.server.port }}
+          - containerPort: 15671
+          - containerPort: 15672
+          - containerPort: 25672
+          {{- include "rabbitmq.healthProbes" . | indent 10 }}

@@ -1,0 +1,10 @@
+replicaCount: 1
+
+image:
+  repository: jigsheth57/sfdcwebapp
+  tag: latest
+  pullPolicy: IfNotPresent
+
+portalservice:
+  port: 9090
+  nodePort: 31090

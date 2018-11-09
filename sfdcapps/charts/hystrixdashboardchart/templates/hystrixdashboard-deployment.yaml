@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-hystrixdashboard
+  labels:
+    app: {{ .Release.Name }}-hystrixdashboard
+    {{- include "sfdcapps.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-hystrixdashboard
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-hystrixdashboard
+        {{- include "sfdcapps.labels" . | indent 8 }}
+    spec:
+      containers:
+      - name: {{ .Release.Name }}-hystrixdashboard
+        image: {{ .Values.hystrixdashboard.image.repository }}:{{ .Values.hystrixdashboard.image.tag }}
+        imagePullPolicy: {{ .Values.global.image.pullPolicy | default .Values.hystrixdashboard.image.pullPolicy }}
+        envFrom:
+        - configMapRef:
+            name: {{ .Release.Name }}-configmap
+        env:
+        - name: PORT
+          value: {{ .Values.global.hystrixdashboard.port | default .Values.hystrixdashboard.port | quote }}
+        ports:
+        - containerPort: {{ .Values.global.hystrixdashboard.port | default .Values.hystrixdashboard.port }}
+        {{- include "hystrixdashboard.healthProbes" . | indent 10 }}
+      - name: {{ .Release.Name }}-turbine
+        image: {{ .Values.turbine.image.repository }}:{{ .Values.turbine.image.tag }}
+        imagePullPolicy: {{ .Values.global.image.pullPolicy | default .Values.turbine.image.pullPolicy }}
+        env:
+        - name: PORT
+          value: {{ .Values.global.turbine.port | default .Values.turbine.port | quote }}
+        - name: TURBINE_STREAMS
+          value: "http://{{ .Release.Name }}-accountservice-svc:9001/manage/hystrix.stream http://{{ .Release.Name }}-contactservice-svc:9002/manage/hystrix.stream
+            http://{{ .Release.Name }}-opportunityservice-svc:9003/manage/hystrix.stream http://{{ .Release.Name }}-gatewayservice-svc:9012/manage/hystrix.stream"
+        ports:
+        - containerPort: {{ .Values.global.turbine.port | default .Values.turbine.port }}
+        {{- include "turbine.healthProbes" . | indent 10 }}

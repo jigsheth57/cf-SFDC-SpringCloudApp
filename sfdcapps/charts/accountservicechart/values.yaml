@@ -1,0 +1,10 @@
+replicaCount: 1
+
+image:
+  repository: jigsheth57/accountservice
+  tag: latest
+  pullPolicy: IfNotPresent
+
+accountservice:
+  port: 9001
+  nodePort: 31001

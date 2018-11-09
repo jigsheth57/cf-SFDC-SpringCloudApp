@@ -1,0 +1,28 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  labels:
+    sfdcdemo: dataloader
+    app: dataloader
+  name: dataloader
+spec:
+  schedule: "* */8 * * *"
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: dataloader
+            image: jigsheth57/dataloader:latest
+            imagePullPolicy: IfNotPresent
+            envFrom:
+            - configMapRef:
+                name: sfdc-configmap
+            # env:
+            # - name: SPRING_PROFILES_ACTIVE
+            #   value: local
+            # - name: SFDC_AUTHSERVICE_ENDPOINT
+            #   value: http://authservice:9000
+          restartPolicy: OnFailure

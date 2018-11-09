@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-contactservice
+  labels:
+    app: {{ .Release.Name }}-contactservice
+    {{- include "sfdcapps.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-contactservice
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-contactservice
+        {{- include "sfdcapps.labels" . | indent 8 }}
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-contactservice
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.global.image.pullPolicy }}
+          envFrom:
+          - configMapRef:
+              name: {{ .Release.Name }}-configmap
+          env:
+          - name: PORT
+            value: {{ .Values.global.contactservice.port | default .Values.contactservice.port | quote }}
+          ports:
+          - containerPort: {{ .Values.global.contactservice.port | default .Values.contactservice.port }}
+          {{- include "contactservice.healthProbes" . | indent 10 }}

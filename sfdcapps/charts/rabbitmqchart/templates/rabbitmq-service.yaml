@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-rabbitmq-svc
+  labels:
+    sfdcdemo: rabbitmq-svc
+    {{- include "sfdcapps.labels" . | indent 4 }}
+spec:
+  ports:
+  - name: "management-port-15672"
+    port: {{ .Values.rabbitmq.management.port }}
+    targetPort: {{ .Values.rabbitmq.management.port }}
+    nodePort: {{ .Values.rabbitmq.management.nodePort }}
+  - name: "rmq-connection-port-5672"
+    port: {{ .Values.rabbitmq.server.port }}
+    targetPort: {{ .Values.rabbitmq.server.port }}
+  selector:
+    app: {{ .Release.Name }}-rabbitmq
+  type: NodePort

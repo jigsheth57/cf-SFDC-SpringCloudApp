@@ -1,0 +1,10 @@
+replicaCount: 1
+
+image:
+  repository: jigsheth57/authservice
+  tag: latest
+  pullPolicy: IfNotPresent
+
+authservice:
+  port: 9000
+  nodePort: 31000

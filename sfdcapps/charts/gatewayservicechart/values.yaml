@@ -1,0 +1,10 @@
+replicaCount: 1
+
+image:
+  repository: jigsheth57/gatewayservice
+  tag: latest
+  pullPolicy: IfNotPresent
+
+gatewayservice:
+  port: 9012
+  nodePort: 31012

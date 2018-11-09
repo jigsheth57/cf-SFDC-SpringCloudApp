@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-accountservice-svc
+  labels:
+    sfdcdemo: accountservice-svc
+    {{- include "sfdcapps.labels" . | indent 4 }}
+spec:
+  ports:
+  - name: "accountservice-port-9001"
+    port: {{ .Values.global.accountservice.port | default .Values.accountservice.port }}
+    targetPort: {{ .Values.global.accountservice.port | default .Values.accountservice.port }}
+    nodePort: {{ .Values.accountservice.nodePort }}
+  selector:
+    app: {{ .Release.Name }}-accountservice
+  type: NodePort

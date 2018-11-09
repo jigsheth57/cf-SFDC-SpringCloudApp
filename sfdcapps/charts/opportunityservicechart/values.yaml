@@ -1,0 +1,10 @@
+replicaCount: 1
+
+image:
+  repository: jigsheth57/opportunityservice
+  tag: latest
+  pullPolicy: IfNotPresent
+
+opportunityservice:
+  port: 9003
+  nodePort: 31003
