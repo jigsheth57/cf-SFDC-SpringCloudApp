@@ -7,4 +7,3 @@ image:
 
 authservice:
   port: 9000
-  nodePort: 31000

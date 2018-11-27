@@ -10,6 +10,11 @@ spec:
   selector:
     matchLabels:
       app: {{ .Release.Name }}-contactservice
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
   template:
     metadata:
       labels:
@@ -19,7 +24,7 @@ spec:
       containers:
         - name: {{ .Release.Name }}-contactservice
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
-          imagePullPolicy: {{ .Values.global.image.pullPolicy }}
+          imagePullPolicy: {{ .Values.global.image.pullPolicy | default .Values.image.pullPolicy }}
           envFrom:
           - configMapRef:
               name: {{ .Release.Name }}-configmap

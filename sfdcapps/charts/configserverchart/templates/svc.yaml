@@ -10,7 +10,6 @@ spec:
   - name: "configserver-port-8888"
     port: {{ .Values.global.configserver.port | default .Values.configserver.port }}
     targetPort: {{ .Values.global.configserver.port | default .Values.configserver.port }}
-    nodePort: {{ .Values.configserver.nodePort }}
   selector:
     app: {{ .Release.Name }}-configserver
-  type: NodePort
+  type: ClusterIP

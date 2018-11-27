@@ -10,6 +10,11 @@ spec:
   selector:
     matchLabels:
       app: {{ .Release.Name }}-hystrixdashboard
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
   template:
     metadata:
       labels:
@@ -36,8 +41,8 @@ spec:
         - name: PORT
           value: {{ .Values.global.turbine.port | default .Values.turbine.port | quote }}
         - name: TURBINE_STREAMS
-          value: "http://{{ .Release.Name }}-accountservice-svc:9001/manage/hystrix.stream http://{{ .Release.Name }}-contactservice-svc:9002/manage/hystrix.stream
-            http://{{ .Release.Name }}-opportunityservice-svc:9003/manage/hystrix.stream http://{{ .Release.Name }}-gatewayservice-svc:9012/manage/hystrix.stream"
+          value: "http://{{ .Release.Name }}-accountservice-svc:{{ .Values.global.accountservice.port }}/manage/hystrix.stream http://{{ .Release.Name }}-contactservice-svc:{{ .Values.global.contactservice.port }}/manage/hystrix.stream
+            http://{{ .Release.Name }}-opportunityservice-svc:{{ .Values.global.opportunityservice.port }}/manage/hystrix.stream http://{{ .Release.Name }}-gatewayservice-svc:{{ .Values.global.gatewayservice.port }}/manage/hystrix.stream"
         ports:
         - containerPort: {{ .Values.global.turbine.port | default .Values.turbine.port }}
         {{- include "turbine.healthProbes" . | indent 10 }}

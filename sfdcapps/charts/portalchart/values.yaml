@@ -5,6 +5,5 @@ image:
   tag: latest
   pullPolicy: IfNotPresent
 
-portalservice:
+portal:
   port: 9090
-  nodePort: 31090

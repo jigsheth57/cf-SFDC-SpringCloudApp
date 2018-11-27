@@ -8,9 +8,8 @@ metadata:
 spec:
   ports:
   - name: "redis-port-6379"
-    port: {{ .Values.redis.port }}
-    targetPort: {{ .Values.redis.port }}
-    nodePort: {{ .Values.redis.nodePort }}
+    port: {{ .Values.global.redis.port | default .Values.redis.port }}
+    targetPort: {{ .Values.global.redis.port | default .Values.redis.port }}
   selector:
     app: {{ .Release.Name }}-redis
-  type: NodePort
+  type: ClusterIP

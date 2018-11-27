@@ -11,4 +11,3 @@ image:
 
 discovery:
   port: 8761
-  nodePort: 30761

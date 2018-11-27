@@ -19,60 +19,67 @@ spec:
       - path: /
         backend:
           serviceName: {{ .Release.Name }}-authservice-svc
-          servicePort: 9000
+          servicePort: {{ .Values.global.authservice.port }}
   - host: accountservice.{{ .Values.global.domain }}
     http:
       paths:
       - path: /
         backend:
           serviceName: {{ .Release.Name }}-accountservice-svc
-          servicePort: 9001
+          servicePort: {{ .Values.global.accountservice.port }}
   - host: contactservice.{{ .Values.global.domain }}
     http:
       paths:
       - path: /
         backend:
           serviceName: {{ .Release.Name }}-contactservice-svc
-          servicePort: 9002
+          servicePort:  {{ .Values.global.contactservice.port }}
   - host: opportunityservice.{{ .Values.global.domain }}
     http:
       paths:
       - path: /
         backend:
           serviceName: {{ .Release.Name }}-opportunityservice-svc
-          servicePort: 9003
+          servicePort: {{ .Values.global.opportunityservice.port }}
   - host: gatewayservice.{{ .Values.global.domain }}
     http:
       paths:
       - path: /
         backend:
           serviceName: {{ .Release.Name }}-gatewayservice-svc
-          servicePort: 9012
+          servicePort: {{ .Values.global.gatewayservice.port }}
   - host: portal.{{ .Values.global.domain }}
     http:
       paths:
       - path: /
         backend:
-          serviceName: {{ .Release.Name }}-portalservice-svc
-          servicePort: 9090
+          serviceName: {{ .Release.Name }}-portal-svc
+          servicePort: {{ .Values.global.portal.port }}
   - host: hystrixdashboard.{{ .Values.global.domain }}
     http:
       paths:
       - path: /
         backend:
           serviceName: {{ .Release.Name }}-hystrixdashboard-svc
-          servicePort: 7979
+          servicePort: {{ .Values.global.hystrixdashboard.port }}
   - host: discovery.{{ .Values.global.domain }}
     http:
       paths:
       - path: /
         backend:
           serviceName: {{ .Release.Name }}-discovery-svc
-          servicePort: 8761
+          servicePort: {{ .Values.global.discovery.port }}
   - host: configserver.{{ .Values.global.domain }}
     http:
       paths:
       - path: /
         backend:
           serviceName: {{ .Release.Name }}-configserver-svc
-          servicePort: 8888
+          servicePort: {{ .Values.global.configserver.port }}
+  - host: rabbitmq.{{ .Values.global.domain }}
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: {{ .Release.Name }}-rabbitmq-svc
+          servicePort: {{ .Values.global.rabbitmq.management.port }}

@@ -3,6 +3,7 @@ rbac:
 controller:
   replicaCount: 1
   config:
+  kind: DaemonSet
   service:
     annotations:
       service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp

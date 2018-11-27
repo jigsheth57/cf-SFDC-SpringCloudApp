@@ -6,8 +6,8 @@ metadata:
     sfdcdemo: sfdc-configmap
     {{- include "sfdcapps.labels" . | indent 4 }}
 data:
-  SPRING_CLOUD_CONFIG_URI: http://{{ .Release.Name }}-configserver-svc:8888
-  SFDC_AUTHSERVICE_ENDPOINT: http://{{ .Release.Name }}-authservice-svc:9000
+  SPRING_CLOUD_CONFIG_URI: http://{{ .Release.Name }}-configserver-svc:{{ .Values.global.configserver.port }}
+  SFDC_AUTHSERVICE_ENDPOINT: http://{{ .Release.Name }}-authservice-svc:{{ .Values.global.authservice.port }}
   REDIS_HOST: {{ .Release.Name }}-redis-svc
   SPRING_REDIS_HOST: {{ .Release.Name }}-redis-svc
   RABBITMQ_HOST: {{ .Release.Name }}-rabbitmq-svc

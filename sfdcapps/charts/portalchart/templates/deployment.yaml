@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-portal
+  labels:
+    app: {{ .Release.Name }}-portal
+    {{- include "sfdcapps.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-portal
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-portal
+        {{- include "sfdcapps.labels" . | indent 8 }}
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-portal
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.global.image.pullPolicy | default .Values.image.pullPolicy }}
+          envFrom:
+          - configMapRef:
+              name: {{ .Release.Name }}-configmap
+          env:
+          - name: PORT
+            value: {{ .Values.global.portal.port | default .Values.portal.port | quote }}
+          ports:
+          - containerPort: {{ .Values.global.portal.port | default .Values.portal.port }}
+          {{- include "portal.healthProbes" . | indent 10 }}

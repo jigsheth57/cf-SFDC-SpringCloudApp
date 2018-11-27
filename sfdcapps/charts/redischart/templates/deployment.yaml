@@ -11,7 +11,10 @@ spec:
     matchLabels:
       app: {{ .Release.Name }}-redis
   strategy:
-    type: Recreate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
   template:
     metadata:
       labels:
@@ -21,7 +24,7 @@ spec:
       containers:
         - name: {{ .Release.Name }}-redis
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
-          imagePullPolicy: {{ .Values.global.image.pullPolicy }}
+          imagePullPolicy: {{ .Values.global.image.pullPolicy | default .Values.image.pullPolicy }}
           ports:
           - containerPort: {{ .Values.global.redis.port | default .Values.redis.port }}
           {{- include "redis.healthProbes" . | indent 10 }}

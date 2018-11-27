@@ -10,7 +10,6 @@ spec:
   - name: "discovery-port-8761"
     port: {{ .Values.global.discovery.port | default .Values.discovery.port }}
     targetPort: {{ .Values.global.discovery.port | default .Values.discovery.port }}
-    nodePort: {{ .Values.discovery.nodePort }}
   selector:
     app: {{ .Release.Name }}-discovery
-  type: NodePort
+  type: ClusterIP

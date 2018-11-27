@@ -7,4 +7,3 @@ image:
 
 accountservice:
   port: 9001
-  nodePort: 31001

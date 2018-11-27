@@ -11,4 +11,3 @@ image:
 
 redis:
   port: 6379
-  nodePort: 30379

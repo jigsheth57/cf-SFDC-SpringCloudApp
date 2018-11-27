@@ -11,4 +11,3 @@ image:
 
 configserver:
   port: 8888
-  nodePort: 30888

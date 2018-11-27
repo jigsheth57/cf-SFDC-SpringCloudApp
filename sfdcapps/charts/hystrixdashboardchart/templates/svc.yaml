@@ -10,7 +10,6 @@ spec:
   - name: "hystrixdashboard-port-7979"
     port: {{ .Values.global.hystrixdashboard.port | default .Values.hystrixdashboard.port }}
     targetPort: {{ .Values.global.hystrixdashboard.port | default .Values.hystrixdashboard.port }}
-    nodePort: {{ .Values.hystrixdashboard.nodePort }}
   selector:
     app: {{ .Release.Name }}-hystrixdashboard
-  type: NodePort
+  type: ClusterIP

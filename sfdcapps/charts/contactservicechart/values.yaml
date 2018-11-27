@@ -7,4 +7,3 @@ image:
 
 contactservice:
   port: 9002
-  nodePort: 31002

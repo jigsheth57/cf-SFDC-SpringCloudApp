@@ -10,7 +10,6 @@ spec:
   - name: "gatewayservice-port-9012"
     port: {{ .Values.global.gatewayservice.port | default .Values.gatewayservice.port }}
     targetPort: {{ .Values.global.gatewayservice.port | default .Values.gatewayservice.port }}
-    nodePort: {{ .Values.gatewayservice.nodePort }}
   selector:
     app: {{ .Release.Name }}-gatewayservice
-  type: NodePort
+  type: ClusterIP

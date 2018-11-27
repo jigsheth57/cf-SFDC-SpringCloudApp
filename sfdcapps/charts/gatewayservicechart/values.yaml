@@ -7,4 +7,3 @@ image:
 
 gatewayservice:
   port: 9012
-  nodePort: 31012

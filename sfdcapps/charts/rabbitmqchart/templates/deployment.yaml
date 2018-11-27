@@ -11,7 +11,10 @@ spec:
     matchLabels:
       app: {{ .Release.Name }}-rabbitmq
   strategy:
-    type: Recreate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
   template:
     metadata:
       labels:
@@ -25,8 +28,8 @@ spec:
           ports:
           - containerPort: 4369
           - containerPort: 5671
-          - containerPort: {{ .Values.global.rabbitmq.port | default .Values.rabbitmq.server.port }}
+          - containerPort: {{ .Values.global.rabbitmq.server.port | default .Values.rabbitmq.server.port }}
           - containerPort: 15671
-          - containerPort: 15672
+          - containerPort: {{ .Values.global.rabbitmq.management.port | default .Values.rabbitmq.management.port }}
           - containerPort: 25672
           {{- include "rabbitmq.healthProbes" . | indent 10 }}

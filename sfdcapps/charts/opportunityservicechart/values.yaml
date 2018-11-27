@@ -7,4 +7,3 @@ image:
 
 opportunityservice:
   port: 9003
-  nodePort: 31003

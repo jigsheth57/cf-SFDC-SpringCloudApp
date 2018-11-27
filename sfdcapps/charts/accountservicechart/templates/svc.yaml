@@ -10,7 +10,6 @@ spec:
   - name: "accountservice-port-9001"
     port: {{ .Values.global.accountservice.port | default .Values.accountservice.port }}
     targetPort: {{ .Values.global.accountservice.port | default .Values.accountservice.port }}
-    nodePort: {{ .Values.accountservice.nodePort }}
   selector:
     app: {{ .Release.Name }}-accountservice
-  type: NodePort
+  type: ClusterIP

@@ -10,7 +10,6 @@ hystrixdashboard:
     tag: latest
     pullPolicy: IfNotPresent
   port: 7979
-  nodePort: 31079
 
 turbine:
   image:

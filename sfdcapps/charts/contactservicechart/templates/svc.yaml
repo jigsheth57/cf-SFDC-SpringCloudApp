@@ -10,7 +10,6 @@ spec:
   - name: "contactservice-port-9002"
     port: {{ .Values.global.contactservice.port | default .Values.contactservice.port }}
     targetPort: {{ .Values.global.contactservice.port | default .Values.contactservice.port }}
-    nodePort: {{ .Values.contactservice.nodePort }}
   selector:
     app: {{ .Release.Name }}-contactservice
-  type: NodePort
+  type: ClusterIP

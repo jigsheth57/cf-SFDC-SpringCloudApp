@@ -12,6 +12,5 @@ image:
 rabbitmq:
   management:
     port: 15672
-    nodePort: 30672
   server:
     port: 5672

@@ -10,7 +10,6 @@ spec:
   - name: "opportunityservice-port-9003"
     port: {{ .Values.global.opportunityservice.port | default .Values.opportunityservice.port }}
     targetPort: {{ .Values.global.opportunityservice.port | default .Values.opportunityservice.port }}
-    nodePort: {{ .Values.opportunityservice.nodePort }}
   selector:
     app: {{ .Release.Name }}-opportunityservice
-  type: NodePort
+  type: ClusterIP
