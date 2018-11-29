@@ -38,6 +38,9 @@ remove_add_host "$HOSTNAME"
 # Enable Nginx Ingress Controller
 minikube addons enable ingress
 
+# Enable Heapster for monitoring
+minikube addons enable heapster
+
 kubectl config use-context minikube
 
 #Configure Helm

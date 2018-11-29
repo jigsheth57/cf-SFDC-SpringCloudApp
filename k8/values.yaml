@@ -1,9 +1,11 @@
 rbac:
   create: true
 controller:
+  image:
+    runAsUser:
   replicaCount: 1
   config:
-  kind: DaemonSet
+  kind: Deployment
   service:
     annotations:
       service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
