@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: redis
-  tag: latest
+  tag: alpine
   pullPolicy: IfNotPresent
 
 redis:

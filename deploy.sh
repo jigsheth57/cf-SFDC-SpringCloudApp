@@ -36,8 +36,8 @@ cf p contactservice -f ./manifest-contactservice.yml --no-start
 cf p opportunityservice -f ./manifest-opportunityservice.yml --no-start
 cf p gatewayservice -f ./manifest-gatewayservice.yml --no-start
 cf p portal -f ./manifest-portal.yml --no-start
-# cf p dataloader -f ./manifest-dataloader.yml
-# cf sp dataloader
+cf p dataloader -f ./manifest-dataloader.yml
+cf sp dataloader
 
 ( exec "./network-policies.sh" )
 
@@ -48,11 +48,14 @@ cf st opportunityservice
 cf st gatewayservice
 cf st portal
 
-# DATALOADER_START_CMD=$(cf curl /v2/apps/`cf app dataloader --guid`/summary | jq -r '.detected_start_command')
-# CF_TASK_JOB_DATALOADER_CMD="cf create-job dataloader preload-cache '$DATALOADER_START_CMD'"
-# eval $CF_TASK_JOB_DATALOADER_CMD
-# cf run-job preload-cache
-# cf schedule-job preload-cache "0 12 ? * * "
+if [[ `cf jobs | grep -c "preload-cache"` -gt 0 ]]; then
+  cf delete-job preload-cache -f
+fi
+DATALOADER_START_CMD=$(cf curl /v2/apps/`cf app dataloader --guid`/summary | jq -r '.detected_start_command')
+CF_TASK_JOB_DATALOADER_CMD="cf create-job dataloader preload-cache '$DATALOADER_START_CMD'"
+eval $CF_TASK_JOB_DATALOADER_CMD
+cf run-job preload-cache
+cf schedule-job preload-cache "0 12 ? * * "
 
 webapp_fqdn=`cf app portal | awk '/routes: / {print $2}'`
 open https://$webapp_fqdn

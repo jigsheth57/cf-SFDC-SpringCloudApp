@@ -8,16 +8,18 @@ management:
 
 logging:
   level:
-    com.netflix: INFO
-    org.springframework.cloud: INFO
+    com.netflix.eureka: OFF
+    com.netflix.discovery: OFF
+    org.springframework.cloud: ERROR
 
----
-spring:
-  profiles: local
 eureka:
   client:
     registerWithEureka: false
     fetchRegistry: false
+
+---
+spring:
+  profiles: local
 ---
 spring:
   profiles: cloud

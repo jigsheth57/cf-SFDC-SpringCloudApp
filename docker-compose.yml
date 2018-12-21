@@ -13,7 +13,7 @@ services:
       - "25672:25672"
 
   redis:
-    image: redis:latest
+    image: redis:alpine
     container_name: redis
     ports:
       - "6379:6379"

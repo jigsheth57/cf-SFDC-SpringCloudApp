@@ -2,8 +2,8 @@
 fd_service: &fd_service
   memory: 1G
   random-route: true
-  health-check-type: port
-#  health-check-http-endpoint: /manage/health
+  health-check-type: http
+  health-check-http-endpoint: /manage/health
   env:
     SPRING_PROFILES_ACTIVE: cloud
     SPRING_RABBITMQ_ADDRESSES: ${vcap.services.event-bus.credentials.uri}

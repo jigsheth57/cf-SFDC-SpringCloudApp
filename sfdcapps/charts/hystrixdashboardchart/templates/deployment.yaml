@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: {{ .Release.Name }}-hystrixdashboard
-        image: {{ .Values.hystrixdashboard.image.repository }}:{{ .Values.hystrixdashboard.image.tag }}
+        image: {{ .Values.global.hystrixdashboard.image.repository | default .Values.hystrixdashboard.image.repository }}:{{ .Values.hystrixdashboard.image.tag }}
         imagePullPolicy: {{ .Values.global.image.pullPolicy | default .Values.hystrixdashboard.image.pullPolicy }}
         envFrom:
         - configMapRef:
@@ -35,7 +35,7 @@ spec:
         - containerPort: {{ .Values.global.hystrixdashboard.port | default .Values.hystrixdashboard.port }}
         {{- include "hystrixdashboard.healthProbes" . | indent 10 }}
       - name: {{ .Release.Name }}-turbine
-        image: {{ .Values.turbine.image.repository }}:{{ .Values.turbine.image.tag }}
+        image: {{ .Values.global.turbine.image.repository | default .Values.turbine.image.repository }}:{{ .Values.turbine.image.tag }}
         imagePullPolicy: {{ .Values.global.image.pullPolicy | default .Values.turbine.image.pullPolicy }}
         env:
         - name: PORT

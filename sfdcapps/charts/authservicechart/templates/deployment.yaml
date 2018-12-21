@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: {{ .Release.Name }}-authservice
-          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          image: {{ .Values.global.authservice.image.repository | default .Values.image.repository }}:{{ .Values.image.tag }}
           imagePullPolicy: {{ .Values.global.image.pullPolicy | default .Values.image.pullPolicy }}
           envFrom:
           - configMapRef:

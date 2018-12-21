@@ -2,7 +2,7 @@
 bck_service: &bck_service
   memory: 1G
   health-check-type: port
-#  health-check-http-endpoint: /manage/health
+  # health-check-http-endpoint: /manage/health
   routes:
   - route: gatewayservice.apps.internal
   env:

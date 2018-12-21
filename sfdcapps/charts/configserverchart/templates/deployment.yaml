@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: {{ .Release.Name }}-configserver
-          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          image: {{ .Values.global.configserver.image.repository | default .Values.image.repository }}:{{ .Values.image.tag }}
           imagePullPolicy: {{ .Values.global.image.pullPolicy | default .Values.image.pullPolicy }}
           envFrom:
           - configMapRef:

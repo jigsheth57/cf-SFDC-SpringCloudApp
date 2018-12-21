@@ -17,31 +17,55 @@ spring:
 
 global:
   redis:
+    image:
+      repository: harbor.pks.pcfdemo.pcfapps.org/library/redis
     port: 6379
   rabbitmq:
+    image:
+      repository: harbor.pks.pcfdemo.pcfapps.org/library/rabbitmq
     management:
       port: 15672
     server:
       port: 5672
   configserver:
+    image:
+      repository: harbor.pks.pcfdemo.pcfapps.org/library/configserver
     port: 8888
   discovery:
+    image:
+      repository: harbor.pks.pcfdemo.pcfapps.org/library/eurekaserver
     port: 8761
   hystrixdashboard:
+    image:
+      repository: harbor.pks.pcfdemo.pcfapps.org/library/hystrixdashboard
     port: 7979
   turbine:
+    image:
+      repository: harbor.pks.pcfdemo.pcfapps.org/library/turbine
     port: 8000
   authservice:
+    image:
+      repository: harbor.pks.pcfdemo.pcfapps.org/library/authservice
     port: 9000
   accountservice:
+    image:
+      repository: harbor.pks.pcfdemo.pcfapps.org/library/accountservice
     port: 9001
   contactservice:
+    image:
+      repository: harbor.pks.pcfdemo.pcfapps.org/library/contactservice
     port: 9002
   opportunityservice:
+    image:
+      repository: harbor.pks.pcfdemo.pcfapps.org/library/opportunityservice
     port: 9003
   gatewayservice:
+    image:
+      repository: harbor.pks.pcfdemo.pcfapps.org/library/gatewayservice
     port: 9012
   portal:
+    image:
+      repository: harbor.pks.pcfdemo.pcfapps.org/library/sfdcwebapp
     port: 9090
   image:
     pullPolicy: IfNotPresent
