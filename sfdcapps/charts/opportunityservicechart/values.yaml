@@ -1,8 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: jigsheth57/opportunityservice
-  tag: latest
+  repository: opportunityservice:latest
   pullPolicy: IfNotPresent
 
 opportunityservice:

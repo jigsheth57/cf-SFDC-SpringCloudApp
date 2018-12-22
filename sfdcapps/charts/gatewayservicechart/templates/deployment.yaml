@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: {{ .Release.Name }}-gatewayservice
-          image: {{ .Values.global.gatewayservice.image.repository | default .Values.image.repository }}:{{ .Values.image.tag }}
+          image: {{ .Values.global.registry }}{{ .Values.global.gatewayservice.image.repository | default .Values.image.repository }}
           imagePullPolicy: {{ .Values.global.image.pullPolicy | default .Values.image.pullPolicy }}
           envFrom:
           - configMapRef:

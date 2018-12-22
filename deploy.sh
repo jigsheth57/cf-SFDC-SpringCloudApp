@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eu
 
-#  mvn clean package
+#  mvn clean spring-boot:build-info package
 cf t
 echo -n "Validate the space & org, you are currently logged in before continuing!"
 read

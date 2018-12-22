@@ -14,4 +14,4 @@ helm install --name ingress -f ./k8/values.yaml stable/nginx-ingress --set rbac.
 
 # Install Salesforce.com demo cloud native apps
 # Note: don't forget to add the wildcard DNS entry to global.domain and point to external LB.
-helm install --set global.domain=pks.pcfdemo.pcfapps.org ./sfdcapps-1.0.0.tgz
+helm install --set global.domain=pks.pcfdemo.pcfapps.org --set image.pullPolicy=IfNotPresent --set global.registry=harbor.pks.pcfdemo.pcfapps.org/library/ ./sfdcapps-1.0.0.tgz

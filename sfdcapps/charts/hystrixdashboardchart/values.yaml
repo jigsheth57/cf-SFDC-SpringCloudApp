@@ -6,14 +6,12 @@ replicaCount: 1
 
 hystrixdashboard:
   image:
-    repository: jigsheth57/hystrixdashboard
-    tag: latest
+    repository: hystrixdashboard:latest
     pullPolicy: IfNotPresent
   port: 7979
 
 turbine:
   image:
-    repository: jigsheth57/turbine
-    tag: latest
+    repository: turbine:latest
     pullPolicy: IfNotPresent
   port: 8000

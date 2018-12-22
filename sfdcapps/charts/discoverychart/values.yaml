@@ -5,8 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: jigsheth57/eurekaserver
-  tag: latest
+  repository: eurekaserver:latest
   pullPolicy: IfNotPresent
 
 discovery:

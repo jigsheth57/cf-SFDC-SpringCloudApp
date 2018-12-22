@@ -5,8 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: jigsheth57/configserver
-  tag: latest
+  repository: configserver:latest
   pullPolicy: IfNotPresent
 
 configserver:

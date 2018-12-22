@@ -1,8 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: jigsheth57/gatewayservice
-  tag: latest
+  repository: gatewayservice:latest
   pullPolicy: IfNotPresent
 
 gatewayservice:

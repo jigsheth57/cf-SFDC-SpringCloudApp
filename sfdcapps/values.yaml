@@ -16,57 +16,58 @@ spring:
           uri: https://github.com/jigsheth57/config-repo
 
 global:
+  registry: jigsheth57/
   redis:
     image:
-      repository: harbor.pks.pcfdemo.pcfapps.org/library/redis
+      repository: redis:alpine
     port: 6379
   rabbitmq:
     image:
-      repository: harbor.pks.pcfdemo.pcfapps.org/library/rabbitmq
+      repository: rabbitmq:3-management
     management:
       port: 15672
     server:
       port: 5672
   configserver:
     image:
-      repository: harbor.pks.pcfdemo.pcfapps.org/library/configserver
+      repository: configserver:pack
     port: 8888
   discovery:
     image:
-      repository: harbor.pks.pcfdemo.pcfapps.org/library/eurekaserver
+      repository: eurekaserver:pack
     port: 8761
   hystrixdashboard:
     image:
-      repository: harbor.pks.pcfdemo.pcfapps.org/library/hystrixdashboard
+      repository: hystrixdashboard:pack
     port: 7979
   turbine:
     image:
-      repository: harbor.pks.pcfdemo.pcfapps.org/library/turbine
+      repository: turbine:latest
     port: 8000
   authservice:
     image:
-      repository: harbor.pks.pcfdemo.pcfapps.org/library/authservice
+      repository: authservice:pack
     port: 9000
   accountservice:
     image:
-      repository: harbor.pks.pcfdemo.pcfapps.org/library/accountservice
+      repository: accountservice:pack
     port: 9001
   contactservice:
     image:
-      repository: harbor.pks.pcfdemo.pcfapps.org/library/contactservice
+      repository: contactservice:pack
     port: 9002
   opportunityservice:
     image:
-      repository: harbor.pks.pcfdemo.pcfapps.org/library/opportunityservice
+      repository: opportunityservice:pack
     port: 9003
   gatewayservice:
     image:
-      repository: harbor.pks.pcfdemo.pcfapps.org/library/gatewayservice
+      repository: gatewayservice:pack
     port: 9012
   portal:
     image:
-      repository: harbor.pks.pcfdemo.pcfapps.org/library/sfdcwebapp
+      repository: sfdcwebapp:pack
     port: 9090
   image:
-    pullPolicy: IfNotPresent
+    pullPolicy: Always # IfNotPresent
   domain: pks.pcfdemo.pcfapps.org

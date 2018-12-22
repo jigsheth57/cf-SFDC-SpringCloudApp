@@ -1,4 +1,4 @@
-FROM openjdk:8-jre
+FROM openjdk
 MAINTAINER Jignesh Sheth <jigsheth@yahoo.com>
 VOLUME /tmp
 ADD ./turbine-executable-2.0.0-DP.3-SNAPSHOT.jar app.jar

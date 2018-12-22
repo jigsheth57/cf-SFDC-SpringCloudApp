@@ -1,8 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: jigsheth57/sfdcwebapp
-  tag: latest
+  repository: sfdcwebapp:latest
   pullPolicy: IfNotPresent
 
 portal:

@@ -1,8 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: jigsheth57/accountservice
-  tag: latest
+  repository: accountservice:latest
   pullPolicy: IfNotPresent
 
 accountservice:

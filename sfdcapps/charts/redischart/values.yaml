@@ -5,9 +5,8 @@
 replicaCount: 1
 
 image:
-  repository: redis
-  tag: alpine
-  pullPolicy: IfNotPresent
+  repository: redis:alpine
+  pullPolicy: IfNotPresent # Always
 
 redis:
   port: 6379

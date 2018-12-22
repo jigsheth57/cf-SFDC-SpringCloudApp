@@ -1,8 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: jigsheth57/authservice
-  tag: latest
+  repository: authservice:latest
   pullPolicy: IfNotPresent
 
 authservice:

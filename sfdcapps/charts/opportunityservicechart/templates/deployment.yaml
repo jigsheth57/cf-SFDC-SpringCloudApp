@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
         - name: {{ .Release.Name }}-opportunityservice
-          image: {{ .Values.global.opportunityservice.image.repository | default .Values.image.repository }}:{{ .Values.image.tag }}
+          image: {{ .Values.global.registry }}{{ .Values.global.opportunityservice.image.repository | default .Values.image.repository }}
           imagePullPolicy: {{ .Values.global.image.pullPolicy | default .Values.image.pullPolicy }}
           envFrom:
           - configMapRef:
