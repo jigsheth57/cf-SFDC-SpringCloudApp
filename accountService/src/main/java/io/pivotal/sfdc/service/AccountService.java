@@ -31,6 +31,7 @@ import java.util.List;
  * @author Jignesh Sheth
  *
  */
+@RefreshScope
 @Service
 public class AccountService {
 
@@ -52,17 +53,17 @@ public class AccountService {
 	@Value("${sfdc.query.loadsql}")
     private String preloadSQL;
 
-    @Autowired
+//    @Autowired
     ForceApi api;
 	final ObjectMapper mapper = new ObjectMapper();
 	
-    @Bean
-    @RefreshScope
-    ForceApi api() {
-        this.api = new ForceApi(authService.getApiSession());
-        this.redisCommands = redisConnection.sync();
-        return this.api;
-    }
+//    @Bean
+//    @RefreshScope
+//    ForceApi api() {
+//        this.api = new ForceApi(authService.getApiSession());
+//        this.redisCommands = redisConnection.sync();
+//        return this.api;
+//    }
     /**
 	 * Calls AuthService to retrieve oauth2 token from SFDC and then executes query to retrieve the accounts by contacts from sfdc.
 	 * 
@@ -78,7 +79,7 @@ public class AccountService {
 		    })
 	public String getContactsByAccounts(String key) throws Exception {
 		logger.debug("Fetching getContactsByAccounts from SFDC");
-//    	api = new ForceApi(authService.getApiSession());
+    	api = new ForceApi(authService.getApiSession());
     	List<Account> result = api.query(accountsSQL,Account.class).getRecords();
         return store(key,new AccountList(result));
 	}
@@ -117,7 +118,7 @@ public class AccountService {
 		    })
 	public String getOpportunitesByAccounts(String key) throws Exception {
 		logger.debug("Fetching getOpportunitesByAccounts from SFDC");
-//    	api = new ForceApi(authService.getApiSession());
+    	api = new ForceApi(authService.getApiSession());
     	List<Account> result = api.query(opp_by_acctsSQL,Account.class).getRecords();
         return store(key,new AccountList(result));
 	}
@@ -150,7 +151,7 @@ public class AccountService {
 	 */
 	public Account addAccount(Account account) throws Exception {
 		logger.debug("Storing new Account to SFDC");
-//        api = new ForceApi(authService.getApiSession());
+        api = new ForceApi(authService.getApiSession());
     	String id = api.createSObject("account", account);
     	logger.debug("accountId: {}",id);
     	account.setId(id);
@@ -169,7 +170,7 @@ public class AccountService {
 		logger.debug("Updating Account {} to SFDC",account.getId());
 		String id = account.getId();
 		account.setId(null);
-//        api = new ForceApi(authService.getApiSession());
+        api = new ForceApi(authService.getApiSession());
         api.updateSObject("account", id, account);
         account.setId(id);
     	store(id,account);
@@ -184,8 +185,9 @@ public class AccountService {
 	 */
 	public void deleteAccount(String id) throws Exception {
 		logger.debug("Deleting Account {} from SFDC",id);
-//        api = new ForceApi(authService.getApiSession());
+        api = new ForceApi(authService.getApiSession());
         api.deleteSObject("account", id);
+		this.redisCommands = redisConnection.sync();
         redisCommands.del(id);
 //        this.redisTemplate.delete(id);
     	return;
@@ -205,7 +207,7 @@ public class AccountService {
 		    })
 	public Account getAccount(String id) throws Exception {
 		logger.debug("Retrieving Account by id {} from SFDC",id);
-//        api = new ForceApi(authService.getApiSession());
+        api = new ForceApi(authService.getApiSession());
         Account account = api.getSObject("account", id).as(Account.class);
         store(id,account);
     	return account;
@@ -291,6 +293,7 @@ public class AccountService {
         mapper.writeValue(jsonData, obj);
         String jsonDataStr = jsonData.toString();
 		logger.debug("key: {}, value: {}",key,jsonDataStr);
+		this.redisCommands = redisConnection.sync();
         redisCommands.set(key, jsonDataStr);
 
         return jsonDataStr;
@@ -305,6 +308,7 @@ public class AccountService {
 	 */
 	private String retrieve(String key) throws Exception {
 		logger.debug("key: {}",key);
+		this.redisCommands = redisConnection.sync();
 		String jsonDataStr = redisCommands.get(key);
         logger.debug("value: {}",jsonDataStr);
 

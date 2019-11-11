@@ -1,8 +1,11 @@
 package io.pivotal.sfdc.controller;
 
-import java.util.List;
-
-import io.pivotal.sfdc.domain.AccountList;
+import com.fasterxml.jackson.annotation.JsonView;
+import io.pivotal.sfdc.domain.Account;
+import io.pivotal.sfdc.domain.View;
+import io.pivotal.sfdc.service.AccountService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,21 +15,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.fasterxml.jackson.annotation.JsonView;
-import com.force.api.ForceApi;
-
-import io.pivotal.sfdc.domain.Account;
-import io.pivotal.sfdc.domain.View;
-import io.pivotal.sfdc.service.AccountService;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * SFDC Account Service Controller
@@ -50,8 +39,8 @@ public class AccountServiceController {
     
 	private static final Logger logger = LoggerFactory.getLogger(AccountServiceController.class);
 
-	@Autowired
-	ForceApi api;
+//	@Autowired
+//	ForceApi api;
 
 	/**
 	 * Calls a account service with cache key to retrieve result of a sfdc query ("sfdc.query.accounts")

@@ -5,7 +5,9 @@ controller:
     runAsUser:
   replicaCount: 1
   config:
-  kind: Deployment
+  kind: DaemonSet
+  daemonset:
+    useHostPort: true
   service:
     annotations:
       service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp

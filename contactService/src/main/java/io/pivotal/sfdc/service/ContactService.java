@@ -31,21 +31,21 @@ public class ContactService {
     @Autowired
     AuthService authService;
 
-    @Autowired
+//    @Autowired
 	ForceApi api;
 	final ObjectMapper mapper = new ObjectMapper();
 
-	@Bean
-	@RefreshScope
-	ForceApi api() {
-		this.api = new ForceApi(authService.getApiSession());
-		this.redisCommands = redisConnection.sync();
-		return this.api;
-	}
+//	@Bean
+//	@RefreshScope
+//	ForceApi api() {
+//		this.api = new ForceApi(authService.getApiSession());
+//		this.redisCommands = redisConnection.sync();
+//		return this.api;
+//	}
 
 	public Contact addContact(Contact contact) throws Exception {
 		logger.debug("Storing new Contact to SFDC");
-//        api = new ForceApi(authService.getApiSession());
+        api = new ForceApi(authService.getApiSession());
     	String id = api.createSObject("contact", contact);
     	logger.debug("contactId: {}",id);
     	contact.setId(id);
@@ -57,7 +57,7 @@ public class ContactService {
 		logger.debug("Updating Contact {} to SFDC",contact.getId());
 		String id = contact.getId();
 		contact.setId(null);
-//        api = new ForceApi(authService.getApiSession());
+        api = new ForceApi(authService.getApiSession());
         api.updateSObject("contact", id, contact);
         contact.setId(id);
     	store(id,contact);
@@ -66,8 +66,9 @@ public class ContactService {
 
 	public void deleteContact(String id) throws Exception {
 		logger.debug("Deleting Contact {} from SFDC",id);
-//        api = new ForceApi(authService.getApiSession());
+        api = new ForceApi(authService.getApiSession());
         api.deleteSObject("contact", id);
+		this.redisCommands = redisConnection.sync();
         redisCommands.del(id);
     	return;
 	}
@@ -79,7 +80,7 @@ public class ContactService {
 		    })
 	public Contact getContact(String id) throws Exception {
 		logger.debug("Retrieving Contact by id {} from SFDC",id);
-//        api = new ForceApi(authService.getApiSession());
+        api = new ForceApi(authService.getApiSession());
         Contact contact = api.getSObject("contact", id).as(Contact.class);
         store(id,contact);
     	return contact;
@@ -103,11 +104,13 @@ public class ContactService {
         mapper.writeValue(jsonData, obj);
         String jsonDataStr = jsonData.toString();
 		logger.debug("key: {}, value: {}",key,jsonDataStr);
+		this.redisCommands = redisConnection.sync();
         redisCommands.set(key,jsonDataStr);
 	}
 
 	private Object retrieve(String key, Class classType) throws Exception {
 		logger.debug("key: {}",key);
+		this.redisCommands = redisConnection.sync();
         String jsonDataStr = redisCommands.get(key);
         logger.debug("value: {}",jsonDataStr);
 		Object obj = mapper.readValue(jsonDataStr, classType);

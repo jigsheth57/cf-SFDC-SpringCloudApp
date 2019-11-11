@@ -3,7 +3,7 @@ spring:
     name: hystrixDashboard
   cloud:
     config:
-      uri: ${vcap.services.p-config-server.credentials.uri:http://configserver:8888}
+      uri: ${vcap.services.config-server.credentials.uri:http://configserver:8888}
       failFast: false
 encrypt:
   failOnError: false

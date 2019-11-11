@@ -4,6 +4,7 @@ bck_service: &bck_service
   health-check-type: port
   # health-check-http-endpoint: /manage/health
   routes:
+  - route: authservice.cfapps.aws.pcfapps.org
   - route: authservice.apps.internal
   env:
     SPRING_PROFILES_ACTIVE: cloud
@@ -11,7 +12,7 @@ bck_service: &bck_service
   services:
   - service-registry
   - config-server
-  - circuit-breaker
+#  - circuit-breaker
   - event-bus
   - cache-service
 applications:

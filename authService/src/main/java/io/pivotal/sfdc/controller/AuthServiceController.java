@@ -1,33 +1,26 @@
 package io.pivotal.sfdc.controller;
 
-import java.util.Calendar;
-import java.util.Date;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
-
+import com.force.api.ApiConfig;
+import com.force.api.ApiSession;
+import com.force.api.Auth;
 import io.lettuce.core.SetArgs;
 import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.sync.RedisCommands;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import service.APISessionRefreshListener;
 
-import com.force.api.ApiConfig;
-import com.force.api.ApiSession;
-import com.force.api.Auth;
-
-import io.swagger.annotations.ApiOperation;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * REST Controller to authenticate against Salesforce.com to retrieve timebased oauth2 token.
@@ -81,20 +74,55 @@ public class AuthServiceController {
         redisCommands = redisConnection.sync();
 
         if (redisCommands.exists(ACCESS_TOKEN,INSTANCE_URL) == 0) {
+            logger.info("Retrieve new session");
 	    	ApiConfig apiconfig = new ApiConfig()
 			.setUsername(username)
 			.setPassword(password)
 			.setClientId(clientId)
-			.setClientSecret(clientSecret);
+			.setClientSecret(clientSecret)
+            .setSessionRefreshListener(new APISessionRefreshListener());
 	    	apiSession = Auth.authenticate(apiconfig);
 			Calendar cal = Calendar.getInstance(); // creates calendar
 			cal.setTime(new Date()); // sets calendar time/date
-			cal.add(Calendar.HOUR_OF_DAY, 2); // adds two hour
+			cal.add(Calendar.HOUR_OF_DAY, 1); // adds one hour
             redisCommands.set(ACCESS_TOKEN, apiSession.getAccessToken(),SetArgs.Builder.ex(cal.getTime().getTime()));
             redisCommands.set(INSTANCE_URL, apiSession.getApiEndpoint(), SetArgs.Builder.nx().ex(cal.getTime().getTime()));
 		} else {
             apiSession = new ApiSession(redisCommands.get(ACCESS_TOKEN),redisCommands.get(INSTANCE_URL));
 		}
 		return apiSession;
+    }
+
+    /**
+     * Retrieves SalesForce.com timebase oauth2 token and stores it into Redis with TTL
+     *
+     * @return ApiSession
+     */
+    @RequestMapping(value = "/invalidateSession", method = RequestMethod.GET)
+    @ApiOperation(value = "Remove SFDC oauth2 token cache", notes = "Removes SalesForce.com oauth2 token from Redis", response = ApiSession.class)
+    public @ResponseBody ApiSession invalidateSession() {
+        return removeSession();
+    }
+
+    public ApiSession removeSession() {
+        logger.debug("Remove ApiSession from cache");
+        ApiSession apiSession = null;
+        redisCommands = redisConnection.sync();
+        ApiConfig apiconfig = new ApiConfig()
+                .setUsername(username)
+                .setPassword(password)
+                .setClientId(clientId)
+                .setClientSecret(clientSecret)
+                .setSessionRefreshListener(new APISessionRefreshListener());
+        try {
+            Auth.revokeToken(apiconfig,redisCommands.get(ACCESS_TOKEN));
+            redisCommands.del(ACCESS_TOKEN);
+            redisCommands.del(INSTANCE_URL);
+            Thread.sleep(2000);
+            apiSession = new ApiSession(redisCommands.get(ACCESS_TOKEN),redisCommands.get(INSTANCE_URL));
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+        }
+        return apiSession;
     }
 }

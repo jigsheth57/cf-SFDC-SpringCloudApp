@@ -5,7 +5,7 @@
 
 	<groupId>io.pivotal.sfdc</groupId>
 	<artifactId>eurekaServer</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<packaging>jar</packaging>
 
 	<name>eurekaServer</name>
@@ -34,12 +34,14 @@
 		<docker.image.prefix>jigsheth57</docker.image.prefix>
 		<docker.repo>eurekaserver</docker.repo>
 		<docker.tag>latest</docker.tag>
+		<spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
+		<spring-cloud-services.version>2.1.4.RELEASE</spring-cloud-services.version>
 	</properties>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.0.7.RELEASE</version>
+		<version>2.1.7.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
@@ -48,14 +50,14 @@
 			<dependency>
 				<groupId>io.pivotal.spring.cloud</groupId>
 				<artifactId>spring-cloud-services-dependencies</artifactId>
-				<version>2.0.3.RELEASE</version>
+				<version>${spring-cloud-services.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>Finchley.RELEASE</version>
+				<version>${spring-cloud.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -111,11 +113,11 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!--
+<!--
 			<plugin>
 				<groupId>com.spotify</groupId>
 				<artifactId>dockerfile-maven-plugin</artifactId>
-				<version>1.4.9</version>
+				<version>1.4.13</version>
 				<executions>
 					<execution>
 						<id>package</id>
@@ -135,12 +137,13 @@
 				<configuration>
 					<repository>${docker.image.prefix}/${docker.repo}</repository>
 					<tag>${docker.tag}</tag>
+					<useMavenSettingsForAuth>true</useMavenSettingsForAuth>
 					<buildArgs>
 						<JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
 					</buildArgs>
 				</configuration>
 			</plugin>
-			-->
+-->
 		</plugins>
 	</build>
 </project>

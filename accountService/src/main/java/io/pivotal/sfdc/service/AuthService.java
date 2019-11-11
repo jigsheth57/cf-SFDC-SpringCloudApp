@@ -52,10 +52,11 @@ public class AuthService {
      * @return ApiSession
      */
 	public ApiSession getApiSessionFallback() {
-		logger.debug("Fetching fallback ApiSession with key: {}",ACCESS_TOKEN);
+		logger.info("Fetching fallback ApiSession with key: {}",ACCESS_TOKEN);
         ApiSession apiSession = null;
         if (redisCommands.exists(ACCESS_TOKEN,INSTANCE_URL) == 0) {
 			apiSession = new ApiSession(redisCommands.get(ACCESS_TOKEN),redisCommands.get(INSTANCE_URL));
+			logger.debug(redisCommands.get(ACCESS_TOKEN));
 		} else
 			throw new NullPointerException("ApiSession not found!");
     	
@@ -72,7 +73,7 @@ public class AuthService {
 		      @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="2500")
 		    })
 	public ApiSession getApiSession() {
-		logger.debug("Fetching ApiSession from authservice");
+		logger.info("Fetching ApiSession from authservice");
 		return authClient.getApiSession();
 	}
 }

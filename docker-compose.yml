@@ -29,7 +29,7 @@ services:
       retries: 3
 
   configserver:
-    image: jigsheth57/configserver:pack
+    image: jigsheth57/configserver:latest
     container_name: configserver
     environment:
       - PORT=8888

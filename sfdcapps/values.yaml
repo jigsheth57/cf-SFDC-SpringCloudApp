@@ -30,15 +30,15 @@ global:
       port: 5672
   configserver:
     image:
-      repository: configserver:pack
+      repository: configserver:latest
     port: 8888
   discovery:
     image:
-      repository: eurekaserver:pack
+      repository: eurekaserver:latest
     port: 8761
   hystrixdashboard:
     image:
-      repository: hystrixdashboard:pack
+      repository: hystrixdashboard:latest
     port: 7979
   turbine:
     image:
@@ -46,27 +46,27 @@ global:
     port: 8000
   authservice:
     image:
-      repository: authservice:pack
+      repository: authservice:latest
     port: 9000
   accountservice:
     image:
-      repository: accountservice:pack
+      repository: accountservice:latest
     port: 9001
   contactservice:
     image:
-      repository: contactservice:pack
+      repository: contactservice:latest
     port: 9002
   opportunityservice:
     image:
-      repository: opportunityservice:pack
+      repository: opportunityservice:latest
     port: 9003
   gatewayservice:
     image:
-      repository: gatewayservice:pack
+      repository: gatewayservice:latest
     port: 9012
   portal:
     image:
-      repository: sfdcwebapp:pack
+      repository: sfdcwebapp:latest
     port: 9090
   image:
     pullPolicy: Always # IfNotPresent

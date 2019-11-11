@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class ActuatorSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception{
+        http.csrf().disable();
         http.requestMatcher(EndpointRequest.toAnyEndpoint().excluding(ShutdownEndpoint.class)).authorizeRequests().anyRequest().permitAll();
     }
 }

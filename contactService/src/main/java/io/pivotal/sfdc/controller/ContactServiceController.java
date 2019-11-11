@@ -1,5 +1,9 @@
 package io.pivotal.sfdc.controller;
 
+import io.pivotal.sfdc.domain.Contact;
+import io.pivotal.sfdc.service.ContactService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,18 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.force.api.ForceApi;
-
-import io.pivotal.sfdc.domain.Contact;
-import io.pivotal.sfdc.service.ContactService;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RefreshScope
@@ -31,8 +24,8 @@ public class ContactServiceController {
     
 	private static final Logger logger = LoggerFactory.getLogger(ContactServiceController.class);
 
-	@Autowired
-	ForceApi api;
+//	@Autowired
+//	ForceApi api;
     
 	/**
 	 * Calls a contact service with contact object to create new contact in sfdc.
