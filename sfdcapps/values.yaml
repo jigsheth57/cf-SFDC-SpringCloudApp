@@ -13,7 +13,7 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/jigsheth57/io.pivotal.sfdc.config-repo
+          uri: https://github.com/jigsheth57/config-repo
 
 global:
   registry: jigsheth57/
