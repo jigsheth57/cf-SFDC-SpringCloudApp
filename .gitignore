@@ -3,3 +3,4 @@
 .idea/workspace.xml
 dependency-reduced-pom.xml
 target
+zipkin/zipkin
