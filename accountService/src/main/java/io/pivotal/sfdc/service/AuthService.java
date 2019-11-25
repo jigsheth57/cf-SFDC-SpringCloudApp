@@ -76,4 +76,9 @@ public class AuthService {
 		logger.info("Fetching ApiSession from authservice");
 		return authClient.getApiSession();
 	}
+
+	public ApiSession invalidateSession() {
+		logger.info("Invalidating ApiSession from authservice");
+		return authClient.invalidateSession();
+	}
 }

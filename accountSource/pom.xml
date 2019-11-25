@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>io.pivotal.sfdc</groupId>
+        <artifactId>sfdcapp</artifactId>
+        <version>1.0.1</version>
+    </parent>
+
+    <artifactId>accountSource</artifactId>
+    <version>1.0.1</version>
+    <packaging>jar</packaging>
+
+    <name>accountSource</name>
+    <description>Captures account change notification from SFDC</description>
+    <inceptionYear>2019</inceptionYear>
+    <url>https://github.com/jigsheth57/cf-SFDC-SpringCloudApp/tree/master/accountSource</url>
+
+    <!-- Organization -->
+    <organization>
+        <name>Pivotal</name>
+        <url>http://www.pivotal.io</url>
+    </organization>
+
+    <!-- Developers -->
+    <developers>
+        <developer>
+            <name>Jignesh Sheth</name>
+            <email>jigsheth@pivotal.io</email>
+            <organization>Pivotal</organization>
+        </developer>
+    </developers>
+
+    <!-- Custom repositories -->
+    <repositories>
+        <repository>
+            <id>sfdc-repository</id>
+            <name>sfdc-repository repository on GitHub</name>
+            <url>https://github.com/jigsheth57/cf-SFDC-SpringCloudApp</url>
+        </repository>
+    </repositories>
+
+    <properties>
+        <docker.image.prefix>jigsheth57</docker.image.prefix>
+        <docker.repo>accountsource</docker.repo>
+        <docker.tag>latest</docker.tag>
+        <maven-jaxb2-plugin.version>0.14.0</maven-jaxb2-plugin.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web-services</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-stream-rabbit</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jvnet.jaxb2.maven2</groupId>
+                <artifactId>maven-jaxb2-plugin</artifactId>
+                <version>${maven-jaxb2-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <schemaDirectory>${project.basedir}/src/main/resources/wsdl</schemaDirectory>
+                    <schemaIncludes>
+                        <include>*.wsdl</include>
+                    </schemaIncludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>1.4.13</version>
+                <executions>
+                    <execution>
+                        <id>package</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>install</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>push</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <repository>${docker.image.prefix}/${docker.repo}</repository>
+                    <tag>${docker.tag}</tag>
+                    <useMavenSettingsForAuth>true</useMavenSettingsForAuth>
+                    <buildArgs>
+                        <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
+                    </buildArgs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

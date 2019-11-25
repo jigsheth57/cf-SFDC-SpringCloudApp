@@ -52,4 +52,4 @@ helm init --service-account tiller
 sleep 30
 
 # Install Salesforce.com demo cloud native apps
-helm install --set global.domain=minikube.io ./sfdcapps-1.0.0.tgz
+helm install --set global.domain=minikube.io sfdcapps/

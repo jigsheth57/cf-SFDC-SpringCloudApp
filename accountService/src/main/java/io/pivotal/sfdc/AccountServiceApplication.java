@@ -1,6 +1,7 @@
 package io.pivotal.sfdc;
 
 import io.pivotal.sfdc.service.AccountService;
+import io.pivotal.sfdc.service.AuthService;
 import io.pivotal.springcloud.ssl.CloudFoundryCertificateTruster;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,8 +44,11 @@ public class AccountServiceApplication implements CommandLineRunner {
 
     @Autowired
     private AccountService accountService;
-	
-    public static void main(String[] args) {
+
+	@Autowired
+	AuthService authService;
+
+	public static void main(String[] args) {
     	CloudFoundryCertificateTruster.trustCertificates();
         SpringApplication.run(AccountServiceApplication.class, args);
     }
@@ -84,6 +88,14 @@ public class AccountServiceApplication implements CommandLineRunner {
 			accountService.preload();
 		} catch (Exception e) {
 			logger.error("Can not preload data. "+e.getMessage());
+			if (e.getMessage().contains("INVALID_SESSION_ID")) {
+				authService.invalidateSession();
+				try {
+					accountService.preload();
+				} catch (Exception ex) {
+					logger.error("Can not preload data, even after invalidating session. "+e.getMessage());
+				}
+			}
 		}
 	}
 }

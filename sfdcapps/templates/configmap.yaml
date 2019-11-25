@@ -15,7 +15,7 @@ data:
   EUREKA_HOST: {{ .Release.Name }}-discovery-svc
   {{- with .Values.spring }}
   SPRING_PROFILES_ACTIVE: {{ .profiles.active }}
-  SPRING_CLOUD_CONFIG_SERVER_GIT_URI: {{ .cloud.config.server.git.uri }}
+  SPRING_CLOUD_CONFIG_SERVER_GIT_URI: {{ .cloud.io.pivotal.sfdc.config.server.git.uri }}
   {{- end }}
   {{- with .Values.spring.rabbitmq }}
   SPRING_RABBITMQ_PORT: {{ .port | quote }}

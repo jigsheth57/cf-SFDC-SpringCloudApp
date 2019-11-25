@@ -7,12 +7,19 @@ fd_service: &fd_service
   env:
     SPRING_PROFILES_ACTIVE: cloud
     SPRING_RABBITMQ_ADDRESSES: ${vcap.services.event-bus.credentials.uri}
+    SPRING_RABBITMQ_SSL_ENABLED: ${vcap.services.event-bus.credentials.ssl}
+    SPRING_RABBITMQ_SSL_ALGORITHM: TLSv1.2
   services:
   - service-registry
   - config-server
   - event-bus
-
+  metadata:
+    annotations:
+      contact: "jigsheth@pivotal.io"
+    labels:
+      demo: sfdc
+      app: portal
 applications:
-  - name: sfdcbootwebapp
+  - name: portal
     path: sfdcwebapp/target/sfdcwebapp.jar
     <<: *fd_service

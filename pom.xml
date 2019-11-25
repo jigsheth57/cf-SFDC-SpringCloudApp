@@ -1,48 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>io.pivotal.sfdc</groupId>
-	<artifactId>sfdcapp</artifactId>
-	<version>1.0.1</version>
-	<packaging>pom</packaging>
+    <groupId>io.pivotal.sfdc</groupId>
+    <artifactId>sfdcapp</artifactId>
+    <version>1.0.1</version>
+    <packaging>pom</packaging>
 
-	<!-- Organization -->
-	<organization>
-		<name>Pivotal</name>
-		<url>http://www.pivotal.io</url>
-	</organization>
+    <!-- Organization -->
+    <organization>
+        <name>Pivotal</name>
+        <url>http://www.pivotal.io</url>
+    </organization>
 
-	<!-- Developers -->
-	<developers>
-		<developer>
-			<name>Jignesh Sheth</name>
-			<email>jigsheth@pivotal.io</email>
-			<organization>Pivotal</organization>
-		</developer>
-	</developers>
+    <!-- Developers -->
+    <developers>
+        <developer>
+            <name>Jignesh Sheth</name>
+            <email>jigsheth@pivotal.io</email>
+            <organization>Pivotal</organization>
+        </developer>
+    </developers>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.7.RELEASE</version>
-        <relativePath /> <!-- lookup parent from repository -->
+        <version>2.1.10.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <modules>
-		<module>configServer</module>
-		<module>eurekaServer</module>
-		<module>hystrixDashboard</module>
-		<module>domainObjs</module>
-		<module>authService</module>
-		<module>accountService</module>
-		<module>contactService</module>
-		<module>opportunityService</module>
+        <module>configServer</module>
+        <module>eurekaServer</module>
+        <module>hystrixDashboard</module>
+        <module>domainObjs</module>
+        <module>authService</module>
+        <module>accountService</module>
+        <module>contactService</module>
+        <module>opportunityService</module>
         <module>gatewayService</module>
-		<module>sfdcwebapp</module>
-		<module>dataloader</module>
-  </modules>
+        <module>sfdcwebapp</module>
+        <module>dataloader</module>
+        <module>accountSource</module>
+        <module>accountProcessor</module>
+        <module>accountSink</module>
+    </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

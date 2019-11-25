@@ -6,17 +6,20 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="dataloader" />
-        <module name="configServer" />
-        <module name="contactService" />
-        <module name="accountService" />
-        <module name="sfdcwebapp" />
-        <module name="opportunityService" />
-        <module name="gatewayService" />
-        <module name="hystrixDashboard" />
-        <module name="authService" />
         <module name="eurekaServer" />
+        <module name="sfdcwebapp" />
+        <module name="hystrixDashboard" />
+        <module name="contactService" />
+        <module name="opportunityService" />
+        <module name="accountProcessor" />
+        <module name="accountSink" />
+        <module name="configServer" />
         <module name="domainObjs" />
+        <module name="accountSource" />
+        <module name="dataloader" />
+        <module name="authService" />
+        <module name="accountService" />
+        <module name="gatewayService" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -26,7 +29,10 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="accountProcessor" options="-parameters" />
       <module name="accountService" options="-parameters" />
+      <module name="accountSink" options="-parameters" />
+      <module name="accountSource" options="-parameters" />
       <module name="authService" options="-parameters" />
       <module name="configServer" options="-parameters" />
       <module name="contactService" options="-parameters" />

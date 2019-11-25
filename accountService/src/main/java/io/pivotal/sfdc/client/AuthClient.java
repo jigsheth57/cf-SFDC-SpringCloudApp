@@ -9,4 +9,7 @@ public interface AuthClient {
 
     @GetMapping("/oauth2")
     ApiSession getApiSession();
+
+    @GetMapping("/invalidateSession")
+    ApiSession invalidateSession();
 }

@@ -3,6 +3,6 @@ spring:
     name: opportunityservice
   cloud:
     config:
-      uri: ${vcap.services.config-server.credentials.uri:http://configserver:8888}
+      uri: ${vcap.services.io.pivotal.sfdc.config-server.credentials.uri:http://configserver:8888}
       failFast: true
 

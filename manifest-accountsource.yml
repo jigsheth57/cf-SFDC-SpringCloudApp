@@ -1,0 +1,27 @@
+---
+bck_service: &bck_service
+  memory: 1G
+#  health-check-type: port
+  health-check-type: http
+  health-check-http-endpoint: /manage/health
+  routes:
+  - route: datasync.apps.pcfone.io
+  env:
+    SPRING_PROFILES_ACTIVE: cloud
+    SPRING_RABBITMQ_ADDRESSES: ${vcap.services.event-bus.credentials.uri}
+    SPRING_RABBITMQ_SSL_ENABLED: ${vcap.services.event-bus.credentials.ssl}
+    SPRING_RABBITMQ_SSL_ALGORITHM: TLSv1.2
+  metadata:
+    annotations:
+      contact: "jigsheth@pivotal.io"
+    labels:
+      demo: sfdc
+      app: accountsource
+  services:
+  - service-registry
+  - config-server
+  - event-bus
+applications:
+  - name: accountsource
+    path: accountSource/target/accountSource.jar
+    <<: *bck_service

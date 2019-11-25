@@ -1,0 +1,28 @@
+---
+bck_service: &bck_service
+  memory: 1G
+  health-check-type: port
+#  health-check-type: http
+#  health-check-http-endpoint: /manage/health
+  routes:
+  - route: accountsink.apps.internal
+  env:
+    SPRING_PROFILES_ACTIVE: cloud
+    SPRING_RABBITMQ_ADDRESSES: ${vcap.services.event-bus.credentials.uri}
+    SPRING_RABBITMQ_SSL_ENABLED: ${vcap.services.event-bus.credentials.ssl}
+    SPRING_RABBITMQ_SSL_ALGORITHM: TLSv1.2
+  metadata:
+    annotations:
+      contact: "jigsheth@pivotal.io"
+    labels:
+      demo: sfdc
+      app: accountsink
+  services:
+  - service-registry
+  - config-server
+  - event-bus
+  - cache-service
+applications:
+  - name: accountsink
+    path: accountSink/target/accountSink.jar
+    <<: *bck_service

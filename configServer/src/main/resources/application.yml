@@ -15,7 +15,7 @@ spring:
     config:
       server:
         git:
-          uri: git@github.com:jigsheth57/config-repo.git
+          uri: git@github.com:jigsheth57/io.pivotal.sfdc.config-repo.git
           ignoreLocalSshSettings: true
           privateKey: |
             -----BEGIN RSA PRIVATE KEY-----

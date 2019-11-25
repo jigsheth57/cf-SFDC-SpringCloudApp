@@ -4,114 +4,103 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>dataloader</artifactId>
-	<version>1.0.1</version>
-	<packaging>jar</packaging>
+    <version>1.0.1</version>
+    <packaging>jar</packaging>
 
-	<name>dataloader</name>
-	<description>SFDC Data Loader</description>
-	<inceptionYear>2015</inceptionYear>
-	<url>https://github.com/jigsheth57/cf-SFDC-SpringCloudApp/tree/master/dataloader</url>
+    <name>dataloader</name>
+    <description>SFDC Data Loader</description>
+    <inceptionYear>2015</inceptionYear>
+    <url>https://github.com/jigsheth57/cf-SFDC-SpringCloudApp/tree/master/dataloader</url>
 
-	<!-- Organization -->
-	<organization>
-		<name>Pivotal</name>
-		<url>http://www.pivotal.io</url>
-	</organization>
+    <!-- Organization -->
+    <organization>
+        <name>Pivotal</name>
+        <url>http://www.pivotal.io</url>
+    </organization>
 
-	<!-- Developers -->
-	<developers>
-		<developer>
-			<name>Jignesh Sheth</name>
-			<email>jigsheth@pivotal.io</email>
-			<organization>Pivotal</organization>
-		</developer>
-	</developers>
+    <!-- Developers -->
+    <developers>
+        <developer>
+            <name>Jignesh Sheth</name>
+            <email>jigsheth@pivotal.io</email>
+            <organization>Pivotal</organization>
+        </developer>
+    </developers>
 
-	<!-- Custom repositories -->
-	<repositories>
-		<repository>
-			<id>sfdc-repository</id>
-			<name>sfdc-repository repository on GitHub</name>
-			<url>https://github.com/jigsheth57/cf-SFDC-SpringCloudApp/raw/repository/</url>
-		</repository>
-<!--		<repository>-->
-<!--			<id>force-rest-api</id>-->
-<!--			<name>force-rest-api repository on GitHub</name>-->
-<!--			<url>http://jesperfj.github.com/force-rest-api/repository/</url>-->
-<!--		</repository>-->
-	</repositories>
+    <!-- Custom repositories -->
+    <repositories>
+        <repository>
+            <id>sfdc-repository</id>
+            <name>sfdc-repository repository on GitHub</name>
+            <url>https://github.com/jigsheth57/cf-SFDC-SpringCloudApp</url>
+        </repository>
+    </repositories>
 
-	<properties>
-		<docker.image.prefix>jigsheth57</docker.image.prefix>
-		<docker.repo>dataloader</docker.repo>
-		<docker.tag>latest</docker.tag>
-		<spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
-		<spring-cloud-services.version>2.1.4.RELEASE</spring-cloud-services.version>
-		<spring-cloud-task.version>2.1.3.RELEASE</spring-cloud-task.version>
-	</properties>
+    <properties>
+        <docker.image.prefix>jigsheth57</docker.image.prefix>
+        <docker.repo>dataloader</docker.repo>
+        <docker.tag>latest</docker.tag>
+        <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
+        <spring-cloud-services.version>2.1.4.RELEASE</spring-cloud-services.version>
+        <spring-cloud-task.version>2.1.3.RELEASE</spring-cloud-task.version>
+    </properties>
 
 
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.7.RELEASE</version>
-		<relativePath /> <!-- lookup parent from repository -->
-	</parent>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.10.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>io.pivotal.spring.cloud</groupId>
-				<artifactId>spring-cloud-services-dependencies</artifactId>
-				<version>${spring-cloud-services.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>${spring-cloud.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-task-dependencies</artifactId>
-				<version>${spring-cloud-task.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.pivotal.spring.cloud</groupId>
+                <artifactId>spring-cloud-services-dependencies</artifactId>
+                <version>${spring-cloud-services.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-task-dependencies</artifactId>
+                <version>${spring-cloud-task.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-task</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-redis</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-pool2</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>javax.xml.bind</groupId>
-			<artifactId>jaxb-api</artifactId>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.frejo/force-rest-api -->
-		<dependency>
-			<groupId>com.frejo</groupId>
-			<artifactId>force-rest-api</artifactId>
-			<version>0.0.40</version>
-		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>com.force.api</groupId>-->
-<!--			<artifactId>force-rest-api</artifactId>-->
-<!--			<version>0.0.23</version>-->
-<!--		</dependency>-->
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-task</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.frejo</groupId>
+            <artifactId>force-rest-api</artifactId>
+            <version>0.0.40</version>
+        </dependency>
         <dependency>
             <groupId>io.pivotal.sfdc</groupId>
             <artifactId>domainObjs</artifactId>
@@ -123,52 +112,50 @@
         </dependency>
     </dependencies>
 
-	<build>
+    <build>
         <finalName>${project.artifactId}</finalName>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>build-info</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-<!--
-			<plugin>
-				<groupId>com.spotify</groupId>
-				<artifactId>dockerfile-maven-plugin</artifactId>
-				<version>1.4.13</version>
-				<executions>
-					<execution>
-						<id>package</id>
-						<phase>package</phase>
-						<goals>
-							<goal>build</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>install</id>
-						<phase>install</phase>
-						<goals>
-							<goal>push</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<repository>${docker.image.prefix}/${docker.repo}</repository>
-					<tag>${docker.tag}</tag>
-					<useMavenSettingsForAuth>true</useMavenSettingsForAuth>
-					<buildArgs>
-						<JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
-					</buildArgs>
-				</configuration>
-			</plugin>
--->
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>build-info</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>1.4.13</version>
+                <executions>
+                    <execution>
+                        <id>package</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>install</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>push</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <repository>${docker.image.prefix}/${docker.repo}</repository>
+                    <tag>${docker.tag}</tag>
+                    <useMavenSettingsForAuth>true</useMavenSettingsForAuth>
+                    <buildArgs>
+                        <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
+                    </buildArgs>
+                </configuration>
+            </plugin>
         </plugins>
-	</build>
+    </build>
 
 </project>

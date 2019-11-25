@@ -23,9 +23,9 @@ $ docker stop <CONTAINER ID>
 
 == Test Application
 
-Config Git Repo URL: https://github.com/jigsheth57/config-repo
+Config Git Repo URL: https://github.com/jigsheth57/io.pivotal.sfdc.config-repo
 You can override the repo value for Config Server in docker-compose.yml file
-Test Config Server to make sure it's pointing to correct config-repo
+Test Config Server to make sure it's pointing to correct io.pivotal.sfdc.config-repo
 $ open http://localhost:8888/authService/default
 
 Service Discovery URL: http://$DOCKER-MACHINE-IP:8761/

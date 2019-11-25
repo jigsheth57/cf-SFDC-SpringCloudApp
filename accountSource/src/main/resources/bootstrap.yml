@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: accountsource
+  cloud:
+    config:
+      uri: ${vcap.services.io.pivotal.sfdc.config-server.credentials.uri:http://configserver:8888}
+      failFast: true

@@ -82,6 +82,8 @@ public class AuthServiceController {
 			.setClientSecret(clientSecret)
             .setSessionRefreshListener(new APISessionRefreshListener());
 	    	apiSession = Auth.authenticate(apiconfig);
+            Auth.revokeToken(apiconfig,apiSession.getAccessToken());
+            apiSession = Auth.authenticate(apiconfig);
 			Calendar cal = Calendar.getInstance(); // creates calendar
 			cal.setTime(new Date()); // sets calendar time/date
 			cal.add(Calendar.HOUR_OF_DAY, 1); // adds one hour
@@ -118,7 +120,6 @@ public class AuthServiceController {
             Auth.revokeToken(apiconfig,redisCommands.get(ACCESS_TOKEN));
             redisCommands.del(ACCESS_TOKEN);
             redisCommands.del(INSTANCE_URL);
-            Thread.sleep(2000);
             apiSession = new ApiSession(redisCommands.get(ACCESS_TOKEN),redisCommands.get(INSTANCE_URL));
         } catch (Exception e) {
             logger.warn(e.getMessage());

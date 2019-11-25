@@ -2,21 +2,30 @@
 bck_service: &bck_service
   memory: 1G
   health-check-type: port
-  # health-check-http-endpoint: /manage/health
+#  health-check-type: http
+#  health-check-http-endpoint: /manage/health
+  health-check-invocation-timeout: 15
   routes:
-  - route: authservice.cfapps.aws.pcfapps.org
+#  - route: authservice.cfapps.aws.pcfapps.org
   - route: authservice.apps.internal
   env:
     SPRING_PROFILES_ACTIVE: cloud
     SPRING_RABBITMQ_ADDRESSES: ${vcap.services.event-bus.credentials.uri}
+    SPRING_RABBITMQ_SSL_ENABLED: ${vcap.services.event-bus.credentials.ssl}
+    SPRING_RABBITMQ_SSL_ALGORITHM: TLSv1.2
+  metadata:
+    annotations:
+      contact: "jigsheth@pivotal.io"
+    labels:
+      demo: sfdc
+      app: authservice
   services:
-  - service-registry
   - config-server
-#  - circuit-breaker
+  - service-registry
   - event-bus
   - cache-service
 applications:
-  - name: authService
+  - name: authservice
     # no-route: true
     path: authService/target/authService.jar
     <<: *bck_service

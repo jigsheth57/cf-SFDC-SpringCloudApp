@@ -34,7 +34,7 @@ services:
     environment:
       - PORT=8888
       - SPRING_PROFILES_ACTIVE=local
-      - SPRING_CLOUD_CONFIG_SERVER_GIT_URI=https://github.com/jigsheth57/config-repo
+      - SPRING_CLOUD_CONFIG_SERVER_GIT_URI=https://github.com/jigsheth57/io.pivotal.sfdc.config-repo
     ports:
       - "8888:8888"
     healthcheck:

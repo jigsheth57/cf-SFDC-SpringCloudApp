@@ -1,7 +1,7 @@
 ---
 applications:
-  - name: zipkin-bbq
-    path: ./zipkin-server-2.7.1-exec.jar
+  - name: zipkin-sfdc
+    path: zipkin/zipkin.jar
     instances: 1
     memory: 1G
     env:
@@ -12,13 +12,13 @@ applications:
       RABBIT_VIRTUAL_HOST: ${vcap.services.event-bus.credentials.vhost}
       RABBIT_USER: ${vcap.services.event-bus.credentials.username}
       RABBIT_PASSWORD: ${vcap.services.event-bus.credentials.password}
-      RABBIT_USE_SSL: false
+      RABBIT_USE_SSL: ${vcap.services.event-bus.credentials.ssl}
       HTTP_COLLECTOR_ENABLED: false
       STORAGE_TYPE: mysql
-      MYSQL_HOST: ${vcap.services.mysql.credentials.hostname}
-      MYSQL_USER: ${vcap.services.mysql.credentials.username}
-      MYSQL_PASS: ${vcap.services.mysql.credentials.password}
-      MYSQL_DB: ${vcap.services.mysql.credentials.name}
+      MYSQL_HOST: ${vcap.services.zipkin-db.credentials.hostname}
+      MYSQL_USER: ${vcap.services.zipkin-db.credentials.username}
+      MYSQL_PASS: ${vcap.services.zipkin-db.credentials.password}
+      MYSQL_DB: ${vcap.services.zipkin-db.credentials.name}
     services:
     - event-bus
     - zipkin-db
