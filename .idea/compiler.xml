@@ -14,8 +14,8 @@
         <module name="accountProcessor" />
         <module name="accountSink" />
         <module name="configServer" />
-        <module name="domainObjs" />
         <module name="accountSource" />
+        <module name="domainObjs" />
         <module name="dataloader" />
         <module name="authService" />
         <module name="accountService" />

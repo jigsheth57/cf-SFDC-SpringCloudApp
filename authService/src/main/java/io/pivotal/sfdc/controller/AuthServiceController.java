@@ -73,8 +73,10 @@ public class AuthServiceController {
         ApiSession apiSession = null;
         redisCommands = redisConnection.sync();
 
+        logger.debug("Cache token will expire in {}ms.",redisCommands.pttl(ACCESS_TOKEN));
+        logger.debug("Cache token will expire in {}ms.",redisCommands.pttl(INSTANCE_URL));
         if (redisCommands.exists(ACCESS_TOKEN,INSTANCE_URL) == 0) {
-            logger.info("Retrieve new session");
+            logger.info("Retrieve new session.");
 	    	ApiConfig apiconfig = new ApiConfig()
 			.setUsername(username)
 			.setPassword(password)
@@ -84,12 +86,15 @@ public class AuthServiceController {
 	    	apiSession = Auth.authenticate(apiconfig);
             Auth.revokeToken(apiconfig,apiSession.getAccessToken());
             apiSession = Auth.authenticate(apiconfig);
-			Calendar cal = Calendar.getInstance(); // creates calendar
-			cal.setTime(new Date()); // sets calendar time/date
-			cal.add(Calendar.HOUR_OF_DAY, 1); // adds one hour
-            redisCommands.set(ACCESS_TOKEN, apiSession.getAccessToken(),SetArgs.Builder.ex(cal.getTime().getTime()));
-            redisCommands.set(INSTANCE_URL, apiSession.getApiEndpoint(), SetArgs.Builder.nx().ex(cal.getTime().getTime()));
+//			Calendar cal = Calendar.getInstance(); // creates calendar
+//			cal.setTime(new Date()); // sets calendar time/date
+//			cal.add(Calendar.HOUR_OF_DAY, 1); // adds one hour
+            redisCommands.set(ACCESS_TOKEN, apiSession.getAccessToken());
+            redisCommands.expire(ACCESS_TOKEN,3600);
+            redisCommands.set(INSTANCE_URL, apiSession.getApiEndpoint());
+            redisCommands.expire(INSTANCE_URL,3600);
 		} else {
+            logger.debug("Retrieving token from cache.");
             apiSession = new ApiSession(redisCommands.get(ACCESS_TOKEN),redisCommands.get(INSTANCE_URL));
 		}
 		return apiSession;
