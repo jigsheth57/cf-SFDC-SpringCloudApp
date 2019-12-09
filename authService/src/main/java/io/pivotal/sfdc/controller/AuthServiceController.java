@@ -3,7 +3,6 @@ package io.pivotal.sfdc.controller;
 import com.force.api.ApiConfig;
 import com.force.api.ApiSession;
 import com.force.api.Auth;
-import io.lettuce.core.SetArgs;
 import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.sync.RedisCommands;
 import io.swagger.annotations.ApiOperation;
@@ -18,9 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import service.APISessionRefreshListener;
-
-import java.util.Calendar;
-import java.util.Date;
 
 /**
  * REST Controller to authenticate against Salesforce.com to retrieve timebased oauth2 token.
@@ -74,9 +70,8 @@ public class AuthServiceController {
         redisCommands = redisConnection.sync();
 
         logger.debug("Cache token will expire in {}ms.",redisCommands.pttl(ACCESS_TOKEN));
-        logger.debug("Cache token will expire in {}ms.",redisCommands.pttl(INSTANCE_URL));
         if (redisCommands.exists(ACCESS_TOKEN,INSTANCE_URL) == 0) {
-            logger.info("Retrieve new session.");
+            logger.info("Retrieving new session.");
 	    	ApiConfig apiconfig = new ApiConfig()
 			.setUsername(username)
 			.setPassword(password)
@@ -86,13 +81,10 @@ public class AuthServiceController {
 	    	apiSession = Auth.authenticate(apiconfig);
             Auth.revokeToken(apiconfig,apiSession.getAccessToken());
             apiSession = Auth.authenticate(apiconfig);
-//			Calendar cal = Calendar.getInstance(); // creates calendar
-//			cal.setTime(new Date()); // sets calendar time/date
-//			cal.add(Calendar.HOUR_OF_DAY, 1); // adds one hour
             redisCommands.set(ACCESS_TOKEN, apiSession.getAccessToken());
-            redisCommands.expire(ACCESS_TOKEN,3600);
+            redisCommands.expire(ACCESS_TOKEN,7200);
             redisCommands.set(INSTANCE_URL, apiSession.getApiEndpoint());
-            redisCommands.expire(INSTANCE_URL,3600);
+            redisCommands.expire(INSTANCE_URL,7200);
 		} else {
             logger.debug("Retrieving token from cache.");
             apiSession = new ApiSession(redisCommands.get(ACCESS_TOKEN),redisCommands.get(INSTANCE_URL));

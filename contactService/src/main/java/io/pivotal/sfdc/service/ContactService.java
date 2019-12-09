@@ -76,25 +76,19 @@ public class ContactService {
 	@HystrixCommand(fallbackMethod = "getContactFallback",
 		    commandProperties = {
 		      @HystrixProperty(name="execution.isolation.strategy", value="THREAD"),
-		      @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="2500")
+		      @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="1000")
 		    })
 	public Contact getContact(String id) throws Exception {
-		logger.debug("Retrieving Contact by id {} from SFDC",id);
-        api = new ForceApi(authService.getApiSession());
-        Contact contact = api.getSObject("contact", id).as(Contact.class);
-        store(id,contact);
-    	return contact;
+		logger.debug("Fetching fallback getContact by id {} from cache",id);
+		return (Contact)retrieve(id, Contact.class);
 	}
 
-	public Contact getContactFallback(String id) {
-		logger.debug("Fetching fallback getContact by id {} from cache",id);
-		Contact contact = null;
-		try {
-			contact = (Contact)retrieve(id, Contact.class);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-    	return contact;
+	public Contact getContactFallback(String id) throws Exception {
+		logger.debug("Retrieving Contact by id {} from SFDC",id);
+		api = new ForceApi(authService.getApiSession());
+		Contact contact = api.getSObject("contact", id).as(Contact.class);
+		store(id,contact);
+		return contact;
 	}
 
 	private void store(String key, Object obj) throws Exception {

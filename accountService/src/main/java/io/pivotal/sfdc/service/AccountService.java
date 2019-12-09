@@ -74,13 +74,11 @@ public class AccountService {
 	@HystrixCommand(fallbackMethod = "getContactsByAccountsFallback",
 		    commandProperties = {
 		      @HystrixProperty(name="execution.isolation.strategy", value="THREAD"),
-		      @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="2500")
+		      @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="1000")
 		    })
 	public String getContactsByAccounts(String key) throws Exception {
-		logger.debug("Fetching getContactsByAccounts from SFDC");
-    	api = new ForceApi(authService.getApiSession());
-    	List<Account> result = api.query(accountsSQL,Account.class).getRecords();
-        return store(key,new AccountList(result));
+		logger.debug("Fetching getContactsByAccountsFallback from Cache with key {}",key);
+		return retrieve(key);
 	}
 
 	/**
@@ -90,16 +88,11 @@ public class AccountService {
 	 * 
 	 * @return String account list
 	 */
-	public String getContactsByAccountsFallback(String key) {
-		logger.debug("Fetching getContactsByAccountsFallback from Cache with key {}",key);
-		String result = null;
-		try {
-			result = retrieve(key);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-        return result;
+	public String getContactsByAccountsFallback(String key) throws Exception {
+		logger.debug("Fetching getContactsByAccounts from SFDC");
+		api = new ForceApi(authService.getApiSession());
+		List<Account> result = api.query(accountsSQL,Account.class).getRecords();
+		return store(key,new AccountList(result));
 	}
 	
 	/**
@@ -113,13 +106,11 @@ public class AccountService {
 	@HystrixCommand(fallbackMethod = "getOpportunitesByAccountsFallback",
 		    commandProperties = {
 		      @HystrixProperty(name="execution.isolation.strategy", value="THREAD"),
-		      @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="2500")
+		      @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="1000")
 		    })
 	public String getOpportunitesByAccounts(String key) throws Exception {
-		logger.debug("Fetching getOpportunitesByAccounts from SFDC");
-    	api = new ForceApi(authService.getApiSession());
-    	List<Account> result = api.query(opp_by_acctsSQL,Account.class).getRecords();
-        return store(key,new AccountList(result));
+		logger.debug("Fetching fallback getOpportunitesByAccountsFallback from Cache with key {}",key);
+		return retrieve(key);
 	}
 
 	/**
@@ -129,16 +120,11 @@ public class AccountService {
 	 * 
 	 * @return String account list
 	 */
-	public String getOpportunitesByAccountsFallback(String key) {
-		logger.debug("Fetching fallback getOpportunitesByAccountsFallback from Cache with key {}",key);
-		String result = null;
-		try {
-			result = retrieve(key);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-        return result;
+	public String getOpportunitesByAccountsFallback(String key) throws Exception {
+		logger.debug("Fetching getOpportunitesByAccounts from SFDC");
+		api = new ForceApi(authService.getApiSession());
+		List<Account> result = api.query(opp_by_acctsSQL,Account.class).getRecords();
+		return store(key,new AccountList(result));
 	}
 	
 	/**
@@ -202,14 +188,11 @@ public class AccountService {
 	@HystrixCommand(fallbackMethod = "getAccountFallback",
 		    commandProperties = {
 		      @HystrixProperty(name="execution.isolation.strategy", value="THREAD"),
-		      @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="2500")
+		      @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="1000")
 		    })
 	public Account getAccount(String id) throws Exception {
-		logger.debug("Retrieving Account by id {} from SFDC",id);
-        api = new ForceApi(authService.getApiSession());
-        Account account = api.getSObject("account", id).as(Account.class);
-        store(id,account);
-    	return account;
+		logger.debug("Fetching getAccount by id {} from cache",id);
+		return mapper.readValue(retrieve(id), Account.class);
 	}
 
 	/**
@@ -217,16 +200,12 @@ public class AccountService {
 	 * @param id account id
 	 * @return Account
 	 */
-	public Account getAccountFallback(String id) {
-		logger.debug("Fetching getAccount by id {} from cache",id);
-		Account account = null;
-		try {
-			String result = retrieve(id);
-            account = mapper.readValue(result, Account.class);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-    	return account;
+	public Account getAccountFallback(String id) throws Exception {
+		logger.debug("Retrieving Account by id {} from SFDC",id);
+		api = new ForceApi(authService.getApiSession());
+		Account account = api.getSObject("account", id).as(Account.class);
+		store(id,account);
+		return account;
 	}
 
     /**

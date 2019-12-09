@@ -14,7 +14,6 @@ import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 
 import java.io.StringWriter;
-import java.util.Iterator;
 import java.util.List;
 
 @EnableBinding(SFDCAccountNotificationSink.class)
@@ -35,9 +34,7 @@ public class SFDCAccountSink {
     public void updateCachedAccounts(AccountList accountList) throws Exception {
         LOGGER.info("updating cache for accounts: {}", accountList);
         List<Account> accounts = accountList.getAccounts();
-        Iterator<Account> iterator = accounts.iterator();
-        while (iterator.hasNext()) {
-            Account account = iterator.next();
+        for (Account account : accounts) {
             store(account.getId(),account);
         }
     }

@@ -76,25 +76,19 @@ public class OpportunityService {
 	@HystrixCommand(fallbackMethod = "getOpportunityFallback",
 		    commandProperties = {
 		      @HystrixProperty(name="execution.isolation.strategy", value="THREAD"),
-		      @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="2500")
+		      @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="1000")
 		    })
 	public Opportunity getOpportunity(String id) throws Exception {
-		logger.debug("Retrieving Opportunity by id {} from SFDC",id);
-        api = new ForceApi(authService.getApiSession());
-        Opportunity opportunity = api.getSObject("opportunity", id).as(Opportunity.class);
-        store(id,opportunity);
-    	return opportunity;
+		logger.debug("Fetching fallback getOpportunity by id {} from cache",id);
+		return (Opportunity)retrieve(id, Opportunity.class);
 	}
 
-	public Opportunity getOpportunityFallback(String id) {
-		logger.debug("Fetching fallback getOpportunity by id {} from cache",id);
-		Opportunity opportunity = null;
-		try {
-			opportunity = (Opportunity)retrieve(id, Opportunity.class);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-    	return opportunity;
+	public Opportunity getOpportunityFallback(String id) throws Exception {
+		logger.debug("Retrieving Opportunity by id {} from SFDC",id);
+		api = new ForceApi(authService.getApiSession());
+		Opportunity opportunity = api.getSObject("opportunity", id).as(Opportunity.class);
+		store(id,opportunity);
+		return opportunity;
 	}
 
 	private void store(String key, Object obj) throws Exception {

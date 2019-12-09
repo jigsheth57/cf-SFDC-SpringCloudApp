@@ -15,7 +15,6 @@ import org.springframework.messaging.support.MessageBuilder;
 
 import java.io.StringWriter;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 @EnableBinding(SFDCAccountNotificationProcessor.class)
@@ -33,23 +32,20 @@ public class SFDCAccountProcessor {
     @StreamListener(SFDCAccountNotificationProcessor.INPUT)
     public void enrichAccounts(AccountList accountList) throws Exception {
         LOGGER.info("notification received for account updates: {}",accountList);
-
         List<Account> accounts = accountList.getAccounts();
-        Iterator<Account> iterator = accounts.iterator();
         List<Account> enrichedAccounts = new ArrayList<Account>();
-        while (iterator.hasNext()) {
-            Account orgAccount = iterator.next();
-            Account account = null;
+        for (Account account : accounts) {
+            Account enrichAccount = null;
             try {
-                account = accountService.getAccount(orgAccount.getId());
+                enrichAccount = accountService.getAccount(account.getId());
             } catch (Exception e) {
                 e.printStackTrace();
-                LOGGER.error(String.format("Can not retrieve existing account with id %s",orgAccount.getId()));
+                LOGGER.error(String.format("Can not retrieve existing account with id %s",account.getId()));
             }
-            if(account == null) {
-                account = orgAccount;
+            if(enrichAccount == null) {
+                enrichAccount = account;
             }
-            enrichedAccounts.add(account);
+            enrichedAccounts.add(enrichAccount);
         }
         accountList.setAccounts(enrichedAccounts);
         LOGGER.debug("forwarding enriched account list to be cached: {}",convert(accountList));
@@ -68,7 +64,9 @@ public class SFDCAccountProcessor {
         //writing to console, can write to any output stream such as file
         StringWriter jsonData = new StringWriter();
         mapper.writeValue(jsonData, obj);
-        return jsonData.toString();
+        String jsonDataStr = jsonData.toString();
+        LOGGER.debug("value: {}",jsonDataStr);
+        return jsonDataStr;
     }
 
 }

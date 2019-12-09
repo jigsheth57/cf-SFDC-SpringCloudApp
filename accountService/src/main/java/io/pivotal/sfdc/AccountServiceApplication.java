@@ -52,7 +52,7 @@ public class AccountServiceApplication implements CommandLineRunner {
     	CloudFoundryCertificateTruster.trustCertificates();
         SpringApplication.run(AccountServiceApplication.class, args);
     }
-    
+
     @Bean
     public Docket newsApi() {
         return new Docket(DocumentationType.SWAGGER_2)
