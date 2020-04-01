@@ -1,0 +1,8 @@
+replicaCount: 1
+
+image:
+  repository: sfdcwebapp:latest
+  pullPolicy: IfNotPresent
+
+portal:
+  port: 9090

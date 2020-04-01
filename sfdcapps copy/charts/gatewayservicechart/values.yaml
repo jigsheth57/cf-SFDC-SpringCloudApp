@@ -1,0 +1,8 @@
+replicaCount: 1
+
+image:
+  repository: gatewayservice:latest
+  pullPolicy: IfNotPresent
+
+gatewayservice:
+  port: 9012

@@ -119,16 +119,10 @@
                 <version>1.4.13</version>
                 <executions>
                     <execution>
-                        <id>package</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                    </execution>
-                    <execution>
                         <id>install</id>
                         <phase>install</phase>
                         <goals>
+                            <goal>build</goal>
                             <goal>push</goal>
                         </goals>
                     </execution>

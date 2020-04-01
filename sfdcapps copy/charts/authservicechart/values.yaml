@@ -1,0 +1,8 @@
+replicaCount: 1
+
+image:
+  repository: authservice:latest
+  pullPolicy: IfNotPresent
+
+authservice:
+  port: 9000

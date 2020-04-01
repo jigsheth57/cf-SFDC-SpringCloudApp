@@ -25,6 +25,7 @@ spec:
       - name: {{ .Release.Name }}-hystrixdashboard
         image: {{ .Values.global.registry }}{{ .Values.global.hystrixdashboard.image.repository | default .Values.hystrixdashboard.image.repository }}
         imagePullPolicy: {{ .Values.global.image.pullPolicy | default .Values.hystrixdashboard.image.pullPolicy }}
+        {{- include "hystrixdashboard.healthProbes" . | indent 10 }}
         envFrom:
         - configMapRef:
             name: {{ .Release.Name }}-configmap
@@ -33,11 +34,11 @@ spec:
           value: {{ .Values.global.hystrixdashboard.port | default .Values.hystrixdashboard.port | quote }}
         ports:
         - containerPort: {{ .Values.global.hystrixdashboard.port | default .Values.hystrixdashboard.port }}
-        {{- include "hystrixdashboard.healthProbes" . | indent 10 }}
       - name: {{ .Release.Name }}-turbine
         image: {{ .Values.global.registry }}{{ .Values.global.turbine.image.repository | default .Values.turbine.image.repository }}
         imagePullPolicy: {{ .Values.global.image.pullPolicy | default .Values.turbine.image.pullPolicy }}
-        env:
+        {{- include "turbine.healthProbes" . | indent 10 }}
+          env:
         - name: PORT
           value: {{ .Values.global.turbine.port | default .Values.turbine.port | quote }}
         - name: TURBINE_STREAMS
@@ -45,4 +46,3 @@ spec:
             http://{{ .Release.Name }}-opportunityservice-svc:{{ .Values.global.opportunityservice.port }}/manage/hystrix.stream http://{{ .Release.Name }}-gatewayservice-svc:{{ .Values.global.gatewayservice.port }}/manage/hystrix.stream"
         ports:
         - containerPort: {{ .Values.global.turbine.port | default .Values.turbine.port }}
-        {{- include "turbine.healthProbes" . | indent 10 }}
