@@ -2,7 +2,7 @@
 
 set -e
 
-images=(configserver:pack eurekaserver:pack hystrixdashboard:pack authservice:pack accountservice:pack contactservice:pack opportunityservice:pack gatewayservice:pack sfdcwebapp:pack dataloader:pack)
+images=(configserver:latest eurekaserver:latest hystrixdashboard:latest authservice:latest accountservice:latest contactservice:latest opportunityservice:latest gatewayservice:latest sfdcwebapp:latest dataloader:latest)
 
 for i in "${images[@]}"
 do

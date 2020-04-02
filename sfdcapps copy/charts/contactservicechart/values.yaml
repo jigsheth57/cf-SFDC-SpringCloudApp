@@ -1,0 +1,8 @@
+replicaCount: 1
+
+image:
+  repository: contactservice:latest
+  pullPolicy: IfNotPresent
+
+contactservice:
+  port: 9002

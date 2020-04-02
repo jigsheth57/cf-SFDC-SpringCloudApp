@@ -13,7 +13,7 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/jigsheth57/config-repo
+          uri: git@github.com:jigsheth57/config-repo.git
 
 global:
   registry: jigsheth57/

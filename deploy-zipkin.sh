@@ -3,7 +3,7 @@
 cf t
 echo -n "Validate the space & org, you are currently logged in before continuing!"
 read
-cf cs p.rabbitmq single-node-3.7 event-bus -c '{"tls": false}'
+cf cs p.rabbitmq single-node event-bus -c '{"tls": false}'
 cf cs p.mysql db-small zipkin-db
 echo "Checking status of the Service Instances!"
 until [ `cf service event-bus | grep -c "succeeded"` -ge 1  ]

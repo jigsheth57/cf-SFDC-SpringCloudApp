@@ -1,0 +1,8 @@
+replicaCount: 1
+
+image:
+  repository: accountservice:latest
+  pullPolicy: IfNotPresent
+
+accountservice:
+  port: 9001

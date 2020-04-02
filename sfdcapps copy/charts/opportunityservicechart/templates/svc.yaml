@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-opportunityservice-svc
+  labels:
+    sfdcdemo: opportunityservice-svc
+    {{- include "sfdcapps.labels" . | indent 4 }}
+spec:
+  ports:
+  - name: "opportunityservice-port-9003"
+    port: {{ .Values.global.opportunityservice.port | default .Values.opportunityservice.port }}
+    targetPort: {{ .Values.global.opportunityservice.port | default .Values.opportunityservice.port }}
+  selector:
+    app: {{ .Release.Name }}-opportunityservice
+  type: ClusterIP

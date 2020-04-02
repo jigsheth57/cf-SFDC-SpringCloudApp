@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
-Salesforce.com Outbound Notification Web Services API Version 1.0 
+<!--
+Salesforce.com Outbound Notification Web Services API Version 1.0
 Generated on 2019-11-24 21:22:43 +0000.
 
 Copyright 2005-2019 Salesforce.com, Inc.
@@ -62,27 +62,27 @@ All Rights Reserved
         <schema elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://soap.sforce.com/2005/09/outbound">
             <import namespace="urn:enterprise.soap.sforce.com" />
             <import namespace="urn:sobject.enterprise.soap.sforce.com" />
-    
+
             <element name="notifications">
-                <complexType> 
-                    <sequence> 
+                <complexType>
+                    <sequence>
                     	<element name="OrganizationId" type="ent:ID" />
                     	<element name="ActionId" type="ent:ID" />
                     	<element name="SessionId" type="xsd:string" nillable="true" />
                     	<element name="EnterpriseUrl" type="xsd:string" />
                     	<element name="PartnerUrl" type="xsd:string" />
                         <element name="Notification" maxOccurs="100" type="tns:AccountNotification" />
-                    </sequence> 
-                </complexType> 
+                    </sequence>
+                </complexType>
             </element>
-    
+
             <complexType name="AccountNotification">
                 <sequence>
                     <element name="Id" type="ent:ID" />
                     <element name="sObject" type="ens:Account" />
                 </sequence>
             </complexType>
-                
+
             <element name="notificationsResponse">
                 <complexType>
                     <sequence>
@@ -92,9 +92,9 @@ All Rights Reserved
             </element>
         </schema>
     </types>
-    
-    
-    <!-- Method Messages -->   
+
+
+    <!-- Method Messages -->
     <message name="notificationsRequest">
         <part element="tns:notifications" name="request"/>
     </message>
@@ -110,19 +110,19 @@ All Rights Reserved
             <output message="tns:notificationsResponse"/>
         </operation>
     </portType>
-    
-    <!-- Binding 
+
+    <!-- Binding
          You need to write a service that implements this binding to receive the notifications
      -->
     <binding name="NotificationBinding" type="tns:NotificationPort">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-        
+
         <operation name="notifications">
             <soap:operation soapAction=""/>
             <input>
                 <soap:body use="literal"/>
             </input>
-            <output> 
+            <output>
                 <soap:body use="literal"/>
             </output>
         </operation>
@@ -132,8 +132,8 @@ All Rights Reserved
     <service name="NotificationService">
         <documentation>Notification Service Implementation</documentation>
         <port binding="tns:NotificationBinding" name="Notification">
-            <soap:address location="https://datasync.apps.pcfone.io/datasync/ws/wfoutbound"/>
+            <soap:address location="http://datasync.cfapps.aws.pcfapps.org/datasync/ws/wfoutbound"/>
         </port>
     </service>
-    
+
 </definitions>

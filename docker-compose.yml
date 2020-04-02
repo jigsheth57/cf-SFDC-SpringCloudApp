@@ -43,7 +43,7 @@ services:
       timeout: 10s
       retries: 3
   discovery:
-    image: jigsheth57/eurekaserver:pack
+    image: jigsheth57/eurekaserver:latest
     container_name: discovery
     environment:
       - PORT=8761
@@ -57,7 +57,7 @@ services:
       retries: 3
 
   hystrixdashboard:
-    image: jigsheth57/hystrixdashboard:pack
+    image: jigsheth57/hystrixdashboard:latest
     container_name: hystrixdashboard
     environment:
       - PORT=8080
@@ -84,7 +84,7 @@ services:
         condition: service_healthy
 
   authservice:
-    image: jigsheth57/authservice:pack
+    image: jigsheth57/authservice:latest
     environment:
       - PORT=8080
       - SPRING_PROFILES_ACTIVE=local
@@ -110,7 +110,7 @@ services:
         condition: service_healthy
 
   accountservice:
-    image: jigsheth57/accountservice:pack
+    image: jigsheth57/accountservice:latest
     environment:
       - PORT=8080
       - SPRING_PROFILES_ACTIVE=local
@@ -138,7 +138,7 @@ services:
         condition: service_healthy
 
   contactservice:
-    image: jigsheth57/contactservice:pack
+    image: jigsheth57/contactservice:latest
     environment:
       - PORT=8080
       - SPRING_PROFILES_ACTIVE=local
@@ -168,7 +168,7 @@ services:
         condition: service_healthy
 
   opportunityservice:
-    image: jigsheth57/opportunityservice:pack
+    image: jigsheth57/opportunityservice:latest
     environment:
       - PORT=8080
       - SPRING_PROFILES_ACTIVE=local
@@ -198,7 +198,7 @@ services:
         condition: service_healthy
 
   gatewayservice:
-    image: jigsheth57/gatewayservice:pack
+    image: jigsheth57/gatewayservice:latest
     environment:
       - PORT=8080
       - SPRING_PROFILES_ACTIVE=local
@@ -255,7 +255,7 @@ services:
         condition: service_healthy
 
   sfdcwebapp:
-    image: jigsheth57/sfdcwebapp:pack
+    image: jigsheth57/sfdcwebapp:latest
     environment:
       - PORT=8080
       - SPRING_PROFILES_ACTIVE=local
