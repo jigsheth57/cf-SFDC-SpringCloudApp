@@ -3,18 +3,33 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/accountProcessor" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/accountProcessor/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/accountService" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/accountService/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/accountSink" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/accountSink/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/accountSource" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/accountSource/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/authService" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/authService/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/configServer" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/configServer/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/contactService" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/contactService/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/dataloader" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dataloader/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/domainObjs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domainObjs/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domainObjs/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/eurekaServer" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/eurekaServer/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/gatewayService" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gatewayService/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/hystrixDashboard" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hystrixDashboard/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/opportunityService" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/opportunityService/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sfdcwebapp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sfdcwebapp/src/main/java" charset="UTF-8" />
   </component>
 </project>
