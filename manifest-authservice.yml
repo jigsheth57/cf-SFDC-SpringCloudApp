@@ -6,7 +6,7 @@ bck_service: &bck_service
 #  health-check-http-endpoint: /manage/health
   health-check-invocation-timeout: 15
   routes:
-#  - route: authservice.cfapps.aws.pcfapps.org
+  - route: authservice.cfapps.aws.pcfapps.org
   - route: authservice.apps.internal
   env:
     SPRING_PROFILES_ACTIVE: cloud
@@ -24,6 +24,7 @@ bck_service: &bck_service
   - service-registry
   - event-bus
   - cache-service
+  - wf-proxy
 applications:
   - name: authservice
     # no-route: true

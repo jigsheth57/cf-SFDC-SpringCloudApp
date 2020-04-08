@@ -10,6 +10,7 @@ cf cs p.service-registry standard service-registry
 cf cs p-circuit-breaker-dashboard standard circuit-breaker
 cf cs p.rabbitmq single-node event-bus -c '{"tls": false}'
 cf cs p-redis shared-vm cache-service
+cf cs wavefront-proxy standard wf-proxy
 # cf cs scheduler-for-pcf standard scheduler-dataloader
 echo "Checking status of the Spring Cloud Service Instances!"
 until [ `cf service config-server | grep -c "succeeded"` -ge 1  ]

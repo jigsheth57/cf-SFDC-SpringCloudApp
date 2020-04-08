@@ -24,6 +24,7 @@ bck_service: &bck_service
   - circuit-breaker
   - event-bus
   - cache-service
+  - wf-proxy
 applications:
   - name: accountservice
     path: accountService/target/accountService.jar

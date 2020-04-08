@@ -18,6 +18,7 @@ bck_service: &bck_service
   - circuit-breaker
   - event-bus
   - cache-service
+  - wf-proxy
   metadata:
     annotations:
       contact: "jigsheth@pivotal.io"

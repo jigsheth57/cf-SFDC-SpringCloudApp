@@ -35,16 +35,16 @@ public class AuthServiceController {
 
     private RedisCommands<String, String> redisCommands;
 
-	@Value("${sfdc.uid}")
+	@Value("${USERNAME}")
     private String username;
     
-    @Value("${sfdc.pwd}")
+    @Value("${PASSWORD}")
     private String password;
     
-    @Value("${sfdc.client_id}")
+    @Value("${CLIENT_ID}")
     private String clientId;
     
-    @Value("${sfdc.client_key}")
+    @Value("${CLIENT_SECRET}")
     private String clientSecret;
 
     private static String ACCESS_TOKEN = "access_token";
@@ -122,5 +122,21 @@ public class AuthServiceController {
             logger.warn(e.getMessage());
         }
         return apiSession;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getClientId() {
+        return clientId;
+    }
+
+    public String getClientSecret() {
+        return clientSecret;
     }
 }

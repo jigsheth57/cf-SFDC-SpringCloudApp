@@ -13,6 +13,7 @@ fd_service: &fd_service
   - service-registry
   - config-server
   - event-bus
+  - wf-proxy
   metadata:
     annotations:
       contact: "jigsheth@pivotal.io"
