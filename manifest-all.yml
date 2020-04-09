@@ -12,6 +12,7 @@ bck_service: &bck_service
   - circuit-breaker
   - event-bus
   - cache-service
+  - wf-proxy
 
 fd_service: &fd_service
   buildpack: java_buildpack_offline
@@ -25,6 +26,7 @@ fd_service: &fd_service
   - service-registry
   - config-server
   - event-bus
+  - wf-proxy
 
 applications:
   - name: authservice

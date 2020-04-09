@@ -147,12 +147,6 @@
             <version>2.9.2</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-registry-wavefront</artifactId>
-            <version>${micrometer.version}</version>
-        </dependency>
-
     </dependencies>
 
     <build>

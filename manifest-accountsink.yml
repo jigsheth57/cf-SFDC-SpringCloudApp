@@ -22,6 +22,7 @@ bck_service: &bck_service
   - config-server
   - event-bus
   - cache-service
+  - wf-proxy
 applications:
   - name: accountsink
     path: accountSink/target/accountSink.jar

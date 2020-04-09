@@ -70,7 +70,7 @@ public class AuthService {
 	@HystrixCommand(fallbackMethod = "getApiSessionFallback",
 		    commandProperties = {
 		      @HystrixProperty(name="execution.isolation.strategy", value="THREAD"),
-		      @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="2500")
+		      @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="1000")
 		    })
 	public ApiSession getApiSession() {
 		logger.info("Fetching ApiSession from authservice");

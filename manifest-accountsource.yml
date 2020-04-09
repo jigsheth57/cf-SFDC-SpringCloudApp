@@ -21,6 +21,7 @@ bck_service: &bck_service
   - service-registry
   - config-server
   - event-bus
+  - wf-proxy
 applications:
   - name: accountsource
     path: accountSource/target/accountSource.jar
