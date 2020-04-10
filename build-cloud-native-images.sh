@@ -1,6 +1,6 @@
 #!/bin/bash
 set -eu
-mvn clean package
+mvn clean spring-boot:build-info package
 pack set-default-builder cloudfoundry/cnb:cflinuxfs3
 pack build jigsheth57/configserver --path configServer/target/configServer.jar --publish
 pack build jigsheth57/eurekaserver --path eurekaServer/target/eurekaServer.jar --publish
