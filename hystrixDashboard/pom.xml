@@ -51,7 +51,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.13.RELEASE</version>
+        <version>2.2.6.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -80,9 +80,9 @@
         <docker.image.prefix>jigsheth57</docker.image.prefix>
         <docker.repo>hystrixdashboard</docker.repo>
         <docker.tag>latest</docker.tag>
-        <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
-        <spring-cloud-services.version>2.1.7.RELEASE</spring-cloud-services.version>
-        <spring-security.version>5.1.8.RELEASE</spring-security.version>
+        <spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
+        <spring-cloud-services.version>2.2.3.RELEASE</spring-cloud-services.version>
+        <spring-security.version>5.1.9.RELEASE</spring-security.version>
     </properties>
 
     <dependencies>

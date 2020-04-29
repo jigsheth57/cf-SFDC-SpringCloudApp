@@ -15,7 +15,6 @@ bck_service: &bck_service
   services:
   - service-registry
   - config-server
-  - circuit-breaker
   - event-bus
   - cache-service
   - wf-proxy

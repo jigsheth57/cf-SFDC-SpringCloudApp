@@ -10,12 +10,15 @@ echo yes | cf d -r opportunityservice
 echo yes | cf d -r gatewayservice
 echo yes | cf d -r portal
 echo yes | cf d -r dataloader
+echo yes | cf d -r accountsource
+echo yes | cf d -r accountprocessor
+echo yes | cf d -r accountsink
 
-cf ds scheduler-dataloader -f
-cf ds cache-service -f
-cf ds event-bus -f
-cf ds circuit-breaker -f
-cf ds service-registry -f
-cf ds config-server -f
-cf a
-cf s
+# cf ds scheduler-dataloader -f
+# cf ds cache-service -f
+# cf ds event-bus -f
+# cf ds circuit-breaker -f
+# cf ds service-registry -f
+# cf ds config-server -f
+# cf a
+# cf s
