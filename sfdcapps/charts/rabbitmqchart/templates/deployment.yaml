@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-rabbitmq
+  name: rabbitmq
   labels:
-    app: {{ .Release.Name }}-rabbitmq
+    app: rabbitmq
     {{- include "sfdcapps.labels" . | indent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Release.Name }}-rabbitmq
+      app: rabbitmq
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -18,11 +18,11 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}-rabbitmq
+        app: rabbitmq
         {{- include "sfdcapps.labels" . | indent 8 }}
     spec:
       containers:
-        - name: {{ .Release.Name }}-rabbitmq
+        - name: rabbitmq
           image: {{ .Values.global.registry }}{{ .Values.global.rabbitmq.image.repository | default .Values.image.repository }}
           imagePullPolicy: {{ .Values.global.image.pullPolicy | default .Values.image.pullPolicy }}
           {{- include "rabbitmq.healthProbes" . | indent 10 }}

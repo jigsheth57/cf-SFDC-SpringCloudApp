@@ -1,0 +1,17 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: contactservice
+  labels:
+    {{- include "sfdcapps.labels" . | indent 4 }}
+spec:
+  hosts:
+  - contactservice.{{ .Values.global.domain }}
+  gateways:
+  - gateway
+  http:
+  - route:
+    - destination:
+        host: contactservice
+        port:
+          number: {{ .Values.global.contactservice.port | default .Values.contactservice.port }}

@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-configserver
+  name: configserver
   labels:
-    app: {{ .Release.Name }}-configserver
+    app: configserver
     {{- include "sfdcapps.labels" . | indent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Release.Name }}-configserver
+      app: configserver
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -18,19 +18,21 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}-configserver
+        app: configserver
         {{- include "sfdcapps.labels" . | indent 8 }}
     spec:
       containers:
-        - name: {{ .Release.Name }}-configserver
+        - name: configserver
           image: {{ .Values.global.registry }}{{ .Values.global.configserver.image.repository | default .Values.image.repository }}
           imagePullPolicy: {{ .Values.global.image.pullPolicy | default .Values.image.pullPolicy }}
           {{- include "configserver.healthProbes" . | indent 10 }}
           envFrom:
           - configMapRef:
-              name: {{ .Release.Name }}-configmap
+              name: configmap
           env:
           - name: PORT
             value: {{ .Values.global.configserver.port | default .Values.configserver.port | quote }}
+          - name: WAVEFRONT_APPLICATION_SERVICE
+            value: configserver
           ports:
           - containerPort: {{ .Values.global.configserver.port | default .Values.configserver.port }}

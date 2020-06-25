@@ -1,15 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Release.Name }}-discovery-svc
+  name: discovery
   labels:
-    sfdcdemo: discovery-svc
     {{- include "sfdcapps.labels" . | indent 4 }}
 spec:
   ports:
-  - name: "discovery-port-8761"
+  - name: "http-discovery"
     port: {{ .Values.global.discovery.port | default .Values.discovery.port }}
     targetPort: {{ .Values.global.discovery.port | default .Values.discovery.port }}
   selector:
-    app: {{ .Release.Name }}-discovery
+    app: discovery
   type: ClusterIP

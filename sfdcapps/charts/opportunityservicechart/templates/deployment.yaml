@@ -2,15 +2,15 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-  name: {{ .Release.Name }}-opportunityservice
+  name: opportunityservice
   labels:
-    app: {{ .Release.Name }}-opportunityservice
+    app: opportunityservice
     {{- include "sfdcapps.labels" . | indent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Release.Name }}-opportunityservice
+      app: opportunityservice
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -19,19 +19,21 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}-opportunityservice
+        app: opportunityservice
         {{- include "sfdcapps.labels" . | indent 8 }}
     spec:
       containers:
-        - name: {{ .Release.Name }}-opportunityservice
+        - name: opportunityservice
           image: {{ .Values.global.registry }}{{ .Values.global.opportunityservice.image.repository | default .Values.image.repository }}
           imagePullPolicy: {{ .Values.global.image.pullPolicy | default .Values.image.pullPolicy }}
           {{- include "opportunityservice.healthProbes" . | indent 10 }}
           envFrom:
           - configMapRef:
-              name: {{ .Release.Name }}-configmap
+              name: configmap
           env:
           - name: PORT
             value: {{ .Values.global.opportunityservice.port | default .Values.opportunityservice.port | quote }}
+          - name: WAVEFRONT_APPLICATION_SERVICE
+            value: opportunityservice
           ports:
           - containerPort: {{ .Values.global.opportunityservice.port | default .Values.opportunityservice.port }}

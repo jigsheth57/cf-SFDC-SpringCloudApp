@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-redis
+  name: redis
   labels:
-    app: {{ .Release.Name }}-redis
+    app: redis
     {{- include "sfdcapps.labels" . | indent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Release.Name }}-redis
+      app: redis
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -18,11 +18,11 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}-redis
+        app: redis
         {{- include "sfdcapps.labels" . | indent 8 }}
     spec:
       containers:
-        - name: {{ .Release.Name }}-redis
+        - name: redis
           image: {{ .Values.global.registry }}{{ .Values.global.redis.image.repository | default .Values.image.repository }}
           imagePullPolicy: {{ .Values.global.image.pullPolicy | default .Values.image.pullPolicy }}
           {{- include "redis.healthProbes" . | indent 10 }}

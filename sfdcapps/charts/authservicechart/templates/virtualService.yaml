@@ -1,0 +1,17 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: authservice
+  labels:
+    {{- include "sfdcapps.labels" . | indent 4 }}
+spec:
+  hosts:
+  - authservice.{{ .Values.global.domain }}
+  gateways:
+  - gateway
+  http:
+  - route:
+    - destination:
+        host: authservice
+        port:
+          number: {{ .Values.global.authservice.port | default .Values.authservice.port }}

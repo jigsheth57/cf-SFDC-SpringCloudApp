@@ -1,15 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Release.Name }}-gatewayservice-svc
+  name: gatewayservice
   labels:
-    sfdcdemo: gatewayservice-svc
     {{- include "sfdcapps.labels" . | indent 4 }}
 spec:
   ports:
-  - name: "gatewayservice-port-9012"
+  - name: "http-gatewayservice"
     port: {{ .Values.global.gatewayservice.port | default .Values.gatewayservice.port }}
     targetPort: {{ .Values.global.gatewayservice.port | default .Values.gatewayservice.port }}
   selector:
-    app: {{ .Release.Name }}-gatewayservice
+    app: gatewayservice
   type: ClusterIP

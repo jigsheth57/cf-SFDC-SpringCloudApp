@@ -1,15 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Release.Name }}-contactservice-svc
+  name: contactservice
   labels:
-    sfdcdemo: contactservice-svc
     {{- include "sfdcapps.labels" . | indent 4 }}
 spec:
   ports:
-  - name: "contactservice-port-9002"
+  - name: "http-contactservice"
     port: {{ .Values.global.contactservice.port | default .Values.contactservice.port }}
     targetPort: {{ .Values.global.contactservice.port | default .Values.contactservice.port }}
   selector:
-    app: {{ .Release.Name }}-contactservice
+    app: contactservice
   type: ClusterIP

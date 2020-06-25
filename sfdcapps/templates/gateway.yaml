@@ -1,0 +1,24 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: gateway
+  labels:
+    {{- include "sfdcapps.labels" . | indent 4 }}
+spec:
+  selector:
+    istio: ingressgateway # use istio default controller
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - authservice.{{ .Values.global.domain }}
+    - accountservice.{{ .Values.global.domain }}
+    - contactservice.{{ .Values.global.domain }}
+    - opportunityservice.{{ .Values.global.domain }}
+    - gatewayservice.{{ .Values.global.domain }}
+    - portal.{{ .Values.global.domain }}
+    - discovery.{{ .Values.global.domain }}
+    - configserver.{{ .Values.global.domain }}
+    - rabbitmq.{{ .Values.global.domain }}

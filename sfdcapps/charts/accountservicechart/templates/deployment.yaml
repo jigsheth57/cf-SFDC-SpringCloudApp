@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-accountservice
+  name: accountservice
   labels:
-    app: {{ .Release.Name }}-accountservice
+    app: accountservice
     {{- include "sfdcapps.labels" . | indent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Release.Name }}-accountservice
+      app: accountservice
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -18,19 +18,21 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}-accountservice
+        app: accountservice
         {{- include "sfdcapps.labels" . | indent 8 }}
     spec:
       containers:
-        - name: {{ .Release.Name }}-accountservice
+        - name: accountservice
           image: {{ .Values.global.registry }}{{ .Values.global.accountservice.image.repository | default .Values.image.repository }}
           imagePullPolicy: {{ .Values.global.image.pullPolicy | default .Values.image.pullPolicy }}
           {{- include "accountservice.healthProbes" . | indent 10 }}
           envFrom:
           - configMapRef:
-              name: {{ .Release.Name }}-configmap
+              name: configmap
           env:
           - name: PORT
             value: {{ .Values.global.accountservice.port | default .Values.accountservice.port | quote }}
+          - name: WAVEFRONT_APPLICATION_SERVICE
+            value: accountservice
           ports:
           - containerPort: {{ .Values.global.accountservice.port | default .Values.accountservice.port }}

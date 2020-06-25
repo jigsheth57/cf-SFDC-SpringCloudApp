@@ -47,27 +47,30 @@ global:
   authservice:
     image:
       repository: authservice:latest
-    port: 9000
+    port: 8080 # default 9000
   accountservice:
     image:
       repository: accountservice:latest
-    port: 9001
+    port: 8080 # default 9001
   contactservice:
     image:
       repository: contactservice:latest
-    port: 9002
+    port: 8080 # default 9002
   opportunityservice:
     image:
       repository: opportunityservice:latest
-    port: 9003
+    port: 8080 # default 9003
   gatewayservice:
     image:
       repository: gatewayservice:latest
-    port: 9012
+    port: 8080 # default 9012
   portal:
     image:
       repository: sfdcwebapp:latest
-    port: 9090
+    port: 8080 # default 9090
   image:
-    pullPolicy: Always # IfNotPresent
-  domain: pks.pcfdemo.pcfapps.org
+    pullPolicy: IfNotPresent # IfNotPresent
+  wavefront:
+    uri: https://xxx.wavefront.com
+    token: xxxxxxx
+  domain: tkg.local.tanzuapps.org

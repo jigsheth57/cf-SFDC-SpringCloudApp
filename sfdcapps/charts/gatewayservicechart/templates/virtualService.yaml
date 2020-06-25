@@ -1,0 +1,17 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: gatewayservice
+  labels:
+    {{- include "sfdcapps.labels" . | indent 4 }}
+spec:
+  hosts:
+  - gatewayservice.{{ .Values.global.domain }}
+  gateways:
+  - gateway
+  http:
+  - route:
+    - destination:
+        host: gatewayservice
+        port:
+          number: {{ .Values.global.gatewayservice.port | default .Values.gatewayservice.port }}

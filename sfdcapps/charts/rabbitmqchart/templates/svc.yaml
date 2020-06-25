@@ -1,18 +1,17 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Release.Name }}-rabbitmq-svc
+  name: rabbitmq
   labels:
-    sfdcdemo: rabbitmq-svc
     {{- include "sfdcapps.labels" . | indent 4 }}
 spec:
   ports:
-  - name: "management-port-15672"
+  - name: "http-rmqmanagement"
     port: {{ .Values.global.rabbitmq.management.port | default .Values.rabbitmq.management.port }}
     targetPort: {{ .Values.global.rabbitmq.management.port | default .Values.rabbitmq.management.port }}
-  - name: "rmq-connection-port-5672"
+  - name: "tcp-rabbitmq"
     port: {{ .Values.global.rabbitmq.server.port | default .Values.rabbitmq.server.port }}
     targetPort: {{ .Values.global.rabbitmq.server.port | default .Values.rabbitmq.server.port }}
   selector:
-    app: {{ .Release.Name }}-rabbitmq
+    app: rabbitmq
   type: ClusterIP
