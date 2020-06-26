@@ -1,8 +1,0 @@
-replicaCount: 1
-
-image:
-  repository: opportunityservice:latest
-  pullPolicy: IfNotPresent
-
-opportunityservice:
-  port: 9003
