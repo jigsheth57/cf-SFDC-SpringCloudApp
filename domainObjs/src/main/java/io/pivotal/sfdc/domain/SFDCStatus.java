@@ -5,16 +5,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * SFDC Health Status Object representation
+ * 
  * @author Jignesh Sheth
  *
  */
-@JsonIgnoreProperties(ignoreUnknown=true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SFDCStatus {
 
-    @JsonProperty(value="status")
+    @JsonProperty(value = "status")
     String status;
 
-    @JsonProperty(value="isActive")
+    @JsonProperty(value = "isActive")
     Boolean isActive;
 
     public String getStatus() {

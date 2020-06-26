@@ -6,20 +6,21 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 /**
  * SFDC Contact Object representation
+ * 
  * @author Jignesh Sheth
  *
  */
 
-@JsonIgnoreProperties(ignoreUnknown=true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Contact {
 
 	@JsonView(View.ContactByAccountSummary.class)
-    @JsonProperty(value="Id")
-    private String id;
-    
+	@JsonProperty(value = "Id")
+	private String id;
+
 	@JsonProperty("Email")
 	private String email;
-	
+
 	@JsonProperty("Name")
 	private String name;
 
@@ -35,54 +36,63 @@ public class Contact {
 	public String getTitle() {
 		return title;
 	}
+
 	/**
 	 * @param title the title to set
 	 */
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 	/**
 	 * @return the department
 	 */
 	public String getDepartment() {
 		return department;
 	}
+
 	/**
 	 * @param department the department to set
 	 */
 	public void setDepartment(String department) {
 		this.department = department;
 	}
+
 	/**
 	 * @return the salutation
 	 */
 	public String getSalutation() {
 		return salutation;
 	}
+
 	/**
 	 * @param salutation the salutation to set
 	 */
 	public void setSalutation(String salutation) {
 		this.salutation = salutation;
 	}
+
 	/**
 	 * @return the phone
 	 */
 	public String getPhone() {
 		return phone;
 	}
+
 	/**
 	 * @param phone the phone to set
 	 */
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+
 	/**
 	 * @return the mobilePhone
 	 */
 	public String getMobilePhone() {
 		return mobilePhone;
 	}
+
 	/**
 	 * @param mobilePhone the mobilePhone to set
 	 */
@@ -109,16 +119,17 @@ public class Contact {
 	@JsonProperty("AccountId")
 	private String accountId;
 
-    @JsonProperty("Account")
-    private Account account;
+	@JsonProperty("Account")
+	private Account account;
 
-    public String getId() {
-        return id;
-    }
-    public void setId(String id) {
-        this.id = id;
-    }
-	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public String getLastName() {
 		return lastName;
 	}
@@ -149,12 +160,14 @@ public class Contact {
 	public String getName() {
 		return name;
 	}
+
 	/**
 	 * @param name the name to set
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public Account getAccount() {
 		return account;
 	}
@@ -162,7 +175,7 @@ public class Contact {
 	public void setAccount(Account account) {
 		this.account = account;
 	}
-	
+
 	public String getAccountId() {
 		return this.accountId;
 	}
@@ -170,12 +183,12 @@ public class Contact {
 	public void setAccountId(String accountId) {
 		this.accountId = accountId;
 	}
-	
-	public Contact(){
+
+	public Contact() {
 		super();
 	}
 
-	public Contact(String email, String firstName,String lastName) {
+	public Contact(String email, String firstName, String lastName) {
 		this();
 		this.email = email;
 		this.firstName = firstName;
