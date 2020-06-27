@@ -4,6 +4,9 @@ spring:
   cloud:
     config:
       uri: http://configserver:8888
+      label: tkg-master
       failFast: true
+      retry:
+        max-attempts: 60
 encrypt:
   failOnError: false

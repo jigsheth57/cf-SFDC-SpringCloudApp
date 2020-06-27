@@ -1,0 +1,17 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: opportunityservice
+  labels:
+    {{- include "sfdcapps.labels" . | indent 4 }}
+spec:
+  hosts:
+  - opportunityservice.{{ .Values.global.domain }}
+  gateways:
+  - gateway
+  http:
+  - route:
+    - destination:
+        host: opportunityservice
+        port:
+          number: {{ .Values.global.opportunityservice.port | default .Values.opportunityservice.port }}

@@ -13,5 +13,4 @@ spec:
   - route:
     - destination:
         host: contactservice
-        port:
-          number: {{ .Values.global.contactservice.port | default .Values.contactservice.port }}
+        subset: v2

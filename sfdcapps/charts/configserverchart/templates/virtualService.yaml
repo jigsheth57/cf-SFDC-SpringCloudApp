@@ -13,5 +13,4 @@ spec:
   - route:
     - destination:
         host: configserver
-        port:
-          number: {{ .Values.global.configserver.port | default .Values.configserver.port }}
+        subset: v2

@@ -1,22 +1,24 @@
 package io.pivotal.sfdc.service;
 
 import com.force.api.ApiSession;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
-import io.lettuce.core.api.StatefulRedisConnection;
-import io.lettuce.core.api.sync.RedisCommands;
-import io.pivotal.sfdc.client.AuthClient;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.lettuce.core.api.StatefulRedisConnection;
+import io.lettuce.core.api.sync.RedisCommands;
+import io.pivotal.sfdc.SFDC_Constant;
+
 /**
- * SFDC Auth Service
- * This service calls authentication service to retrieve oauth2 token.
+ * SFDC Auth Service This service calls authentication service to retrieve
+ * oauth2 token.
  * 
  * @author Jignesh Sheth
  *
@@ -25,54 +27,59 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class AuthService {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(AuthService.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(AuthService.class);
 
 	@Autowired
 	private StatefulRedisConnection<String, String> redisConnection;
 
 	private RedisCommands<String, String> redisCommands;
 
-    @Autowired
-	AuthClient authClient;
+	@Value("${sfdc.authservice.endpoint}")
+	private String authServiceEP;
 
-	private static String ACCESS_TOKEN = "access_token";
-
-    private static String INSTANCE_URL = "instance_url";
-
-    @Bean
-    @LoadBalanced
-    RestTemplate rest() {
-      return new RestTemplate();
-    }
-
-    /**
-     * This method uses circuit breaker pattern to fallback and retrieves oauth2 token from redis.
-     * 
-     * @return ApiSession
-     */
-	public ApiSession getApiSessionFallback() {
-		logger.debug("Fetching fallback ApiSession with key: {}",ACCESS_TOKEN);
-        ApiSession apiSession = null;
-        if (redisCommands.exists(ACCESS_TOKEN,INSTANCE_URL) == 0) {
-			apiSession = new ApiSession(redisCommands.get(ACCESS_TOKEN),redisCommands.get(INSTANCE_URL));
-		} else
-			throw new NullPointerException("ApiSession not found!");
-    	
-        return apiSession;
+	@Bean
+	@LoadBalanced
+	RestTemplate rest() {
+		return new RestTemplate();
 	}
-	
+
+	@Autowired
+	RestTemplate restTemplate;
+
 	/**
-	 * Retrieves the oauth2 token from remote authservice.
+	 * This method uses circuit breaker pattern to fallback and retrieves oauth2
+	 * token from redis.
+	 * 
 	 * @return ApiSession
 	 */
-	@HystrixCommand(fallbackMethod = "getApiSessionFallback",
-		    commandProperties = {
-		      @HystrixProperty(name="execution.isolation.strategy", value="THREAD"),
-		      @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="2500")
-		    })
+	public ApiSession getApiSessionFallback() {
+		LOGGER.info("Fetching fallback ApiSession with key: {}", SFDC_Constant.ACCESS_TOKEN);
+		ApiSession apiSession = null;
+		if (redisCommands.exists(SFDC_Constant.ACCESS_TOKEN, SFDC_Constant.INSTANCE_URL) == 0) {
+			apiSession = new ApiSession(redisCommands.get(SFDC_Constant.ACCESS_TOKEN),
+					redisCommands.get(SFDC_Constant.INSTANCE_URL));
+			LOGGER.debug(redisCommands.get(SFDC_Constant.ACCESS_TOKEN));
+		} else
+			throw new NullPointerException("ApiSession not found!");
+
+		return apiSession;
+	}
+
+	/**
+	 * Retrieves the oauth2 token from remote authservice.
+	 * 
+	 * @return ApiSession
+	 */
+	@CircuitBreaker(name = SFDC_Constant.CIRCUIT_BREAKER_DEFAULTS, fallbackMethod = "getApiSessionFallback")
 	public ApiSession getApiSession() {
-		logger.debug("Fetching ApiSession from authservice");
-		return authClient.getApiSession();
+		LOGGER.info("Fetching ApiSession from authservice {}", authServiceEP);
+		ApiSession apiSession = restTemplate.getForObject(authServiceEP + "/oauth2", ApiSession.class);
+		return apiSession;
+	}
+
+	public ApiSession invalidateSession() {
+		LOGGER.info("Invalidating ApiSession from authservice {}", authServiceEP);
+		ApiSession apiSession = restTemplate.getForObject(authServiceEP + "/invalidateSession", ApiSession.class);
+		return apiSession;
 	}
 }

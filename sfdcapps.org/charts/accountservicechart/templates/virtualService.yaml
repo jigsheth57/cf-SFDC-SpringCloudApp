@@ -1,0 +1,17 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: accountservice
+  labels:
+    {{- include "sfdcapps.labels" . | indent 4 }}
+spec:
+  hosts:
+  - accountservice.{{ .Values.global.domain }}
+  gateways:
+  - gateway
+  http:
+  - route:
+    - destination:
+        host: accountservice
+        port:
+          number: {{ .Values.global.accountservice.port | default .Values.accountservice.port }}

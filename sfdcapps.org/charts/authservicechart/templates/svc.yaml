@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: authservice
+  labels:
+    {{- include "sfdcapps.labels" . | indent 4 }}
+spec:
+  ports:
+  - name: "http-authservice"
+    port: {{ .Values.global.authservice.port | default .Values.authservice.port }}
+    targetPort: {{ .Values.global.authservice.port | default .Values.authservice.port }}
+  selector:
+    app: authservice
+  type: ClusterIP

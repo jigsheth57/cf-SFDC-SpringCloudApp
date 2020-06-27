@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: contactservice
+  labels:
+    app: contactservice
+    {{- include "sfdcapps.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: contactservice
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: contactservice
+        {{- include "sfdcapps.labels" . | indent 8 }}
+    spec:
+      containers:
+        - name: contactservice
+          image: {{ .Values.global.registry }}{{ .Values.global.contactservice.image.repository | default .Values.image.repository }}
+          imagePullPolicy: {{ .Values.global.image.pullPolicy | default .Values.image.pullPolicy }}
+          {{- include "contactservice.healthProbes" . | indent 10 }}
+          envFrom:
+          - configMapRef:
+              name: configmap
+          env:
+          - name: PORT
+            value: {{ .Values.global.contactservice.port | default .Values.contactservice.port | quote }}
+          - name: WAVEFRONT_APPLICATION_SERVICE
+            value: contactservice
+          ports:
+          - containerPort: {{ .Values.global.contactservice.port | default .Values.contactservice.port }}

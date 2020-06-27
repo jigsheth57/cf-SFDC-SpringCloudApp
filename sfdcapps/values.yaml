@@ -30,35 +30,23 @@ global:
       port: 5672
   configserver:
     image:
-      repository: configserver:latest
+      repository: configserver:2.3.1
     port: 8888
-  discovery:
-    image:
-      repository: eurekaserver:latest
-    port: 8761
-  hystrixdashboard:
-    image:
-      repository: hystrixdashboard:latest
-    port: 7979
-  turbine:
-    image:
-      repository: turbine:latest
-    port: 8000
   authservice:
     image:
-      repository: authservice:latest
+      repository: authservice:2.3.1
     port: 8080 # default 9000
   accountservice:
     image:
-      repository: accountservice:latest
+      repository: accountservice:2.3.1
     port: 8080 # default 9001
   contactservice:
     image:
-      repository: contactservice:latest
+      repository: contactservice:2.3.1
     port: 8080 # default 9002
   opportunityservice:
     image:
-      repository: opportunityservice:latest
+      repository: opportunityservice:2.3.1
     port: 8080 # default 9003
   gatewayservice:
     image:
@@ -69,8 +57,5 @@ global:
       repository: sfdcwebapp:latest
     port: 8080 # default 9090
   image:
-    pullPolicy: IfNotPresent # IfNotPresent
-  wavefront:
-    uri: https://xxx.wavefront.com
-    token: xxxxxxx
+    pullPolicy: Always # IfNotPresent
   domain: tkg.local.tanzuapps.org

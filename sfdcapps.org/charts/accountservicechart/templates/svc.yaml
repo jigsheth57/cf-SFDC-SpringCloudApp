@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: accountservice
+  labels:
+    {{- include "sfdcapps.labels" . | indent 4 }}
+spec:
+  ports:
+  - name: "http-accountservice"
+    port: {{ .Values.global.accountservice.port | default .Values.accountservice.port }}
+    targetPort: {{ .Values.global.accountservice.port | default .Values.accountservice.port }}
+  selector:
+    app: accountservice
+  type: ClusterIP

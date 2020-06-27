@@ -13,5 +13,4 @@ spec:
   - route:
     - destination:
         host: accountservice
-        port:
-          number: {{ .Values.global.accountservice.port | default .Values.accountservice.port }}
+        subset: v2

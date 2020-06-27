@@ -1,0 +1,12 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: contactservice
+  labels:
+    {{- include "sfdcapps.labels" . | indent 4 }}
+spec:
+  host: contactservice
+  subsets:
+    - name: v2
+      labels:
+        version: v2

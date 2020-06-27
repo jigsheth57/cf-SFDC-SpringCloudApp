@@ -10,7 +10,7 @@ version: {{ .Chart.Version }}
 readinessProbe:
   tcpSocket:
     port: {{ .Values.global.rabbitmq.server.port }}
-  initialDelaySeconds: 60
+  initialDelaySeconds: 30
   failureThreshold: 5
   successThreshold: 1
   timeoutSeconds: 1
@@ -18,7 +18,7 @@ readinessProbe:
 livenessProbe:
   tcpSocket:
     port: {{ .Values.global.rabbitmq.server.port }}
-  initialDelaySeconds: 90
+  initialDelaySeconds: 60
   failureThreshold: 5
   successThreshold: 1
   timeoutSeconds: 1
@@ -28,7 +28,7 @@ livenessProbe:
 readinessProbe:
   tcpSocket:
     port: {{ .Values.global.redis.port }}
-  initialDelaySeconds: 60
+  initialDelaySeconds: 30
   failureThreshold: 5
   successThreshold: 1
   timeoutSeconds: 1
@@ -36,7 +36,7 @@ readinessProbe:
 livenessProbe:
   tcpSocket:
     port: {{ .Values.global.redis.port }}
-  initialDelaySeconds: 90
+  initialDelaySeconds: 60
   failureThreshold: 5
   successThreshold: 1
   timeoutSeconds: 1
@@ -48,7 +48,7 @@ readinessProbe:
     path: /manage/health
     port: {{ .Values.global.configserver.port }}
     scheme: HTTP
-  initialDelaySeconds: 60
+  initialDelaySeconds: 30
   failureThreshold: 5
   successThreshold: 1
   timeoutSeconds: 1
@@ -56,63 +56,7 @@ readinessProbe:
 livenessProbe:
   tcpSocket:
     port: {{ .Values.global.configserver.port }}
-  initialDelaySeconds: 90
-  failureThreshold: 5
-  successThreshold: 1
-  timeoutSeconds: 1
-  periodSeconds: 15
-{{- end }}
-{{- define "discovery.healthProbes" }}
-readinessProbe:
-  httpGet:
-    path: /manage/health
-    port: {{ .Values.global.discovery.port }}
-    scheme: HTTP
-  initialDelaySeconds: 60
-  failureThreshold: 5
-  successThreshold: 1
-  timeoutSeconds: 1
-  periodSeconds: 10
-livenessProbe:
-  tcpSocket:
-    port: {{ .Values.global.discovery.port }}
-  initialDelaySeconds: 90
-  failureThreshold: 5
-  successThreshold: 1
-  timeoutSeconds: 1
-  periodSeconds: 15
-{{- end }}
-{{- define "hystrixdashboard.healthProbes" }}
-readinessProbe:
-  tcpSocket:
-    port: {{ .Values.global.hystrixdashboard.port }}
-  initialDelaySeconds: 60
-  failureThreshold: 5
-  successThreshold: 1
-  timeoutSeconds: 1
-  periodSeconds: 10
-livenessProbe:
-  tcpSocket:
-    port: {{ .Values.global.hystrixdashboard.port }}
-  initialDelaySeconds: 90
-  failureThreshold: 5
-  successThreshold: 1
-  timeoutSeconds: 1
-  periodSeconds: 15
-{{- end }}
-{{- define "turbine.healthProbes" }}
-readinessProbe:
-  tcpSocket:
-    port: {{ .Values.global.turbine.port }}
-  initialDelaySeconds: 60
-  failureThreshold: 5
-  successThreshold: 1
-  timeoutSeconds: 1
-  periodSeconds: 10
-livenessProbe:
-  tcpSocket:
-    port: {{ .Values.global.turbine.port }}
-  initialDelaySeconds: 90
+  initialDelaySeconds: 45
   failureThreshold: 5
   successThreshold: 1
   timeoutSeconds: 1
@@ -124,16 +68,16 @@ readinessProbe:
     path: /manage/health
     port: {{ .Values.global.authservice.port }}
     scheme: HTTP
-  initialDelaySeconds: 60
-  failureThreshold: 5
+  initialDelaySeconds: 15
+  failureThreshold: 10
   successThreshold: 1
   timeoutSeconds: 1
   periodSeconds: 10
 livenessProbe:
   tcpSocket:
     port: {{ .Values.global.authservice.port }}
-  initialDelaySeconds: 90
-  failureThreshold: 5
+  initialDelaySeconds: 30
+  failureThreshold: 10
   successThreshold: 1
   timeoutSeconds: 1
   periodSeconds: 15
@@ -144,16 +88,16 @@ readinessProbe:
     path: /manage/health
     port: {{ .Values.global.accountservice.port }}
     scheme: HTTP
-  initialDelaySeconds: 60
-  failureThreshold: 5
+  initialDelaySeconds: 15
+  failureThreshold: 10
   successThreshold: 1
   timeoutSeconds: 1
   periodSeconds: 10
 livenessProbe:
   tcpSocket:
     port: {{ .Values.global.accountservice.port }}
-  initialDelaySeconds: 90
-  failureThreshold: 5
+  initialDelaySeconds: 30
+  failureThreshold: 10
   successThreshold: 1
   timeoutSeconds: 1
   periodSeconds: 15
@@ -164,16 +108,16 @@ readinessProbe:
     path: /manage/health
     port: {{ .Values.global.contactservice.port }}
     scheme: HTTP
-  initialDelaySeconds: 60
-  failureThreshold: 5
+  initialDelaySeconds: 15
+  failureThreshold: 10
   successThreshold: 1
   timeoutSeconds: 1
   periodSeconds: 10
 livenessProbe:
   tcpSocket:
     port: {{ .Values.global.contactservice.port }}
-  initialDelaySeconds: 90
-  failureThreshold: 5
+  initialDelaySeconds: 30
+  failureThreshold: 10
   successThreshold: 1
   timeoutSeconds: 1
   periodSeconds: 15
@@ -184,16 +128,16 @@ readinessProbe:
     path: /manage/health
     port: {{ .Values.global.opportunityservice.port }}
     scheme: HTTP
-  initialDelaySeconds: 60
-  failureThreshold: 5
+  initialDelaySeconds: 15
+  failureThreshold: 10
   successThreshold: 1
   timeoutSeconds: 1
   periodSeconds: 10
 livenessProbe:
   tcpSocket:
     port: {{ .Values.global.opportunityservice.port }}
-  initialDelaySeconds: 90
-  failureThreshold: 5
+  initialDelaySeconds: 30
+  failureThreshold: 10
   successThreshold: 1
   timeoutSeconds: 1
   periodSeconds: 15

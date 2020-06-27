@@ -1,0 +1,76 @@
+# Default values for sfdcapps.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+spring:
+  profiles:
+    active: local
+  rabbitmq:
+    port: 5672
+    username: guest
+    password: guest
+  cloud:
+    config:
+      server:
+        git:
+          uri: git@github.com:jigsheth57/config-repo.git
+
+global:
+  registry: jigsheth57/
+  redis:
+    image:
+      repository: redis:alpine
+    port: 6379
+  rabbitmq:
+    image:
+      repository: rabbitmq:3-management
+    management:
+      port: 15672
+    server:
+      port: 5672
+  configserver:
+    image:
+      repository: configserver:latest
+    port: 8888
+  discovery:
+    image:
+      repository: eurekaserver:latest
+    port: 8761
+  hystrixdashboard:
+    image:
+      repository: hystrixdashboard:latest
+    port: 7979
+  turbine:
+    image:
+      repository: turbine:latest
+    port: 8000
+  authservice:
+    image:
+      repository: authservice:latest
+    port: 8080 # default 9000
+  accountservice:
+    image:
+      repository: accountservice:latest
+    port: 8080 # default 9001
+  contactservice:
+    image:
+      repository: contactservice:latest
+    port: 8080 # default 9002
+  opportunityservice:
+    image:
+      repository: opportunityservice:latest
+    port: 8080 # default 9003
+  gatewayservice:
+    image:
+      repository: gatewayservice:latest
+    port: 8080 # default 9012
+  portal:
+    image:
+      repository: sfdcwebapp:latest
+    port: 8080 # default 9090
+  image:
+    pullPolicy: IfNotPresent # IfNotPresent
+  wavefront:
+    uri: https://xxx.wavefront.com
+    token: xxxxxxx
+  domain: tkg.local.tanzuapps.org

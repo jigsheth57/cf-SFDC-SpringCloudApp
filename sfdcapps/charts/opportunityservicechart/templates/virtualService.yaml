@@ -13,5 +13,4 @@ spec:
   - route:
     - destination:
         host: opportunityservice
-        port:
-          number: {{ .Values.global.opportunityservice.port | default .Values.opportunityservice.port }}
+        subset: v2

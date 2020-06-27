@@ -13,5 +13,4 @@ spec:
   - route:
     - destination:
         host: authservice
-        port:
-          number: {{ .Values.global.authservice.port | default .Values.authservice.port }}
+        subset: v2

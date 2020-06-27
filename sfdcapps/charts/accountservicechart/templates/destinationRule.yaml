@@ -1,0 +1,12 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: accountservice
+  labels:
+    {{- include "sfdcapps.labels" . | indent 4 }}
+spec:
+  host: accountservice
+  subsets:
+    - name: v2
+      labels:
+        version: v2
