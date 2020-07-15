@@ -41,7 +41,7 @@ public class AccountService {
 	@Autowired
 	private StatefulRedisConnection<String, String> redisConnection;
 
-	private RedisCommands<String, String> redisCommands;
+	private RedisCommands<String, String> redisCommands = redisConnection.sync();
 
 	@Autowired
 	AuthService authService;
@@ -258,7 +258,7 @@ public class AccountService {
 		mapper.writeValue(jsonData, obj);
 		String jsonDataStr = jsonData.toString();
 		LOGGER.debug("key: {}, value: {}", key, jsonDataStr);
-		this.redisCommands = redisConnection.sync();
+		// this.redisCommands = redisConnection.sync();
 		redisCommands.set(key, jsonDataStr);
 
 		return jsonDataStr;
@@ -273,7 +273,7 @@ public class AccountService {
 	 */
 	private String retrieve(String key) throws Exception {
 		LOGGER.debug("key: {}", key);
-		this.redisCommands = redisConnection.sync();
+		// this.redisCommands = redisConnection.sync();
 		String jsonDataStr = redisCommands.get(key);
 		LOGGER.debug("value: {}", jsonDataStr);
 

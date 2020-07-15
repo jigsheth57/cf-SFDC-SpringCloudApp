@@ -1,4 +1,4 @@
-apiVersion: networking.istio.io/v1alpha3
+apiVersion: networking.istio.io/v1beta1
 kind: Gateway
 metadata:
   name: gateway
@@ -13,6 +13,7 @@ spec:
       name: http
       protocol: HTTP
     hosts:
+    - "sfdcdemo/*"
     - authservice.{{ .Values.global.domain }}
     - accountservice.{{ .Values.global.domain }}
     - contactservice.{{ .Values.global.domain }}
@@ -22,3 +23,23 @@ spec:
     - discovery.{{ .Values.global.domain }}
     - configserver.{{ .Values.global.domain }}
     - rabbitmq.{{ .Values.global.domain }}
+    # tls:
+    #   httpsRedirect: true # sends 301 redirect for http requests
+  - port:
+      number: 443
+      name: https-443
+      protocol: HTTPS
+    hosts:
+    - "sfdcdemo/*"
+    - authservice.{{ .Values.global.domain }}
+    - accountservice.{{ .Values.global.domain }}
+    - contactservice.{{ .Values.global.domain }}
+    - opportunityservice.{{ .Values.global.domain }}
+    - gatewayservice.{{ .Values.global.domain }}
+    - portal.{{ .Values.global.domain }}
+    - discovery.{{ .Values.global.domain }}
+    - configserver.{{ .Values.global.domain }}
+    - rabbitmq.{{ .Values.global.domain }}
+    tls:
+      mode: ISTIO_MUTUAL # enables HTTPS on this port
+

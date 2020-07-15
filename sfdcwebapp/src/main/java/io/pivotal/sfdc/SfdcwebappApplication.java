@@ -2,23 +2,26 @@ package io.pivotal.sfdc;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.cloud.stream.function.FunctionConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 
 /**
- * The angular and bootstrap web application
+ * The react web application
  * 
  * @author Jignesh Sheth
  *
  */
 
-@SpringBootApplication
-@EnableDiscoveryClient
-@EnableFeignClients
+@SpringBootApplication(exclude = FunctionConfiguration.class)
 public class SfdcwebappApplication {
 
+    @Bean
+    RestTemplate rest() {
+        return new RestTemplate();
+    }
+
     public static void main(String[] args) {
-    	// CloudFoundryCertificateTruster.trustCertificates();
         SpringApplication.run(SfdcwebappApplication.class, args);
     }
 }

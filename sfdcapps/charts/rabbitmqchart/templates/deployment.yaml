@@ -25,6 +25,10 @@ spec:
         - name: rabbitmq
           image: {{ .Values.global.registry }}{{ .Values.global.rabbitmq.image.repository | default .Values.image.repository }}
           imagePullPolicy: {{ .Values.global.image.pullPolicy | default .Values.image.pullPolicy }}
+          resources:
+            limits:
+              memory: "750Mi"
+              cpu: 500m
           {{- include "rabbitmq.healthProbes" . | indent 10 }}
           ports:
           - containerPort: 4369

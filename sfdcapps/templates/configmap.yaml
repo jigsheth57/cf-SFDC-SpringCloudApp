@@ -7,6 +7,9 @@ metadata:
 data:
   SPRING_CLOUD_CONFIG_URI: http://configserver:{{ .Values.global.configserver.port }}
   SFDC_AUTHSERVICE_ENDPOINT: http://authservice:{{ .Values.global.authservice.port }}
+  SFDC_ACCOUNTSERVICE_ENDPOINT: http://accountservice:{{ .Values.global.accountservice.port }}
+  SFDC_CONTACTSERVICE_ENDPOINT: http://contactservice:{{ .Values.global.contactservice.port }}
+  SFDC_OPPORTUNITYSERVICE_ENDPOINT: http://opportunityservice:{{ .Values.global.opportunityservice.port }}
   REDIS_HOST: redis
   SPRING_REDIS_HOST: redis
   RABBITMQ_HOST: rabbitmq

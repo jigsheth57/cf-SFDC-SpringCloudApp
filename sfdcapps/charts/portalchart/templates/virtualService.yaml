@@ -1,0 +1,18 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: portal
+  labels:
+    {{- include "sfdcapps.labels" . | indent 4 }}
+spec:
+  hosts:
+  - portal.{{ .Values.global.domain }}
+  - portal.sfdcdemo.svc.cluster.local
+  gateways:
+  - gateway
+  http:
+  - route:
+    - destination:
+        host: portal
+        port:
+          number: {{ .Values.global.portal.port | default .Values.portal.port }}

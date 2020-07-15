@@ -25,6 +25,10 @@ spec:
         - name: redis
           image: {{ .Values.global.registry }}{{ .Values.global.redis.image.repository | default .Values.image.repository }}
           imagePullPolicy: {{ .Values.global.image.pullPolicy | default .Values.image.pullPolicy }}
+          resources:
+            limits:
+              memory: "1Gi"
+              cpu: 500m
           {{- include "redis.healthProbes" . | indent 10 }}
           ports:
           - containerPort: {{ .Values.global.redis.port | default .Values.redis.port }}

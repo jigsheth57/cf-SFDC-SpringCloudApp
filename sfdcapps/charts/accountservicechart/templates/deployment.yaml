@@ -25,6 +25,10 @@ spec:
         - name: accountservice
           image: {{ .Values.global.registry }}{{ .Values.global.accountservice.image.repository | default .Values.image.repository }}
           imagePullPolicy: {{ .Values.global.image.pullPolicy | default .Values.image.pullPolicy }}
+          resources:
+            limits:
+              memory: "1Gi"
+              cpu: 500m
           {{- include "accountservice.healthProbes" . | indent 10 }}
           envFrom:
           - configMapRef:

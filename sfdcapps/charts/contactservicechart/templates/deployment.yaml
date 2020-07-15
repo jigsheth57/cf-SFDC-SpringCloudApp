@@ -25,6 +25,10 @@ spec:
         - name: contactservice
           image: {{ .Values.global.registry }}{{ .Values.global.contactservice.image.repository | default .Values.image.repository }}
           imagePullPolicy: {{ .Values.global.image.pullPolicy | default .Values.image.pullPolicy }}
+          resources:
+            limits:
+              memory: "750Mi"
+              cpu: 250m
           {{- include "contactservice.healthProbes" . | indent 10 }}
           envFrom:
           - configMapRef:

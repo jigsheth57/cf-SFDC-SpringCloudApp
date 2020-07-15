@@ -36,8 +36,8 @@
         <module>accountService</module>
         <module>contactService</module>
         <module>opportunityService</module>
-        <!-- <module>gatewayService</module>
         <module>sfdcwebapp</module>
+        <!-- <module>gatewayService</module>
         <module>accountSource</module>
         <module>accountProcessor</module>
         <module>accountSink</module> -->

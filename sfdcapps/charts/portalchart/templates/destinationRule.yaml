@@ -1,0 +1,12 @@
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: portal
+  labels:
+    {{- include "sfdcapps.labels" . | indent 4 }}
+spec:
+  host: portal
+  subsets:
+    - name: v2
+      labels:
+        version: v2

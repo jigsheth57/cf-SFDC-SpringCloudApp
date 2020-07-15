@@ -25,6 +25,10 @@ spec:
         - name: configserver
           image: {{ .Values.global.registry }}{{ .Values.global.configserver.image.repository | default .Values.image.repository }}
           imagePullPolicy: {{ .Values.global.image.pullPolicy | default .Values.image.pullPolicy }}
+          resources:
+            limits:
+              memory: "750Mi"
+              cpu: 250m
           {{- include "configserver.healthProbes" . | indent 10 }}
           envFrom:
           - configMapRef:

@@ -48,14 +48,10 @@ global:
     image:
       repository: opportunityservice:2.3.1
     port: 8080 # default 9003
-  gatewayservice:
-    image:
-      repository: gatewayservice:latest
-    port: 8080 # default 9012
   portal:
     image:
-      repository: sfdcwebapp:latest
+      repository: sfdcwebapp:2.3.1
     port: 8080 # default 9090
   image:
-    pullPolicy: Always # IfNotPresent
+    pullPolicy: IfNotPresent # IfNotPresent
   domain: tkg.local.tanzuapps.org
