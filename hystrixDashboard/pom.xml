@@ -82,7 +82,7 @@
         <docker.tag>latest</docker.tag>
         <spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
         <spring-cloud-services.version>2.2.3.RELEASE</spring-cloud-services.version>
-        <spring-security.version>5.1.9.RELEASE</spring-security.version>
+        <spring-security.version>5.2.10.RELEASE</spring-security.version>
     </properties>
 
     <dependencies>
