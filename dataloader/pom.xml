@@ -42,7 +42,7 @@
         <docker.tag>latest</docker.tag>
         <spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
         <spring-cloud-services.version>2.2.3.RELEASE</spring-cloud-services.version>
-        <spring-cloud-task.version>2.2.3.RELEASE</spring-cloud-task.version>
+        <spring-cloud-task.version>2.3.0</spring-cloud-task.version>
     </properties>
 
 
